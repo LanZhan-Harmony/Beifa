@@ -35,6 +35,6 @@ coverage
 # Vitest
 __screenshots__/
 
-# Ignore public/videos and its contents
-/public/**/videos/
+# Ignore public/chapters/videos and its contents
+/public/chapters/videos/
 /src-tauri/gen/android/app/src/main/assets/
