@@ -1,6 +1,6 @@
 # 🎬 江山北望
 
-> 《江山北望》互动影游网页版 | Mandate Of Heaven FMV Interactive Web Game
+> 《江山北望》互动影游第三方客户端 | Mandate Of Heaven FMV Interactive Game
 
 <div align="center">
   <img src="./preview/1.png" alt="江山北望" width="100%" style="border-radius: 8px;"/>
@@ -14,9 +14,13 @@
 
 本项目为 Html 或 Tauri/Electron 互动影视作品创作提供代码参考。版权归原影视作品《江山北望》及其出品方所有。
 
+## 📖 运行指南
+
+如需运行本项目，请查看 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
 ## 🛠️ 技术栈
 
-- **框架**: Vue 3、Tauri/Electron（预留）
+- **框架**: Vue 3、Tauri
 - **语言**: TypeScript
 - **构建工具**: Vite
 
