@@ -1,4 +1,12 @@
 {
+    "splash": {
+        "clickToEnter": "点击进入",
+        "exit": "退出",
+        "exitConfirm": "退出确认",
+        "exitConfirmMessage": "是否退出？",
+        "exitConfirmNo": "取消",
+        "exitConfirmYes": "确认"
+    },
     "menu": {
         "startStory": "开始故事",
         "continueStory": "继续故事",

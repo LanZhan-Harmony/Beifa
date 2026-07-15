@@ -1,4 +1,12 @@
 {
+    "splash": {
+        "clickToEnter": "クリックして入る",
+        "exit": "終了",
+        "exitConfirm": "終了確認",
+        "exitConfirmMessage": "終了しますか？",
+        "exitConfirmNo": "キャンセル",
+        "exitConfirmYes": "確認"
+    },
     "menu": {
         "startStory": "物語を始める",
         "continueStory": "物語を続ける",

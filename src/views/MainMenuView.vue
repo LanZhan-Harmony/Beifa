@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { sleep } from "@/utils/sleep";
 import { invoke } from "@tauri-apps/api/core";
-import { computed, onMounted, onUnmounted } from "vue";
+import { computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import BarButton from "../components/BarButton.vue";
 import MenuButton from "../components/MenuButton.vue";
@@ -8,7 +9,6 @@ import router from "../router";
 import { useMediaStore } from "../stores/media";
 import { useSaveStore } from "../stores/save";
 import { toStreamUrl } from "../utils/streamUrl";
-import { sleep } from "@/utils/sleep";
 
 const { t } = useI18n(); // t 用于获取单条文本翻译
 const mediaStore = useMediaStore();
@@ -17,32 +17,7 @@ const appVersion = computed(() => `v${import.meta.env.VITE_APP_VERSION} | ${t("b
 const mainVideoUrl = toStreamUrl("/common/videos/main.mp4");
 
 onMounted(async () => {
-  try {
-    mediaStore.pauseLoopAudio();
-    await mediaStore.setBGMAudioAsync("main_bgm", 20);
-  } catch (error) {
-    async function retry() {
-      try {
-        await mediaStore.resumeBGMAudioAsync();
-        cleanup();
-      } catch (e) {
-        // 播放失败（通常是因为用户还未交互），重试逻辑保持
-      }
-    }
-
-    function cleanup() {
-      document.removeEventListener("click", retry);
-      document.removeEventListener("keydown", retry);
-      document.removeEventListener("touchstart", retry);
-    }
-
-    document.addEventListener("click", retry);
-    document.addEventListener("keydown", retry);
-    document.addEventListener("touchstart", retry);
-
-    // 组件卸载时清理监听器
-    onUnmounted(cleanup);
-  }
+  await mediaStore.setBGMAudioAsync("main_bgm", 20);
 });
 
 async function navigateTo(path: string) {

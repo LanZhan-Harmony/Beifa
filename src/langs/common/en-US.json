@@ -1,4 +1,12 @@
 {
+    "splash": {
+        "clickToEnter": "Click to Enter",
+        "exit": "Exit",
+        "exitConfirm": "Exit Confirmation",
+        "exitConfirmMessage": "Are you sure you want to exit?",
+        "exitConfirmNo": "Cancel",
+        "exitConfirmYes": "Confirm"
+    },
     "menu": {
         "startStory": "Start Story",
         "continueStory": "Continue Story",

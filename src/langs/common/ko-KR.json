@@ -1,4 +1,12 @@
 {
+    "splash": {
+        "clickToEnter": "클릭하여 입장",
+        "exit": "종료",
+        "exitConfirm": "종료 확인",
+        "exitConfirmMessage": "정말 종료하시겠습니까?",
+        "exitConfirmNo": "취소",
+        "exitConfirmYes": "확인"
+    },
     "menu": {
         "startStory": "이야기 시작",
         "continueStory": "이야기 계속",

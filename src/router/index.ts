@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainMenuView from "../views/MainMenuView.vue";
+import SplashView from "../views/SplashView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
+      name: "splash",
+      component: SplashView,
+    },
+    {
+      path: "/main",
       name: "main",
       component: MainMenuView,
     },

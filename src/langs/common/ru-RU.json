@@ -1,4 +1,12 @@
 {
+    "splash": {
+        "clickToEnter": "Нажмите, чтобы войти",
+        "exit": "Выйти",
+        "exitConfirm": "Подтверждение выхода",
+        "exitConfirmMessage": "Вы уверены, что хотите выйти?",
+        "exitConfirmNo": "Отмена",
+        "exitConfirmYes": "Подтвердить"
+    },
     "menu": {
         "startStory": "Начать историю",
         "continueStory": "Продолжить историю",
