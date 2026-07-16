@@ -2,10 +2,7 @@
     "splash": {
         "clickToEnter": "Нажмите, чтобы войти",
         "exit": "Выйти",
-        "exitConfirm": "Подтверждение выхода",
-        "exitConfirmMessage": "Вы уверены, что хотите выйти?",
-        "exitConfirmNo": "Отмена",
-        "exitConfirmYes": "Подтвердить"
+        "exitConfirmMessage": "Вы уверены, что хотите выйти?"
     },
     "menu": {
         "startStory": "Начать историю",
@@ -74,7 +71,10 @@
         "letMeTryAgain": "Попробовать снова",
         "viewGuide": "Посмотреть гайд",
         "closeTip": "Закрыть подсказку",
-        "closeDialog": "Закрыть диалоговое окно"
+        "closeDialog": "Закрыть диалоговое окно",
+        "exitConfirm": "Подтверждение выхода",
+        "confirmNo": "Отмена",
+        "confirmYes": "Подтвердить"
     },
     "esc": {
         "continueStory": "Продолжить игру",

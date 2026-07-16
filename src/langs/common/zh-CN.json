@@ -2,10 +2,7 @@
     "splash": {
         "clickToEnter": "点击进入",
         "exit": "退出",
-        "exitConfirm": "退出确认",
-        "exitConfirmMessage": "是否退出？",
-        "exitConfirmNo": "取消",
-        "exitConfirmYes": "确认"
+        "exitConfirmMessage": "是否退出？"
     },
     "menu": {
         "startStory": "开始故事",
@@ -74,7 +71,10 @@
         "letMeTryAgain": "我再试试",
         "viewGuide": "查看攻略",
         "closeTip": "关闭提示",
-        "closeDialog": "关闭对话框"
+        "closeDialog": "关闭对话框",
+        "exitConfirm": "退出确认",
+        "confirmNo": "取消",
+        "confirmYes": "确认"
     },
     "esc": {
         "continueStory": "继续游戏",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ExitDialog from "@/components/ExitDialog.vue";
 import { invoke } from "@tauri-apps/api/core";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -112,86 +113,66 @@ function closeExitDialog() {
     isExitDialogClosing.value = false;
   }, 140);
 }
-
-function image(name: string) {
-  return `/common/images/${name}`;
-}
 </script>
 
 <template>
-  <main class="splash" :class="{ leaving: isLeaving }" :style="layerStyle">
+  <div class="container" :class="{ leaving: isLeaving }" :style="layerStyle">
     <div class="scene">
-      <img class="start-bg" :src="image('start_bg.png')" />
-      <img class="center rotate cc bg6" :src="image('start_bg6.png')" />
-      <img class="swing silk left" :src="image('launch_silk_l.png')" />
-      <img class="swing silk right" :src="image('launch_silk_r.png')" />
-      <img class="swing long left" :src="image('launch_long_l.png')" />
-      <img class="swing long right" :src="image('launch_long_r.png')" />
-      <img class="corner bottom-left" :src="image('start_bg2_l.png')" />
-      <img class="corner bottom-right" :src="image('start_bg2_r.png')" />
-      <img class="swing claw claw-left" :src="image('launch_claw_l.png')" />
-      <img class="swing claw claw-right" :src="image('launch_claw_r.png')" />
-      <img class="center rotate cc bg10" :src="image('start_bg10.png')" />
-      <img class="center rotate cw bg4" :src="image('start_bg4.png')" />
-      <img class="center bg2" :src="image('start_bg2.png')" />
-      <img class="center rotate cw bg1" :src="image('start_bg1.png')" />
-      <img class="center role" :src="image('start_role_bg.png')" />
-      <img class="yun yun-left" :src="image('launch_yun_l.png')" />
-      <img class="yun yun-right" :src="image('launch_yun_r.png')" />
-      <img class="bg12" :src="image('start_bg12.png')" />
+      <img class="start-bg" src="/common/images/splash/start_bg.png" />
+      <img class="center rotate cc bg6" src="/common/images/splash/start_bg6.png" />
+      <img class="swing silk left" src="/common/images/splash/launch_silk_l.png" />
+      <img class="swing silk right" src="/common/images/splash/launch_silk_r.png" />
+      <img class="swing long left" src="/common/images/splash/launch_long_l.png" />
+      <img class="swing long right" src="/common/images/splash/launch_long_r.png" />
+      <img class="corner bottom-left" src="/common/images/splash/start_bg2_l.png" />
+      <img class="corner bottom-right" src="/common/images/splash/start_bg2_r.png" />
+      <img class="swing claw claw-left" src="/common/images/splash/launch_claw_l.png" />
+      <img class="swing claw claw-right" src="/common/images/splash/launch_claw_r.png" />
+      <img class="center rotate cc bg10" src="/common/images/splash/start_bg10.png" />
+      <img class="center rotate cw bg4" src="/common/images/splash/start_bg4.png" />
+      <img class="center bg2" src="/common/images/splash/start_bg2.png" />
+      <img class="center rotate cw bg1" src="/common/images/splash/start_bg1.png" />
+      <img class="center role" src="/common/images/splash/start_role_bg.png" />
+      <img class="yun yun-left" src="/common/images/splash/launch_yun_l.png" />
+      <img class="yun yun-right" src="/common/images/splash/launch_yun_r.png" />
+      <img class="bg12" src="/common/images/splash/start_bg12.png" />
 
       <div class="enter-area">
-        <img class="logo" :src="image('logo.png')" />
+        <img class="logo" src="/common/images/splash/logo.png" />
         <button class="enter-button" type="button" @click="enterMain">
-          <img :src="image('legend_page_line_l.png')" /><span>{{ $t("splash.clickToEnter") }}</span
-          ><img :src="image('legend_page_line_r.png')" />
+          <img src="/common/images/splash/legend_page_line_l.png" /><span>{{ $t("splash.clickToEnter") }}</span
+          ><img src="/common/images/splash/legend_page_line_r.png" />
         </button>
       </div>
       <button class="quit" type="button" @click="openExitDialog">
-        <img :src="image('common_btn_quit.png')" /><span>{{ $t("splash.exit") }}</span>
+        <img src="/common/images/splash/common_btn_quit.png" /><span>{{ $t("splash.exit") }}</span>
       </button>
     </div>
 
-    <div
-      v-if="exitDialogOpen"
-      class="exit-mask"
-      :class="{ closing: isExitDialogClosing }"
-      @click.self="closeExitDialog">
-      <div class="exit-panel">
-        <img class="popup-bg bg3" :src="image('common_popup01_bg3.png')" />
-        <img class="popup-bg bg01" :src="image('common_popup01_bg01.png')" />
-        <img class="popup-bg popup-bg1" :src="image('common_popup01_bg1.png')" />
-        <div class="popup-title">
-          <img :src="image('common_popup01_titleline_l.png')" /><strong>{{ $t("splash.exitConfirm") }}</strong
-          ><img :src="image('common_popup01_titleline_r.png')" />
-        </div>
-        <p>{{ $t("splash.exitConfirmMessage") }}</p>
-        <button class="popup-action popup-cancel" type="button" @click="closeExitDialog">
-          <img :src="image('common_popup01_btnsmall_02.png')" /><span>{{ $t("splash.exitConfirmNo") }}</span>
-        </button>
-        <button class="popup-action popup-confirm" type="button" @click="exitGame">
-          <img :src="image('common_popup01_btnsmall_01.png')" /><span>{{ $t("splash.exitConfirmYes") }}</span>
-        </button>
-      </div>
-    </div>
-  </main>
+    <ExitDialog
+      :exitDialogOpen="exitDialogOpen"
+      :isExitDialogClosing="isExitDialogClosing"
+      :exitConfirmMessage="$t('splash.exitConfirmMessage')"
+      @closeExitDialog="closeExitDialog"
+      @confirmExit="exitGame" />
+  </div>
 </template>
 
 <style scoped>
 /* 页面容器与场景基准 */
-.splash,
+.container,
 .scene {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
-.splash {
+.container {
   background: #000;
   transition: opacity 1200ms ease-in-out;
 }
 
-.splash.leaving {
+.container.leaving {
   opacity: 0;
   pointer-events: none;
 }
@@ -405,7 +386,7 @@ function image(name: string) {
 .enter-button {
   display: flex;
   align-items: center;
-  font-size: 40px;
+  font-size: calc(50px * var(--global-scale));
 }
 
 .enter-button img {
@@ -424,112 +405,6 @@ function image(name: string) {
   font-size: 26px;
   transform: scale(calc(var(--global-scale) * var(--scale-exit)));
   transform-origin: right top;
-}
-
-/* 退出确认弹窗 */
-.exit-mask {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  background: rgb(0 0 0/0.62);
-  animation: modal-in 180ms cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.exit-mask.closing {
-  animation: modal-out 140ms ease-in both;
-}
-
-.exit-panel {
-  position: relative;
-  width: calc(1920px * var(--global-scale));
-  height: calc(1080px * var(--global-scale));
-  animation: panel-in 180ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.closing .exit-panel {
-  animation: panel-out 140ms ease-in both;
-}
-
-.popup-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(calc(var(--global-scale) * var(--popup-bg01-scale)));
-}
-
-.popup-bg.bg3 {
-  transform: translate(-50%, -50%) scale(calc(var(--global-scale) * var(--popup-bg3-scale)));
-  opacity: 0.5;
-}
-
-.popup-bg1 {
-  transform: translate(-50%, -50%) scale(calc(var(--global-scale) * var(--popup-bg1-scale)));
-}
-
-.popup-title {
-  position: absolute;
-  top: calc(356px * var(--global-scale));
-  left: 50%;
-  display: flex;
-  align-items: center;
-  gap: calc(18px * var(--global-scale));
-  color: #aa420e;
-  font-size: calc(40px * var(--global-scale));
-  transform: translateX(-50%);
-}
-
-.popup-title img {
-  position: static;
-  transform: scale(calc(var(--global-scale) * var(--popup-line-scale)));
-}
-
-.exit-panel p {
-  position: absolute;
-  top: calc(515px * var(--global-scale));
-  left: 50%;
-  color: #63321c;
-  font-size: calc(44px * var(--global-scale));
-  transform: translate(-50%, -50%);
-}
-
-.popup-action {
-  position: absolute;
-  top: calc(625px * var(--global-scale));
-  width: 628px;
-  height: 232px;
-  border: 0;
-  padding: 0;
-  background: none;
-  color: #ffd49f;
-  font-size: 82px;
-  font-family: inherit;
-  cursor: pointer;
-  transform: scale(calc(var(--global-scale) * var(--popup-button-scale)));
-}
-
-.popup-cancel {
-  left: 50%;
-  transform-origin: right top;
-  translate: -100% 0;
-}
-
-.popup-confirm {
-  left: 50%;
-  transform-origin: left top;
-}
-
-.popup-action img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.popup-action span {
-  position: relative;
-  z-index: 1;
 }
 
 /* 动画 */
@@ -563,32 +438,6 @@ function image(name: string) {
   }
   to {
     rotate: var(--claw-angle);
-  }
-}
-@keyframes modal-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes modal-out {
-  to {
-    opacity: 0;
-  }
-}
-@keyframes panel-in {
-  from {
-    scale: 0.94;
-  }
-  to {
-    scale: 1;
-  }
-}
-@keyframes panel-out {
-  to {
-    scale: 0.96;
   }
 }
 </style>

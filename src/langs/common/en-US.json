@@ -2,10 +2,7 @@
     "splash": {
         "clickToEnter": "Click to Enter",
         "exit": "Exit",
-        "exitConfirm": "Exit Confirmation",
-        "exitConfirmMessage": "Are you sure you want to exit?",
-        "exitConfirmNo": "Cancel",
-        "exitConfirmYes": "Confirm"
+        "exitConfirmMessage": "Are you sure you want to exit?"
     },
     "menu": {
         "startStory": "Start Story",
@@ -74,7 +71,10 @@
         "letMeTryAgain": "Let Me Try Again",
         "viewGuide": "View Guide",
         "closeTip": "Close Tip",
-        "closeDialog": "Close Dialog"
+        "closeDialog": "Close Dialog",
+        "exitConfirm": "Exit Confirmation",
+        "confirmNo": "No",
+        "confirmYes": "Yes"
     },
     "esc": {
         "continueStory": "Continue Story",

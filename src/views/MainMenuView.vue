@@ -58,9 +58,7 @@ async function exitGame() {
         <div class="bottom-btn">
           <BarButton :text="$t('bottomBar.settings')" @click="navigateTo('/settings')" />
           <BarButton :text="$t('bottomBar.announcements')" @click="navigateTo('/announcements')" />
-          <BarButton :text="$t('bottomBar.eula')" @click="navigateTo('/eula')" />
           <BarButton :text="$t('bottomBar.achievements')" @click="navigateTo('/achievements')" />
-          <BarButton :text="$t('bottomBar.credits')" @click="navigateTo('/credits')" />
         </div>
       </div>
     </div>

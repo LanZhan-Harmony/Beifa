@@ -2,10 +2,7 @@
     "splash": {
         "clickToEnter": "클릭하여 입장",
         "exit": "종료",
-        "exitConfirm": "종료 확인",
-        "exitConfirmMessage": "정말 종료하시겠습니까?",
-        "exitConfirmNo": "취소",
-        "exitConfirmYes": "확인"
+        "exitConfirmMessage": "정말 종료하시겠습니까?"
     },
     "menu": {
         "startStory": "이야기 시작",
@@ -74,7 +71,10 @@
         "letMeTryAgain": "다시 시도하기",
         "viewGuide": "공략 보기",
         "closeTip": "팁 닫기",
-        "closeDialog": "대화 상자 닫기"
+        "closeDialog": "대화 상자 닫기",
+        "exitConfirm": "종료 확인",
+        "confirmNo": "취소",
+        "confirmYes": "확인"
     },
     "esc": {
         "continueStory": "게임 계속하기",
