@@ -173,6 +173,13 @@ export const useSaveStore = defineStore("save", () => {
     }),
   );
 
+  /** 总体游戏进度（0-1 浮点数） */
+  const totalProgress = computed<number>(() => {
+    const totalStorylets = allStoryletIds.length;
+    const visitedCount = visitedStorylets.value.length;
+    return clamp(visitedCount / totalStorylets, 0, 1);
+  });
+
   /** 各章节中尚未播放的视频列表 */
   const unplayedVideosPerChapter = computed<string[][]>(() =>
     videosByChapter.map((chapterVideos) => chapterVideos.filter((video) => !rewindableVideos.value.includes(video))),
@@ -713,6 +720,7 @@ export const useSaveStore = defineStore("save", () => {
     videosOnCurrentTimeline,
     chapterUnlocked,
     chapterProgress,
+    totalProgress,
     unplayedVideosPerChapter,
     chapterCurrentVideo,
     values,

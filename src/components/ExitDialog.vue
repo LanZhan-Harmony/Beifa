@@ -18,19 +18,19 @@ const emit = defineEmits<{
     :class="{ closing: isExitDialogClosing }"
     @click.self="emit('closeExitDialog')">
     <div class="exit-panel">
-      <img class="popup-bg bg3" src="/common/images/dialog/common_popup01_bg3.png" />
-      <img class="popup-bg bg01" src="/common/images/dialog/common_popup01_bg01.png" />
-      <img class="popup-bg popup-bg1" src="/common/images/dialog/common_popup01_bg1.png" />
+      <img class="popup-bg bg3" src="/common/images/dialog/Common_Popup01_Bg3.png" />
+      <img class="popup-bg bg01" src="/common/images/dialog/Common_Popup01_Bg01.png" />
+      <img class="popup-bg bg1" src="/common/images/dialog/Common_Popup01_Bg1.png" />
       <div class="popup-title">
-        <img src="/common/images/dialog/common_popup01_titleline_l.png" /><strong>{{ $t("dialog.exitConfirm") }}</strong
-        ><img src="/common/images/dialog/common_popup01_titleline_r.png" />
+        <img src="/common/images/dialog/Common_Popup01_TitleLine_L.png" /><span>{{ $t("dialog.exitConfirm") }}</span>
+        <img src="/common/images/dialog/Common_Popup01_TitleLine_R.png" />
       </div>
       <p>{{ exitConfirmMessage }}</p>
       <button class="popup-action popup-cancel" type="button" @click="emit('closeExitDialog')">
-        <img src="/common/images/dialog/common_popup01_btnsmall_02.png" /><span>{{ $t("dialog.confirmNo") }}</span>
+        <img src="/common/images/dialog/Common_Popup01_BtnSmall_02.png" /><span>{{ $t("dialog.confirmNo") }}</span>
       </button>
       <button class="popup-action popup-confirm" type="button" @click="emit('confirmExit')">
-        <img src="/common/images/dialog/common_popup01_btnsmall_01.png" /><span>{{ $t("dialog.confirmYes") }}</span>
+        <img src="/common/images/dialog/Common_Popup01_BtnSmall_01.png" /><span>{{ $t("dialog.confirmYes") }}</span>
       </button>
     </div>
   </div>
@@ -53,8 +53,8 @@ const emit = defineEmits<{
 
 .exit-panel {
   position: relative;
-  width: calc(1920px * var(--global-scale));
-  height: calc(1080px * var(--global-scale));
+  width: 700px;
+  aspect-ratio: 1648/900;
   animation: panel-in 180ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -66,57 +66,64 @@ const emit = defineEmits<{
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(calc(var(--global-scale) * var(--popup-bg01-scale)));
+  transform: translate(-50%, -50%);
 }
 
-.popup-bg.bg3 {
-  transform: translate(-50%, -50%) scale(calc(var(--global-scale) * var(--popup-bg3-scale)));
-  opacity: 0.5;
+.bg3 {
+  width: 615px;
+  opacity: 0.7;
 }
 
-.popup-bg1 {
-  transform: translate(-50%, -50%) scale(calc(var(--global-scale) * var(--popup-bg1-scale)));
+.bg1 {
+  width: 598px;
+}
+
+.bg01 {
+  width: 700px;
 }
 
 .popup-title {
   position: absolute;
-  top: calc(356px * var(--global-scale));
+  top: 10%;
   left: 50%;
   display: flex;
-  align-items: center;
-  gap: calc(18px * var(--global-scale));
-  color: #aa420e;
-  font-size: calc(40px * var(--global-scale));
   transform: translateX(-50%);
+  align-items: center;
+  gap: 18px;
+  color: #aa420e;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .popup-title img {
   position: static;
-  transform: scale(calc(var(--global-scale) * var(--popup-line-scale)));
+  height: 20px;
 }
 
 .exit-panel p {
   position: absolute;
-  top: calc(515px * var(--global-scale));
+  top: 45%;
   left: 50%;
   color: #63321c;
-  font-size: calc(44px * var(--global-scale));
+  font-size: 35px;
   transform: translate(-50%, -50%);
 }
 
 .popup-action {
   position: absolute;
-  top: calc(625px * var(--global-scale));
-  width: 628px;
-  height: 232px;
+  top: 67%;
+  width: 270px;
+  aspect-ratio: 628/232;
   border: 0;
   padding: 0;
   background: none;
   color: #ffd49f;
-  font-size: 82px;
+  font-size: 35px;
   font-family: inherit;
   cursor: pointer;
-  transform: scale(calc(var(--global-scale) * var(--popup-button-scale)));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup-cancel {
@@ -134,7 +141,6 @@ const emit = defineEmits<{
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
 }
 
 .popup-action span {

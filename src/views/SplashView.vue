@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ExitDialog from "@/components/ExitDialog.vue";
+import ThemeButton from "@/components/ThemeButton.vue";
 import { invoke } from "@tauri-apps/api/core";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -92,7 +93,7 @@ onMounted(async () => {
 async function enterMain() {
   if (isLeaving.value) return;
   isLeaving.value = true;
-  window.setTimeout(() => router.replace({ name: "main" }), 1000);
+  window.setTimeout(() => router.push("/main"), 1000);
 }
 
 async function exitGame() {
@@ -118,35 +119,40 @@ function closeExitDialog() {
 <template>
   <div class="container" :class="{ leaving: isLeaving }" :style="layerStyle">
     <div class="scene">
-      <img class="start-bg" src="/common/images/splash/start_bg.png" />
-      <img class="center rotate cc bg6" src="/common/images/splash/start_bg6.png" />
-      <img class="swing silk left" src="/common/images/splash/launch_silk_l.png" />
-      <img class="swing silk right" src="/common/images/splash/launch_silk_r.png" />
-      <img class="swing long left" src="/common/images/splash/launch_long_l.png" />
-      <img class="swing long right" src="/common/images/splash/launch_long_r.png" />
-      <img class="corner bottom-left" src="/common/images/splash/start_bg2_l.png" />
-      <img class="corner bottom-right" src="/common/images/splash/start_bg2_r.png" />
-      <img class="swing claw claw-left" src="/common/images/splash/launch_claw_l.png" />
-      <img class="swing claw claw-right" src="/common/images/splash/launch_claw_r.png" />
-      <img class="center rotate cc bg10" src="/common/images/splash/start_bg10.png" />
-      <img class="center rotate cw bg4" src="/common/images/splash/start_bg4.png" />
-      <img class="center bg2" src="/common/images/splash/start_bg2.png" />
-      <img class="center rotate cw bg1" src="/common/images/splash/start_bg1.png" />
-      <img class="center role" src="/common/images/splash/start_role_bg.png" />
-      <img class="yun yun-left" src="/common/images/splash/launch_yun_l.png" />
-      <img class="yun yun-right" src="/common/images/splash/launch_yun_r.png" />
-      <img class="bg12" src="/common/images/splash/start_bg12.png" />
+      <img class="start-bg" src="/common/images/splash/Start_Bg.png" />
+      <img class="center rotate cc bg6" src="/common/images/splash/Start_Bg6.png" />
+      <img class="swing silk left" src="/common/images/splash/Launch_Silk_L.png" />
+      <img class="swing silk right" src="/common/images/splash/Launch_Silk_R.png" />
+      <img class="swing long left" src="/common/images/splash/Launch_Long_L.png" />
+      <img class="swing long right" src="/common/images/splash/Launch_Long_R.png" />
+      <img class="corner bottom-left" src="/common/images/splash/Start_Bg2_L.png" />
+      <img class="corner bottom-right" src="/common/images/splash/Start_Bg2_R.png" />
+      <img class="swing claw claw-left" src="/common/images/splash/Launch_Claw_L.png" />
+      <img class="swing claw claw-right" src="/common/images/splash/Launch_Claw_R.png" />
+      <img class="center rotate cc bg10" src="/common/images/splash/Start_Bg10.png" />
+      <img class="center rotate cw bg4" src="/common/images/splash/Start_Bg4.png" />
+      <img class="center bg2" src="/common/images/splash/Start_Bg2.png" />
+      <img class="center rotate cw bg1" src="/common/images/splash/Start_Bg1.png" />
+      <img class="center role" src="/common/images/splash/Start_Role_Bg.png" />
+      <img class="yun yun-left" src="/common/images/splash/Launch_Yun_L.png" />
+      <img class="yun yun-right" src="/common/images/splash/Launch_Yun_R.png" />
+      <img class="bg12" src="/common/images/splash/Start_Bg12.png" />
 
       <div class="enter-area">
-        <img class="logo" src="/common/images/splash/logo.png" />
+        <img class="logo" src="/common/images/splash/Logo.png" />
         <button class="enter-button" type="button" @click="enterMain">
-          <img src="/common/images/splash/legend_page_line_l.png" /><span>{{ $t("splash.clickToEnter") }}</span
-          ><img src="/common/images/splash/legend_page_line_r.png" />
+          <img src="/common/images/splash/Legend_Page_Line_L.png" /><span>{{ $t("splash.clickToEnter") }}</span
+          ><img src="/common/images/splash/Legend_Page_Line_R.png" />
         </button>
       </div>
-      <button class="quit" type="button" @click="openExitDialog">
-        <img src="/common/images/splash/common_btn_quit.png" /><span>{{ $t("splash.exit") }}</span>
-      </button>
+      <ThemeButton
+        class="quit"
+        backgroundImage="/common/images/splash/Main_Btn1_Bg1.png"
+        foregroundImage="/common/images/splash/Main_BtnIcon_Exit.png"
+        :text="$t('splash.exit')"
+        :foregroundWidthPercent="40"
+        :fontSize="22"
+        @click="openExitDialog" />
     </div>
 
     <ExitDialog
@@ -362,8 +368,7 @@ function closeExitDialog() {
 }
 
 .enter-area > .logo,
-.enter-button > img,
-.quit > img {
+.enter-button > img {
   position: static !important;
 }
 
@@ -373,7 +378,6 @@ function closeExitDialog() {
 }
 
 .enter-button,
-.quit,
 .popup-actions button {
   border: 0;
   padding: 0;
@@ -398,13 +402,8 @@ function closeExitDialog() {
   position: absolute;
   top: 40px;
   right: 40px;
+  font-family: inherit;
   z-index: 14;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 26px;
-  transform: scale(calc(var(--global-scale) * var(--scale-exit)));
-  transform-origin: right top;
 }
 
 /* 动画 */
@@ -438,6 +437,13 @@ function closeExitDialog() {
   }
   to {
     rotate: var(--claw-angle);
+  }
+}
+
+@media (max-height: 500px) {
+  .quit {
+    top: 20px;
+    right: 20px;
   }
 }
 </style>

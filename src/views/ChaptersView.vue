@@ -41,6 +41,7 @@ onMounted(() => {
 function handleClick(index: number) {
   selectedChapterId.value = index;
 }
+
 async function enterChapter() {
   await router.push("/storylines");
 }
@@ -48,7 +49,7 @@ async function enterChapter() {
 <template>
   <div class="container">
     <img class="background" src="/common/images/章节页背景.webp" />
-    <PageNavButton path="/" />
+    <PageNavButton />
 
     <div class="chapter-list">
       <ChapterLineItem

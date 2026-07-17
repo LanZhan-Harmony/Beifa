@@ -1,0 +1,61 @@
+<script setup lang="ts">
+const props = defineProps<{
+  backgroundImage: string;
+  foregroundImage: string;
+  text: string;
+  width?: number;
+  foregroundWidthPercent?: number;
+  fontSize?: number;
+}>();
+
+const emit = defineEmits<{
+  (e: "click"): void;
+}>();
+</script>
+
+<template>
+  <button class="theme-button" :style="{ width: props.width ? props.width + 'px' : '70px' }" @click="emit('click')">
+    <img class="theme-button-bg" :src="props.backgroundImage" />
+    <img
+      class="theme-button-fg"
+      :src="props.foregroundImage"
+      :style="{ width: props.foregroundWidthPercent ? props.foregroundWidthPercent + '%' : '50%' }" />
+    <span class="theme-button-text" :style="{ fontSize: props.fontSize ? props.fontSize + 'px' : '20px' }">
+      {{ props.text }}
+    </span>
+  </button>
+</template>
+
+<style scoped>
+.theme-button {
+  position: relative;
+  display: inline-block;
+  background: none;
+  border: none;
+}
+.theme-button-bg {
+  display: block;
+  width: 100%;
+}
+.theme-button-fg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.theme-button-text {
+  position: absolute;
+  bottom: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffd49f;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+@media (max-height: 500px) {
+  .theme-button {
+    scale: 0.8;
+  }
+}
+</style>

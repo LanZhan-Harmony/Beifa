@@ -570,7 +570,7 @@ onUnmounted(() => {
 <template>
   <div class="game ui-font">
     <!-- 顶部导航 -->
-    <PageNavButton path="/chapters" />
+    <PageNavButton />
 
     <!-- 加载指示器 -->
     <LoadingOverlay v-if="!isMapReady" />
