@@ -93,7 +93,8 @@ onMounted(async () => {
 async function enterMain() {
   if (isLeaving.value) return;
   isLeaving.value = true;
-  window.setTimeout(() => router.push("/main"), 1000);
+  await mediaStore.setEffectAudioAsync("ui_login_startgame_click");
+  window.setTimeout(() => router.push("/main"), 500);
 }
 
 async function exitGame() {
@@ -175,7 +176,7 @@ function closeExitDialog() {
 
 .container {
   background: #000;
-  transition: opacity 1200ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
 }
 
 .container.leaving {

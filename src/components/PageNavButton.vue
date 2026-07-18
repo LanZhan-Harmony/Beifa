@@ -16,10 +16,11 @@ const mediaStore = useMediaStore();
 
 async function handleClick() {
   emit("click");
-  await mediaStore.setEffectAudioAsync("音效7");
   if (props.path) {
+    await mediaStore.setEffectAudioAsync("音效7");
     await router.push(props.path);
   } else {
+    await mediaStore.setEffectAudioAsync("ui_universal_back");
     router.back();
   }
 }

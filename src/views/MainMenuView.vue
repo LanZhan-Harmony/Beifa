@@ -2,7 +2,6 @@
 import ExitDialog from "@/components/ExitDialog.vue";
 import ThemeButton from "@/components/ThemeButton.vue";
 import type { chapterType } from "@/types/chapterType";
-import { invoke } from "@tauri-apps/api/core";
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import router from "../router";
@@ -17,6 +16,7 @@ const mainVideoUrl = toStreamUrl("/common/videos/main.mp4");
 
 const exitDialogOpen = ref(false);
 const isExitDialogClosing = ref(false);
+const pressedButton = ref<string | null>(null);
 // 上朝功能尚未开放；保留此状态供后续接入解锁条件。
 const edictEnabled = ref(true);
 
@@ -31,16 +31,33 @@ const progressStyle = computed(() => ({ width: `${progressPercent.value}%` }));
 const handleStyle = computed(() => ({ left: `${progressPercent.value}%` }));
 
 onMounted(async () => {
+  await mediaStore.setEffectAudioAsync("ui_main_windowopen");
   await mediaStore.setBGMAudioAsync("main_bgm", 20);
 });
 
-async function navigateTo(path: string) {
-  await mediaStore.setEffectAudioAsync("音效3");
-  await router.push(path);
+async function handleHover() {
+  await mediaStore.setEffectAudioAsync("ui_universal_hover");
+}
+
+async function handleButtonClick(button: string, path: string, event: MouseEvent) {
+  event.preventDefault();
+  if (pressedButton.value) return;
+
+  pressedButton.value = button;
+
+  if (path === "/player") {
+    await mediaStore.setEffectAudioAsync("ui_main_continuegame_click");
+  } else {
+    await mediaStore.setEffectAudioAsync("ui_universal_click");
+  }
+
+  window.setTimeout(() => {
+    pressedButton.value = null;
+    router.push(path);
+  }, 180);
 }
 
 async function openExitDialog() {
-  await mediaStore.setEffectAudioAsync("音效1");
   isExitDialogClosing.value = false;
   exitDialogOpen.value = true;
 }
@@ -78,11 +95,11 @@ async function returnToSplash() {
         text="设置"
         :foregroundWidthPercent="60"
         :fontSize="22"
-        @click="navigateTo('/settings')" />
+        @click="router.push('/settings')" />
     </section>
 
     <section class="top-actions top-actions--right" aria-label="扩展功能">
-      <button class="top-action--personality" type="button">
+      <button class="top-action--personality" type="button" @mouseenter="handleHover">
         <img src="/common/images/main/Main_Btn_Personality.png" />
         <span>人格报告测试</span>
       </button>
@@ -91,39 +108,66 @@ async function returnToSplash() {
         foregroundImage="/common/images/main/Main_BtnIcon_Achievement.png"
         text="成就"
         :foregroundWidthPercent="55"
-        @click="navigateTo('/achievements')" />
+        @click="router.push('/achievements')" />
       <ThemeButton
         backgroundImage="/common/images/main/Main_Btn2_Bg1.png"
         foregroundImage="/common/images/main/Main_BtnIcon_Mail.png"
         text="公告"
         :foregroundWidthPercent="45"
-        @click="navigateTo('/announcements')" />
+        @click="router.push('/announcements')" />
     </section>
 
     <section class="left-features" aria-label="探索功能">
-      <button class="feature-button feature-button--storyline" type="button" @click="navigateTo('/storylines')">
-        <img class="feature-button__bg" src="/common/images/main/Main_Btn_Storyline.png" alt="" />
+      <button
+        class="feature-button feature-button--storyline"
+        :class="{ 'is-pressing': pressedButton === 'storyline' }"
+        type="button"
+        @mouseenter="handleHover"
+        @click="handleButtonClick('storyline', '/storylines', $event)">
         <span class="feature-button__label feature-button__label--storyline">
           <span class="feature-button__texture" aria-hidden="true">
             <span class="feature-button__texture-lead">故</span><span>事线</span>
           </span>
           <b>故</b>事线
         </span>
-        <img class="feature-button__icon" src="/common/images/main/Main_Btn_Storyline_Icon.png" alt="" />
+        <img
+          class="feature-button__icon feature-button__icon--original"
+          src="/common/images/main/Main_Btn_Storyline_Icon.png"
+          alt="" />
+        <img
+          class="feature-button__icon feature-button__icon--start"
+          src="/common/images/main/Main_Btn_Storyline_Icon_Start.png"
+          alt="" />
       </button>
-      <button class="feature-button feature-button--character" type="button" @click="navigateTo('/portfolios')">
-        <img class="feature-button__bg" src="/common/images/main/Main_Btn_Character.png" alt="" />
+      <button
+        class="feature-button feature-button--character"
+        :class="{ 'is-pressing': pressedButton === 'character' }"
+        type="button"
+        @mouseenter="handleHover"
+        @click="handleButtonClick('character', '/portfolios', $event)">
         <span class="feature-button__label feature-button__label--character">
           <span class="feature-button__texture" aria-hidden="true">
             <span class="feature-button__texture-lead">风</span><span>华人物</span>
           </span>
           <b>风</b>华人物
         </span>
-        <img class="feature-button__icon" src="/common/images/main/Main_Btn_Character_Icon.png" alt="" />
+        <img
+          class="feature-button__icon feature-button__icon--original"
+          src="/common/images/main/Main_Btn_Character_Icon.png"
+          alt="" />
+        <img
+          class="feature-button__icon feature-button__icon--start"
+          src="/common/images/main/Main_Btn_Character_Icon_Start.png"
+          alt="" />
       </button>
     </section>
 
-    <button class="chapter-button" type="button" @click="navigateTo('/chapters')">
+    <button
+      class="chapter-button"
+      :class="{ 'is-pressing': pressedButton === 'chapter' }"
+      type="button"
+      @click="handleButtonClick('chapter', '/chapters', $event)"
+      @mouseenter="handleHover">
       <img src="/common/images/main/Main_Btn_Chapter.png" alt="" />
       <span>全部<br />章节</span>
     </button>
@@ -158,8 +202,12 @@ async function returnToSplash() {
 
     <section class="continue-area">
       <p>{{ currentChapterText }}</p>
-      <button class="continue-button" type="button" @click="navigateTo('/player')">
-        <img src="/common/images/main/Main_Btn_Continue.png" alt="" />
+      <button
+        class="continue-button"
+        :class="{ 'is-pressing': pressedButton === 'continue' }"
+        type="button"
+        @click="handleButtonClick('continue', '/player', $event)"
+        @mouseenter="handleHover">
         <span
           class="continue-button__texture"
           :data-text="saveStore.isNewGame ? '开始故事' : '继续'"
@@ -267,6 +315,45 @@ button:focus-visible {
   border: 0;
   background: none;
   text-align: left;
+  transform-origin: center;
+  cursor: pointer;
+}
+
+.feature-button::before,
+.feature-button::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  pointer-events: none;
+}
+
+.feature-button::before {
+  background-image: var(--feature-background);
+  animation: feature-bg-enter 760ms ease-out both;
+}
+
+.feature-button::after {
+  background-image: var(--feature-background-hover);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.feature-button:hover::after {
+  opacity: 1;
+}
+
+.feature-button--storyline {
+  --feature-background: url("/common/images/main/Main_Btn_Storyline.png");
+  --feature-background-hover: url("/common/images/main/Main_Btn_Storyline_Glow.png");
+}
+
+.feature-button--character {
+  --feature-background: url("/common/images/main/Main_Btn_Character.png");
+  --feature-background-hover: url("/common/images/main/Main_Btn_Character_Glow.png");
 }
 
 .feature-button--storyline {
@@ -275,18 +362,6 @@ button:focus-visible {
 
 .feature-button--character {
   height: 126px;
-}
-
-.feature-button__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 512 / 126;
-}
-
-.feature-button--character .feature-button__bg {
-  aspect-ratio: 512 / 108;
 }
 
 .feature-button__label {
@@ -358,6 +433,22 @@ button:focus-visible {
   object-fit: contain;
 }
 
+.feature-button__icon--original {
+  opacity: 0;
+  animation: feature-icon-return 760ms 180ms ease-out forwards;
+}
+
+.feature-button__icon--start {
+  filter: brightness(1.8);
+  clip-path: inset(0 100% 0 0);
+  animation: feature-icon-start 760ms ease-out forwards;
+  pointer-events: none;
+}
+
+.feature-button:focus-visible::after {
+  opacity: 1;
+}
+
 .feature-button--storyline .feature-button__icon {
   top: 35px;
   width: 115px;
@@ -379,6 +470,7 @@ button:focus-visible {
   background: none;
   font-size: 26px;
   line-height: 1.13;
+  cursor: pointer;
 }
 
 .chapter-button img {
@@ -447,6 +539,7 @@ button:focus-visible {
   width: 0;
   height: 5px;
   overflow: hidden;
+  transition: width 260ms ease;
 }
 
 .progress__fill-clip img {
@@ -462,6 +555,7 @@ button:focus-visible {
   width: 20px;
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
+  transition: left 260ms ease;
 }
 
 .edict-button {
@@ -530,14 +624,33 @@ button:focus-visible {
   border: 0;
   background: none;
   font-size: 55px;
+  cursor: pointer;
+  animation: continue-enter 760ms 120ms ease-out both;
 }
 
-.continue-button img {
+.continue-button::before,
+.continue-button::after {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
+  inset: 0;
+  content: "";
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+.continue-button::before {
+  background-image: url("/common/images/main/Main_Btn_Continue.png");
+}
+
+.continue-button::after {
+  background-image: url("/common/images/main/Main_Btn_Continue_Hover.png");
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.continue-button:hover::after {
+  opacity: 1;
 }
 
 .continue-button span {
@@ -568,6 +681,92 @@ button:focus-visible {
 
 .continue-button__texture::before {
   content: attr(data-text);
+}
+
+.feature-button.is-pressing,
+.continue-button.is-pressing,
+.chapter-button.is-pressing {
+  animation: button-press 180ms ease-out both;
+}
+
+@keyframes feature-bg-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes feature-icon-start {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    filter: brightness(1.8);
+    opacity: 1;
+  }
+  72% {
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1.8);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1);
+    opacity: 0;
+  }
+}
+
+@keyframes feature-icon-return {
+  from {
+    opacity: 0;
+    filter: brightness(1.8);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes continue-enter {
+  0% {
+    clip-path: inset(0 50% 0 50%);
+    opacity: 0;
+    filter: brightness(1.8);
+  }
+  75% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    filter: brightness(1.8);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes button-press {
+  0% {
+    scale: 1;
+  }
+  45% {
+    scale: 0.94;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-button::before,
+  .feature-button__icon,
+  .continue-button,
+  .feature-button.is-pressing,
+  .continue-button.is-pressing,
+  .chapter-button.is-pressing {
+    animation-duration: 1ms;
+    transition-duration: 1ms;
+  }
 }
 
 @media (max-height: 500px) {
@@ -634,3 +833,4 @@ button:focus-visible {
   }
 }
 </style>
+

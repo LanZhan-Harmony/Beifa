@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useMediaStore } from "../stores/media";
+
 const props = defineProps<{
   backgroundImage: string;
   foregroundImage: string;
@@ -11,10 +13,25 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "click"): void;
 }>();
+
+const mediaStore = useMediaStore();
+
+async function handleHover() {
+  await mediaStore.setEffectAudioAsync("ui_universal_hover");
+}
+
+async function handleClick() {
+  await mediaStore.setEffectAudioAsync("ui_universal_click");
+  emit("click");
+}
 </script>
 
 <template>
-  <button class="theme-button" :style="{ width: props.width ? props.width + 'px' : '70px' }" @click="emit('click')">
+  <button
+    class="theme-button"
+    :style="{ width: props.width ? props.width + 'px' : '70px' }"
+    @click="handleClick"
+    @mouseenter="handleHover">
     <img class="theme-button-bg" :src="props.backgroundImage" />
     <img
       class="theme-button-fg"
