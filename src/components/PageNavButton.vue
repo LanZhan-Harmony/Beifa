@@ -3,10 +3,16 @@ import router from "../router";
 import { useMediaStore } from "../stores/media";
 import ArrowButton from "./ArrowButton.vue";
 
-const props = defineProps<{
-  text?: string;
-  path?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    text?: string;
+    path?: string;
+    navigate?: boolean;
+  }>(),
+  {
+    navigate: true,
+  },
+);
 
 const emit = defineEmits<{
   (e: "click"): void;
@@ -16,6 +22,10 @@ const mediaStore = useMediaStore();
 
 async function handleClick() {
   emit("click");
+  if (props.navigate === false) {
+    await mediaStore.setEffectAudioAsync("ui_universal_back");
+    return;
+  }
   if (props.path) {
     await mediaStore.setEffectAudioAsync("音效7");
     await router.push(props.path);
@@ -32,11 +42,11 @@ async function handleClick() {
 .nav-btn {
   position: relative;
   z-index: 1000;
-  margin: 35px 0 0 40px;
+  margin: 15px 0 0 25px;
 }
 @media (max-height: 500px) {
   .nav-btn {
-    margin: 20px 0 0 20px;
+    margin: 15px 0 0 20px;
   }
 }
 </style>

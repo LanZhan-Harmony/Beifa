@@ -188,7 +188,13 @@ async function returnToSplash() {
       </div>
     </section>
 
-    <button class="edict-button" :class="{ 'is-locked': !edictEnabled }" type="button" :disabled="!edictEnabled">
+    <button
+      class="edict-button"
+      :class="{ 'is-locked': !edictEnabled, 'is-pressing': pressedButton === 'edict' }"
+      type="button"
+      :disabled="!edictEnabled"
+      @click="handleButtonClick('edict', '/edict', $event)"
+      @mouseenter="handleHover">
       <img
         class="edict-button__background"
         :src="`/common/images/main/${edictEnabled ? 'Main_Btn_Edict.png' : 'Main_Btn_EdictLock.png'}`"
@@ -685,7 +691,8 @@ button:focus-visible {
 
 .feature-button.is-pressing,
 .continue-button.is-pressing,
-.chapter-button.is-pressing {
+.chapter-button.is-pressing,
+.edict-button.is-pressing {
   animation: button-press 180ms ease-out both;
 }
 
@@ -763,7 +770,8 @@ button:focus-visible {
   .continue-button,
   .feature-button.is-pressing,
   .continue-button.is-pressing,
-  .chapter-button.is-pressing {
+  .chapter-button.is-pressing,
+  .edict-button.is-pressing {
     animation-duration: 1ms;
     transition-duration: 1ms;
   }

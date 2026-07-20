@@ -60,6 +60,11 @@ const router = createRouter({
       name: "credits",
       component: () => import("../views/CreditsView.vue"),
     },
+    {
+      path: "/edict",
+      name: "edict",
+      component: () => import("../views/EdictView.vue"),
+    },
   ],
 });
 

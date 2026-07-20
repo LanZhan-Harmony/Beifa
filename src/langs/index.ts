@@ -1,6 +1,6 @@
 import { createI18n } from "vue-i18n";
 
-// 自动导入 common 和 characters 文件夹下的所有 JSON 文件
+// 自动导入所有 JSON 文件
 const commonFiles = import.meta.glob("./common/*.json", { eager: true, import: "default" });
 const chapterFiles = import.meta.glob("./chapters/*.json", { eager: true, import: "default" });
 const characterFiles = import.meta.glob("./characters/*.json", { eager: true, import: "default" });
@@ -10,6 +10,7 @@ const achievementFiles = import.meta.glob("./achievements/*.json", { eager: true
 const introductionsFiles = import.meta.glob("./introductions/*.json", { eager: true, import: "default" });
 const valueChangesFiles = import.meta.glob("./valueChanges/*.json", { eager: true, import: "default" });
 const creditsFiles = import.meta.glob("./credits/*.json", { eager: true, import: "default" });
+const edictsFiles = import.meta.glob("./edicts/*.json", { eager: true, import: "default" });
 
 const messages: Record<string, any> = {};
 
@@ -37,6 +38,7 @@ mergeMessages(achievementFiles, "achievements");
 mergeMessages(introductionsFiles, "introductions");
 mergeMessages(valueChangesFiles, "valueChanges");
 mergeMessages(creditsFiles, "credits");
+mergeMessages(edictsFiles, "edicts");
 
 // 获取初始语言：优先读取本地缓存，其次匹配浏览器语言
 const getInitialLocale = (): string => {

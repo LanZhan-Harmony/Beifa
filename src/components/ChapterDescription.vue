@@ -39,7 +39,12 @@ watch(
     </div>
     <div ref="descriptionRef" class="description-text">{{ props.description }}</div>
     <ChapterProgressBar :progress="progress" class="progress" />
-    <ArrowButton :text="$t('chapter.enterChapter')" class="enter-btn" direction="right" @click="$emit('click')" />
+    <ArrowButton
+      :text="$t('chapter.enterChapter')"
+      class="enter-btn"
+      direction="right"
+      type="legacy"
+      @click="$emit('click')" />
   </div>
 </template>
 <style scoped>

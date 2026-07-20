@@ -2,50 +2,81 @@
 const props = defineProps<{
   text: string;
   direction: "left" | "right";
+  type?: "new" | "legacy";
 }>();
 
 const emit = defineEmits<{
   (e: "click"): void;
 }>();
 </script>
+
 <template>
   <button :class="['btn', { right: direction === 'right' }]" @click="$emit('click')">
-    <div class="arrow"></div>
-    <span>{{ text }}</span>
+    <div :class="['arrow', type || 'new']"></div>
+    <span :class="type || 'new'">{{ text }}</span>
   </button>
 </template>
+
 <style scoped>
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   background: transparent;
   border: none;
-  color: inherit;
   font-family: inherit;
-  font-size: 26px;
-  transition:
-    color 0.3s,
-    filter 0.3s;
+  cursor: pointer;
+  transition: all 0.3s;
 }
-.btn:hover,
-.btn:focus {
-  color: #fff;
-  filter: drop-shadow(0 0 5px #edb26b);
-}
+
+/* ========== Arrow (共用基础) ========== */
 .arrow {
-  width: 26px;
-  height: 26px;
-  background-image: url("/common/images/箭头按钮.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   transition: background-image 0.3s;
 }
-.btn:hover .arrow,
-.btn:focus .arrow {
+
+/* ========== 新风格 ========== */
+.arrow.new {
+  height: 50px;
+  aspect-ratio: 186/76;
+  background-image: url("/common/images/Common_Back.png");
+}
+.btn:hover .arrow.new,
+.btn:focus-visible .arrow.new {
+  background-image: url("/common/images/Common_Back_Glow.png");
+}
+
+span.new {
+  font-size: 40px;
+  line-height: 1;
+  color: #ffe38b;
+}
+
+/* ========== 旧风格 ========== */
+.arrow.legacy {
+  width: 26px;
+  height: 26px;
+  background-image: url("/common/images/箭头按钮.webp");
+}
+.btn:hover .arrow.legacy,
+.btn:focus-visible .arrow.legacy {
   background-image: url("/common/images/箭头按钮高亮.webp");
 }
+
+span.legacy {
+  font-size: 26px;
+  color: #918375;
+  transition: color 0.3s;
+}
+
+.btn:hover span.legacy,
+.btn:focus-visible span.legacy {
+  color: #fff;
+}
+
+/* ========== 方向 ========== */
 .right {
   flex-direction: row-reverse;
 }
@@ -53,14 +84,25 @@ const emit = defineEmits<{
   rotate: 180deg;
 }
 
+/* ========== 小屏适配 ========== */
 @media (max-height: 500px) {
   .btn {
-    font-size: 22px;
     gap: 6px;
   }
-  .arrow {
-    width: 22px;
-    height: 22px;
+
+  span.new {
+    font-size: 25px;
+  }
+  span.legacy {
+    font-size: 18px;
+  }
+
+  .arrow.new {
+    height: 30px;
+  }
+  .arrow.legacy {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

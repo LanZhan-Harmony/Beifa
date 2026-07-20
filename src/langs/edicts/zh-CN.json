@@ -1,0 +1,151 @@
+{
+    "edicts": [
+        {
+            "id": "019f7551-e333-7498-b805-b5e04a8a1725",
+            "source": "authored",
+            "type": "culture",
+            "title": "景区打卡",
+            "presenter": "SiKongYu",
+            "objector": "XieXuan",
+            "demand": "臣请于神都名胜设石刻印章，百姓游历集章留念，章显大宣盛世。",
+            "messages": [
+                {
+                    "id": 0,
+                    "sender": "presenter",
+                    "content": "陛下，名胜可设石刻印章，鼓励百姓打卡游历！"
+                },
+                {
+                    "id": 1,
+                    "sender": "presenter",
+                    "content": "集章巡游遍览大周山河，开阔眼界又带动客找酒肆！"
+                },
+                {
+                    "id": 2,
+                    "sender": "objector",
+                    "content": "……全国名胜八百处，选址、勘察、刻印……全归工部？"
+                },
+                {
+                    "id": 3,
+                    "sender": "objector",
+                    "content": "臣手头水利图纸还没画完……"
+                },
+                {
+                    "id": 4,
+                    "sender": "presenter",
+                    "content": "无章为凭谁信你去过龙门？"
+                },
+                {
+                    "id": 5,
+                    "sender": "presenter",
+                    "content": "有了印章百姓才有动力走出家门呀！"
+                },
+                {
+                    "id": 6,
+                    "sender": "objector",
+                    "content": "章好刻……可臣的研究项目就得停了……"
+                },
+                {
+                    "id": 7,
+                    "sender": "presenter",
+                    "content": "百姓走得远见得多，才知道大宣有多好！"
+                },
+                {
+                    "id": 8,
+                    "sender": "objector",
+                    "content": "只顾盖章不赏景，与驿卒赶路何异……"
+                },
+                {
+                    "id": 9,
+                    "sender": "objector",
+                    "content": "臣那个新发明还差最后一步，求陛下别再给工部加活了……"
+                },
+                {
+                    "id": 10,
+                    "sender": "objector",
+                    "content": "请陛下明鉴！"
+                }
+            ],
+            "status": "pending",
+            "shouldDeepThought": false,
+            "outcomes": {
+                "approved": {
+                    "title": "准奏！盖章巡游",
+                    "content": "石刻印章遍布神都，百姓争相游历集章。自此后，茶楼酒肆皆设打卡之印，商贾借势抬价，一碗茶贵过一壶酒。游人只顾盖章赶路，不看风景不品茶，名胜沦为排队之所，踏青变成赶集之苦。",
+                    "feedback": {
+                        "speaker": "presenter",
+                        "content": "陛下英明，大周盛景从此名扬四海！"
+                    },
+                    "emperorComment": "伍宣皇帝制曰:\n\t朕受天命，统御万方。\n于天下名胜设石刻印章，百姓游历集章留念，彰显大宣壮美山河。无章为凭谁信你去过龙门？集章巡游带动各地客栈酒肆，开阔眼界又活跃民间。工部即刻选址刻印。"
+                }
+            }
+        },
+        {
+            "id": "019f7551-e333-7498-b805-b93f333c9f50",
+            "source": "authored",
+            "type": "technology",
+            "title": "黄道游仪",
+            "presenter": "XieXuan",
+            "objector": "ChenWanEr",
+            "demand": "臣欲改进浑仪，以黄道度数精测星辰，请重金投之。",
+            "messages": [
+                {
+                    "id": 0,
+                    "sender": "presenter",
+                    "content": "陛下，臣请改进浑仪，方能知天时之变、正历法之误。"
+                },
+                {
+                    "id": 1,
+                    "sender": "objector",
+                    "content": "你的匠心臣一向佩服，只是这浑仪造价几何呀?"
+                },
+                {
+                    "id": 2,
+                    "sender": "presenter",
+                    "content": "……臣还在核算……"
+                },
+                {
+                    "id": 3,
+                    "sender": "objector",
+                    "content": "哎呀，预算还没出来就先上奏了？你心急了些。"
+                },
+                {
+                    "id": 4,
+                    "sender": "presenter",
+                    "content": "旧仪已然不够用了，若不纠正只恐耽误农时，百姓欠收！"
+                },
+                {
+                    "id": 5,
+                    "sender": "objector",
+                    "content": "星象玄之又玄，万一花了大价钱测不准，臣怎么交代？"
+                },
+                {
+                    "id": 6,
+                    "sender": "presenter",
+                    "content": "不试怎知不能……臣以为技术可惠万民……"
+                },
+                {
+                    "id": 7,
+                    "sender": "objector",
+                    "content": "惠万民臣双手赞成，预算报上来户部慢慢审。"
+                },
+                {
+                    "id": 8,
+                    "sender": "objector",
+                    "content": "请陛下明鉴！"
+                }
+            ],
+            "status": "pending",
+            "shouldDeepThought": false,
+            "outcomes": {
+                "rejected": {
+                    "title": "驳回！守正不阿",
+                    "content": "观测依旧沿用旧仪，星空在官吏眼中仍是那副古老模样。虽错失了天文研究之良机，但司天监因循旧例，维持了长久稳定。",
+                    "feedback": {
+                        "speaker": "objector",
+                        "content": "陛下明鉴。天道威仪，当遵古法旧制。"
+                    }
+                }
+            }
+        }
+    ]
+}

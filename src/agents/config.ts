@@ -1,0 +1,10 @@
+export const DEEPSEEK_MODEL = "deepseek-v4-flash";
+export const MIN_PENDING_EDICTS = 5;
+export const TARGET_PENDING_EDICTS = 10;
+export const MAX_GENERATION_BATCH = 5;
+export const MIN_DEBATE_ROUNDS = 2;
+export const DEFAULT_MAX_DEBATE_ROUNDS = 5;
+export const HARD_MAX_DEBATE_ROUNDS = 8;
+export const MAX_MESSAGES_PER_TURN = 3;
+export const MAX_TOTAL_DEBATE_MESSAGES = 30;
+export const MAX_MESSAGE_CHARS = 90;
