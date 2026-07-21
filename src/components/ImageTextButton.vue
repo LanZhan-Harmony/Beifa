@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-const props = defineProps<{
-  image: string;
-  hoverImage?: string;
-  text: string;
-  width?: number;
-  fontSize?: number;
-  textPosition?: "middle" | "bottom";
-}>();
+const props = withDefaults(
+  defineProps<{
+    image: string;
+    hoverImage?: string;
+    text: string;
+    width?: number;
+    fontSize?: number;
+    textTopMargin?: number;
+  }>(),
+  {
+    width: 70,
+    fontSize: 20,
+    textPosition: "bottom",
+    textTopMargin: 70,
+  },
+);
 
 const emit = defineEmits<{
   (e: "click"): void;
@@ -17,7 +25,7 @@ const emit = defineEmits<{
 const isPressed = ref(false);
 
 const buttonStyle = computed(() => ({
-  width: props.width ? props.width + "px" : "70px",
+  width: props.width + "px",
   "--button-image": `url(${props.image})`,
   "--button-hover-image": props.hoverImage ? `url(${props.hoverImage})` : "none",
 }));
@@ -47,10 +55,9 @@ function handleAnimationEnd() {
     <span
       class="image-text-button-text"
       :style="{
-        fontSize: props.fontSize ? props.fontSize + 'px' : '20px',
-        top: props.textPosition === 'middle' ? '45%' : 'auto',
-        bottom: props.textPosition === 'middle' ? 'auto' : '20%',
-        transform: props.textPosition === 'middle' ? 'translateX(-50%) translateY(-50%)' : 'translateX(-50%)',
+        fontSize: props.fontSize + 'px',
+        top: props.textTopMargin + '%',
+        transform: 'translateX(-50%) translateY(-50%)',
       }">
       {{ props.text }}
     </span>

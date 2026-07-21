@@ -1,18 +1,31 @@
 <script setup lang="ts">
-import { useMediaStore } from "@/stores/media";
-import type { EdictRecord } from "@/types/edictType";
-import { portraitUrl, speakerMeta } from "@/utils/edictMeta";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { useMediaStore } from "../../stores/media";
+import type { EdictRecord } from "../../types/edictType";
+import { portraitUrl, speakerMeta } from "../../utils/edictMeta";
 import MessageBubble from "./MessageBubble.vue";
 
-const props = withDefaults(defineProps<{ edict: EdictRecord; replay?: boolean; summaryBusy?: boolean }>(), {
-  replay: false,
-  summaryBusy: false,
-});
-const emit = defineEmits<{ complete: [] }>();
+const props = withDefaults(
+  defineProps<{
+    edict: EdictRecord;
+    replay?: boolean;
+    liveComplete?: boolean;
+    summaryBusy?: boolean;
+  }>(),
+  {
+    replay: false,
+    liveComplete: false,
+    summaryBusy: false,
+  },
+);
+
+const emit = defineEmits<{
+  (e: "complete"): void;
+}>();
+
 const media = useMediaStore();
 const intro = ref(true);
-const index = ref(0);
+const index = ref(-1);
 const finished = ref(false);
 let timer: number | undefined;
 const message = computed(() => props.edict.messages[index.value]);
@@ -21,32 +34,53 @@ const divider = computed(() => (intro.value ? "50%" : side.value === "left" ? "5
 
 function schedule(ms = 1450) {
   window.clearTimeout(timer);
-  timer = window.setTimeout(advance, ms);
+  timer = window.setTimeout(() => {
+    timer = undefined;
+    advance();
+  }, ms);
 }
 function advance() {
   if (intro.value) {
     intro.value = false;
-    index.value = 0;
-    void media.setEffectAudioAsync(message.value?.sender === "objector" ? "ui_zz_debate_neg" : "ui_zz_debate_aff");
-    schedule();
+    if (props.edict.messages.length) {
+      index.value = 0;
+      void media.setEffectAudioAsync("ui_zz_debate_aff");
+      schedule();
+    }
     return;
   }
   if (index.value < props.edict.messages.length - 1) {
     index.value++;
     void media.setEffectAudioAsync(message.value?.sender === "objector" ? "ui_zz_debate_neg" : "ui_zz_debate_aff");
     schedule();
-  } else {
+  } else if (props.liveComplete && props.edict.messages.length && !finished.value) {
     finished.value = true;
-    if (!props.summaryBusy) emit("complete");
+    emit("complete");
   }
 }
 function handleClick() {
   if (!finished.value) advance();
   else if (!props.summaryBusy) emit("complete");
 }
+watch(
+  () => props.edict.messages.length,
+  () => {
+    if (intro.value || finished.value || timer || !props.edict.messages.length) return;
+    if (index.value < 0) {
+      index.value = 0;
+      schedule(500);
+    } else if (props.liveComplete && index.value >= props.edict.messages.length - 1) schedule(650);
+  },
+);
+watch(
+  () => props.liveComplete,
+  (value) => {
+    if (value && !intro.value && !finished.value && props.edict.messages.length) schedule(650);
+  },
+);
 onMounted(() => {
   void media.setEffectAudioAsync("ui_zz_debate_start");
-  schedule(1050);
+  schedule(950);
 });
 onBeforeUnmount(() => window.clearTimeout(timer));
 </script>
@@ -56,18 +90,23 @@ onBeforeUnmount(() => window.clearTimeout(timer));
     <div class="base"></div>
     <div class="left-camp"></div>
     <div class="right-camp"></div>
-    <img class="ornament ornament--left" src="/common/images/edict/Edict_ThemeInfo_Bg_L_1.png" alt="" />
-    <img class="ornament ornament--right" src="/common/images/edict/Edict_ThemeInfo_Bg_R_1.png" alt="" />
-    <img class="portrait portrait--left" :src="portraitUrl(edict.presenter)" :alt="speakerMeta[edict.presenter].name" />
-    <img class="portrait portrait--right" :src="portraitUrl(edict.objector)" :alt="speakerMeta[edict.objector].name" />
+    <img class="ornament ornament--left" src="/common/images/edict/Edict_ThemeInfo_Bg_L_1.png" alt="" /><img
+      class="ornament ornament--right"
+      src="/common/images/edict/Edict_ThemeInfo_Bg_R_1.png"
+      alt="" />
+    <img
+      class="portrait portrait--left"
+      :src="portraitUrl(edict.presenter)"
+      :alt="speakerMeta[edict.presenter].name" /><img
+      class="portrait portrait--right"
+      :src="portraitUrl(edict.objector)"
+      :alt="speakerMeta[edict.objector].name" />
     <div class="divider"></div>
     <div class="name name--left">
-      <small>{{ speakerMeta[edict.presenter].title }}</small
-      ><strong>{{ speakerMeta[edict.presenter].name }}</strong>
+      <strong>{{ speakerMeta[edict.presenter].name }}</strong>
     </div>
     <div class="name name--right">
-      <small>{{ speakerMeta[edict.objector].title }}</small
-      ><strong>{{ speakerMeta[edict.objector].name }}</strong>
+      <strong>{{ speakerMeta[edict.objector].name }}</strong>
     </div>
     <Transition name="bubble" mode="out-in"
       ><MessageBubble
@@ -80,8 +119,11 @@ onBeforeUnmount(() => window.clearTimeout(timer));
         type="bubble"
     /></Transition>
     <div v-if="intro" class="intro">
-      <img src="/common/images/edict/Edict_ThemeInfo_Bg_05.png" alt="" /><span>廷议<br />开始</span>
+      <img src="/common/images/edict/Edict_ThemeInfo_Bg_05.png" alt="" />
+      <span class="debate-span">廷议</span>
+      <span class="start-span">开始</span>
     </div>
+    <div v-if="!intro && !message && !finished" class="message-loading"><span></span>正反双方正在发言……</div>
     <div v-if="finished && summaryBusy" class="summary-loading"><span></span>正在汇总廷议……</div>
   </section>
 </template>
@@ -101,14 +143,15 @@ onBeforeUnmount(() => window.clearTimeout(timer));
 }
 .base {
   background: url("/common/images/edict/Edict_ThemeInfo_Bg_01.png") center/70% 120% no-repeat;
-  opacity: 0.42;
 }
 .left-camp {
   background: #073f2dcc url("/common/images/edict/Edict_ThemeInfo_Bg_L_Glow.png") left/cover;
+  opacity: 0.3;
   clip-path: polygon(0 0, calc(var(--divider) - 4%) 0, calc(var(--divider) + 4%) 100%, 0 100%);
 }
 .right-camp {
   background: #842316cc url("/common/images/edict/Edict_ThemeInfo_Bg_R_Glow.png") right/cover;
+  opacity: 0.3;
   clip-path: polygon(calc(var(--divider) - 4%) 0, 100% 0, 100% 100%, calc(var(--divider) + 4%) 100%);
 }
 .ornament {
@@ -116,7 +159,6 @@ onBeforeUnmount(() => window.clearTimeout(timer));
   bottom: -25%;
   width: 68%;
   opacity: 0.55;
-  transition: transform 0.42s;
 }
 .ornament--left {
   left: -15%;
@@ -149,7 +191,6 @@ onBeforeUnmount(() => window.clearTimeout(timer));
   width: 11px;
   background: url("/common/images/edict/Edict_ThemeInfo_Bg_Line.png") center/100% 100%;
   transform: rotate(-7deg);
-  transform-origin: center;
   transition: left 0.42s ease;
   filter: drop-shadow(0 0 7px #ffd468);
 }
@@ -161,10 +202,10 @@ onBeforeUnmount(() => window.clearTimeout(timer));
   text-shadow: 0 3px 10px #401006;
 }
 .name small {
-  font-size: clamp(20px, 2vw, 40px);
+  font-size: 34px;
 }
 .name strong {
-  font-size: clamp(34px, 3.2vw, 66px);
+  font-size: 54px;
   font-weight: 400;
 }
 .name--left {
@@ -188,21 +229,32 @@ onBeforeUnmount(() => window.clearTimeout(timer));
 .intro {
   position: absolute;
   z-index: 12;
-  inset: 18% 25%;
-  display: grid;
-  place-items: center;
-  animation: intro 0.95s ease-out both;
+  inset: 10% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: intro 0.3s ease-out both;
 }
 .intro img {
   position: absolute;
   width: 100%;
+  opacity: 0.8;
 }
 .intro span {
   z-index: 1;
   color: #ffd485;
-  font: clamp(55px, 7vw, 140px)/0.95;
   text-align: center;
 }
+.debate-span {
+  font-size: 180px;
+  margin: 0 0 0 -10%;
+}
+.start-span {
+  font-size: 150px;
+  margin: -7% 0 0 15%;
+}
+.message-loading,
 .summary-loading {
   position: absolute;
   z-index: 20;
@@ -214,6 +266,7 @@ onBeforeUnmount(() => window.clearTimeout(timer));
   border-radius: 24px;
   background: #210e0dcc;
 }
+.message-loading span,
 .summary-loading span {
   display: inline-block;
   width: 18px;
@@ -236,7 +289,7 @@ onBeforeUnmount(() => window.clearTimeout(timer));
 @keyframes intro {
   from {
     opacity: 0;
-    transform: scale(1.35);
+    transform: scale(1.5);
   }
   to {
     opacity: 1;
@@ -246,6 +299,26 @@ onBeforeUnmount(() => window.clearTimeout(timer));
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+@media (max-height: 500px) {
+  .name small {
+    font-size: 18px;
+  }
+  .name strong {
+    font-size: 28px;
+  }
+  .intro span {
+    font-size: 50px;
+  }
+  .bubble {
+    top: 12%;
+  }
+  .bubble--left {
+    left: 28%;
+  }
+  .bubble--right {
+    right: 26%;
   }
 }
 </style>

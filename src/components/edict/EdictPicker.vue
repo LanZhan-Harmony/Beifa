@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ImageTextButton from "@/components/ImageTextButton.vue";
-import PageNavButton from "@/components/PageNavButton.vue";
-import type { EdictRecord } from "@/types/edictType";
-import { categoryMeta } from "@/utils/edictMeta";
 import { ref } from "vue";
+import type { EdictRecord } from "../../types/edictType";
+import { categoryMeta } from "../../utils/edictMeta";
+import ImageTextButton from "../ImageTextButton.vue";
+import PageNavButton from "../PageNavButton.vue";
 
 withDefaults(
   defineProps<{
@@ -61,7 +61,6 @@ function handleRefresh() {
       <ImageTextButton
         image="/common/images/edict/Common_Btn_Refresh.png"
         text="刷新"
-        textPosition="bottom"
         :width="160"
         @click="handleRefresh" />
       <ImageTextButton
@@ -71,7 +70,7 @@ function handleRefresh() {
         text="奏折归档"
         :fontSize="25"
         :width="200"
-        textPosition="middle"
+        :textTopMargin="45"
         @click="emit('archive')" />
     </aside>
   </section>

@@ -36,11 +36,6 @@ export interface DebateMessage {
   content: string;
 }
 
-export interface DebateSummary {
-  content: string;
-  keyPoints: string[];
-}
-
 export interface ResultFeedback {
   speaker: DebateSide;
   content: string;
@@ -65,10 +60,10 @@ export interface EdictRecord {
   demand: string;
   messages: DebateMessage[];
   status: EdictStatus;
-  shouldDeepThought: boolean;
+  /** 是否需要三思 */
+  shouldDeepThought?: boolean;
   outcomes: EdictOutcomes;
   source: EdictSource;
-  summary?: DebateSummary;
   /** AI 生成记录的 ISO 8601 时间；人工预置记录可省略。 */
   createdAt?: string;
 }

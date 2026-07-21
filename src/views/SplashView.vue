@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ExitDialog from "@/components/ExitDialog.vue";
-import ThemeButton from "@/components/ThemeButton.vue";
 import { invoke } from "@tauri-apps/api/core";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import ExitDialog from "../components/ExitDialog.vue";
+import ThemeButton from "../components/ThemeButton.vue";
 import { useMediaStore } from "../stores/media";
 
 const router = useRouter();

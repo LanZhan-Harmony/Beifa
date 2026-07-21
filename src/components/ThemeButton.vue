@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { useMediaStore } from "../stores/media";
 
-const props = defineProps<{
-  backgroundImage: string;
-  foregroundImage: string;
-  text: string;
-  width?: number;
-  foregroundWidthPercent?: number;
-  fontSize?: number;
-}>();
+const props = withDefaults(
+  defineProps<{
+    backgroundImage: string;
+    foregroundImage: string;
+    text: string;
+    width?: number;
+    foregroundWidthPercent?: number;
+    fontSize?: number;
+  }>(),
+  {
+    width: 70,
+    foregroundWidthPercent: 50,
+    fontSize: 20,
+  },
+);
 
 const emit = defineEmits<{
   (e: "click"): void;
@@ -27,17 +34,10 @@ async function handleClick() {
 </script>
 
 <template>
-  <button
-    class="theme-button"
-    :style="{ width: props.width ? props.width + 'px' : '70px' }"
-    @click="handleClick"
-    @mouseenter="handleHover">
+  <button class="theme-button" :style="{ width: props.width + 'px' }" @click="handleClick" @mouseenter="handleHover">
     <img class="theme-button-bg" :src="props.backgroundImage" />
-    <img
-      class="theme-button-fg"
-      :src="props.foregroundImage"
-      :style="{ width: props.foregroundWidthPercent ? props.foregroundWidthPercent + '%' : '50%' }" />
-    <span class="theme-button-text" :style="{ fontSize: props.fontSize ? props.fontSize + 'px' : '20px' }">
+    <img class="theme-button-fg" :src="props.foregroundImage" :style="{ width: props.foregroundWidthPercent + '%' }" />
+    <span class="theme-button-text" :style="{ fontSize: props.fontSize + 'px' }">
       {{ props.text }}
     </span>
   </button>

@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import type { EdictRecord } from "@/types/edictType";
-defineProps<{ edicts: EdictRecord[] }>();
-defineEmits<{ close: [] }>();
+import type { EdictRecord } from "../../types/edictType";
+
+const props = defineProps<{ edicts: EdictRecord[] }>();
+
+const emit = defineEmits<{
+  (e: "close"): void;
+}>();
 </script>
 <template>
-  <div class="mask" @click.self="$emit('close')">
+  <div class="mask" @click.self="emit('close')">
     <section>
       <h2>奏折归档</h2>
-      <button class="close" type="button" @click="$emit('close')">×</button>
+      <button class="close" type="button" @click="emit('close')">×</button>
       <p v-if="!edicts.length">尚无结案奏折</p>
       <ul>
         <li v-for="edict in edicts" :key="edict.id">

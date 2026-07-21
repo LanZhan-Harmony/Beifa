@@ -44,7 +44,7 @@ watch(
       class="enter-btn"
       direction="right"
       type="legacy"
-      @click="$emit('click')" />
+      @click="emit('click')" />
   </div>
 </template>
 <style scoped>

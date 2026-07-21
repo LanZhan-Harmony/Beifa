@@ -11,7 +11,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button :class="['btn', { right: direction === 'right' }]" @click="$emit('click')">
+  <button :class="['btn', { right: direction === 'right' }]" @click="emit('click')">
     <div :class="['arrow', type || 'new']"></div>
     <span :class="type || 'new'">{{ text }}</span>
   </button>

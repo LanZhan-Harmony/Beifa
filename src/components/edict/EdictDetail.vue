@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import type { EdictOutcome, EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, ref } from "vue";
-const props = defineProps<{ edict: EdictRecord; outcome: EdictOutcome }>();
-const emit = defineEmits<{ reconsider: []; complete: [] }>();
+import type { EdictOutcome, EdictRecord } from "../../types/edictType";
+import ImageTextButton from "../ImageTextButton.vue";
+
+const props = defineProps<{
+  edict: EdictRecord;
+  outcome: EdictOutcome;
+}>();
+
+const emit = defineEmits<{
+  (e: "reconsider"): void;
+  (e: "complete"): void;
+}>();
+
 const sealing = ref(false);
 const sealed = ref(false);
 let timer: number;
-const body = computed(() => `${props.outcome.emperorComment?.replace(/钦此[！。!]?\s*$/, "") ?? ""}\n钦此！`);
+const body = computed(() => `${props.outcome.emperorComment?.replace(/钦此[！。!]?\s*$/, "") ?? ""}钦此！`);
 function confirm() {
   if (sealing.value) return;
   sealing.value = true;
@@ -19,16 +29,31 @@ onBeforeUnmount(() => window.clearTimeout(timer));
 </script>
 <template>
   <section class="detail edict-screen">
-    <button class="reconsider" type="button" :disabled="sealing" @click="$emit('reconsider')">再考虑下</button>
+    <ImageTextButton
+      class="reconsider"
+      image="/common/images/edict/Edict_Main_Btn_Skip.png"
+      text="再考虑下"
+      :textTopMargin="50"
+      :fontSize="30"
+      :width="230"
+      @click="emit('reconsider')" />
     <div class="imperial-scroll">
       <img class="paper" src="/common/images/edict/Edict_Popup_Bg1.png" alt="" />
       <img class="axis axis--left" src="/common/images/edict/Edict_Popup_Bg4_L.png" alt="" /><img
         class="axis axis--right"
         src="/common/images/edict/Edict_Popup_Bg4_R.png"
         alt="" />
-      <h1>圣旨</h1>
+      <span class="title">圣旨</span>
       <p class="body">{{ body }}</p>
-      <button class="confirm" type="button" :disabled="sealing" @click="confirm">钦此</button>
+      <ImageTextButton
+        class="confirm"
+        image="/common/images/edict/Common_Btn2_Bg.png"
+        hoverImage="/common/images/edict/Common_Btn2_Hover.png"
+        text="钦此"
+        :textTopMargin="45"
+        :fontSize="32"
+        :width="300"
+        @click="confirm" />
       <img
         v-if="sealing && !sealed"
         class="seal-object"
@@ -47,19 +72,14 @@ onBeforeUnmount(() => window.clearTimeout(timer));
   z-index: 8;
   top: 3%;
   right: 0;
-  width: clamp(190px, 14vw, 280px);
-  aspect-ratio: 244/76;
-  border: 0;
-  color: #ecc889;
-  background: url("/common/images/edict/Edict_Main_Btn_Skip.png") center/100% 100%;
-  font: clamp(23px, 1.8vw, 36px);
 }
 .imperial-scroll {
   position: absolute;
-  top: 12%;
-  left: 7%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 86%;
-  height: 80%;
+  aspect-ratio: 1024/500;
   animation: unfold 0.82s ease-out both;
 }
 .paper {
@@ -80,38 +100,33 @@ onBeforeUnmount(() => window.clearTimeout(timer));
 .axis--right {
   right: 0;
 }
-h1 {
+.title {
   position: absolute;
   z-index: 3;
-  top: 10%;
+  top: 15%;
   left: 0;
   width: 100%;
   color: #8c4a1e;
-  font: clamp(38px, 3.3vw, 68px) KuangShanKaiShu;
+  font-size: 54px;
   text-align: center;
 }
 .body {
   position: absolute;
   z-index: 3;
-  top: 24%;
+  top: 26%;
   left: 13%;
   width: 74%;
   color: #5b2b13;
-  font: clamp(22px, 1.85vw, 38px)/1.5 TsangErJinKai;
+  font-size: 35px;
+  line-height: 1.25;
   white-space: pre-wrap;
 }
 .confirm {
   position: absolute;
   z-index: 7;
-  bottom: -1%;
+  bottom: 5%;
   left: 50%;
-  width: clamp(240px, 17vw, 350px);
-  aspect-ratio: 512/129;
   transform: translateX(-50%);
-  border: 0;
-  color: #f3d09b;
-  background: url("/common/images/edict/Common_Btn2_Bg.png") center/100% 100%;
-  font: clamp(25px, 2vw, 40px) KuangShanKaiShu;
 }
 .seal-object,
 .seal-mark {
@@ -153,6 +168,22 @@ h1 {
   from {
     opacity: 0;
     transform: scale(1.2);
+  }
+}
+@media (max-height: 500px) {
+  .reconsider {
+    width: 140px;
+    font-size: 16px;
+  }
+  .title {
+    font-size: 28px;
+  }
+  .body {
+    font-size: 16px;
+  }
+  .confirm {
+    width: 160px;
+    font-size: 18px;
   }
 }
 </style>

@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import type { EdictDecision, EdictOutcome, EdictRecord } from "@/types/edictType";
-import { portraitUrl, speakerMeta } from "@/utils/edictMeta";
 import { computed } from "vue";
+import type { EdictDecision, EdictOutcome, EdictRecord } from "../../types/edictType";
+import { portraitUrl, speakerMeta } from "../../utils/edictMeta";
+import ImageTextButton from "../ImageTextButton.vue";
 import MessageBubble from "./MessageBubble.vue";
-const props = defineProps<{ edict: EdictRecord; decision: EdictDecision; outcome: EdictOutcome }>();
-defineEmits<{ continue: []; retire: [] }>();
+
+const props = defineProps<{
+  edict: EdictRecord;
+  decision: EdictDecision;
+  outcome: EdictOutcome;
+}>();
+
+const emit = defineEmits<{
+  (e: "continue"): void;
+  (e: "retire"): void;
+}>();
+
 const speakerId = computed(() =>
   props.outcome.feedback.speaker === "presenter" ? props.edict.presenter : props.edict.objector,
 );
@@ -24,12 +35,19 @@ const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "r
         <div class="avatar"><img :src="portraitUrl(speakerId)" :alt="speakerMeta[speakerId].name" /></div>
         <MessageBubble :message="outcome.feedback.content" :side="side" type="card" />
         <p class="speaker">
-          <strong>{{ speakerMeta[speakerId].name }}</strong
-          ><span>{{ speakerMeta[speakerId].title }}</span>
+          <strong>{{ speakerMeta[speakerId].name }}</strong>
         </p>
       </div>
-      <button class="continue" type="button" autofocus @click="$emit('continue')">继续批阅</button>
-      <button class="retire" type="button" @click="$emit('retire')">
+      <ImageTextButton
+        class="continue"
+        image="/common/images/edict/Common_Btn2_Bg.png"
+        hoverImage="/common/images/edict/Common_Btn2_Hover.png"
+        text="继续批阅"
+        :textTopMargin="45"
+        :fontSize="32"
+        :width="300"
+        @click="emit('continue')" />
+      <button class="retire" type="button" @click="emit('retire')">
         <img src="/common/images/popup/Edict_Icon.png" alt="" /><span>退朝</span>
       </button>
     </section>
@@ -47,8 +65,8 @@ const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "r
 }
 .result {
   position: relative;
-  width: min(78vw, 1500px);
-  height: min(82vh, 920px);
+  width: 60%;
+  aspect-ratio: 1024/699;
   color: #f0c27b;
   animation: pop 0.28s ease-out;
 }
@@ -69,7 +87,7 @@ h1 {
   top: 9%;
   left: 15%;
   width: 70%;
-  font: clamp(32px, 2.8vw, 58px);
+  font-size: 46px;
   text-align: center;
 }
 .content {
@@ -77,7 +95,8 @@ h1 {
   top: 21%;
   left: 8%;
   width: 84%;
-  font: clamp(21px, 1.65vw, 34px)/1.75;
+  font-size: 28px;
+  line-height: 1.75;
 }
 .line {
   position: absolute;
@@ -100,7 +119,7 @@ h1 {
   flex-direction: row-reverse;
 }
 .avatar {
-  width: clamp(70px, 7vw, 135px);
+  width: 100px;
   aspect-ratio: 1;
   overflow: hidden;
   border: 5px solid #d6a65d;
@@ -117,10 +136,10 @@ h1 {
   display: grid;
   min-width: 130px;
   color: #f0c27b;
-  font-size: clamp(17px, 1.3vw, 26px);
+  font-size: 22px;
 }
 .speaker strong {
-  font-size: 1.2em;
+  font-size: 26px;
 }
 .feedback--right .speaker {
   text-align: right;
@@ -129,13 +148,7 @@ h1 {
   position: absolute;
   bottom: -2%;
   left: 50%;
-  width: clamp(230px, 18vw, 365px);
-  aspect-ratio: 512/129;
   transform: translateX(-50%);
-  border: 0;
-  color: #f4d09b;
-  background: url("/common/images/edict/Common_Btn2_Bg.png") center/100% 100%;
-  font: clamp(24px, 2vw, 40px);
 }
 .retire {
   position: fixed;
@@ -146,10 +159,10 @@ h1 {
   border: 0;
   color: #f0c27b;
   background: none;
-  font: clamp(19px, 1.4vw, 28px);
+  font-size: 24px;
 }
 .retire img {
-  width: clamp(70px, 6vw, 120px);
+  width: 90px;
 }
 @keyframes fade {
   from {
@@ -160,6 +173,37 @@ h1 {
   from {
     opacity: 0;
     transform: scale(0.96);
+  }
+}
+@media (max-height: 500px) {
+  .result {
+    width: 750px;
+    height: 500px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  .content {
+    font-size: 16px;
+  }
+  .avatar {
+    width: 50px;
+  }
+  .speaker {
+    font-size: 14px;
+  }
+  .speaker strong {
+    font-size: 17px;
+  }
+  .continue {
+    width: 160px;
+    font-size: 18px;
+  }
+  .retire {
+    font-size: 14px;
+  }
+  .retire img {
+    width: 40px;
   }
 }
 </style>

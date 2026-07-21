@@ -20,6 +20,7 @@
     "@tauri-apps/plugin-shell": "^2.3.5",
     "@vueuse/core": "^14.3.0",
     "pinia": "^4.0.2",
+    "uuid": "^14.0.1",
     "video.js": "^8.23.9",
     "vue": "^3.5.40",
     "vue-i18n": "^11.4.6",

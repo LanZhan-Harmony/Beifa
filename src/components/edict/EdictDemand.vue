@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import ImageTextButton from "@/components/ImageTextButton.vue";
-import PageNavButton from "@/components/PageNavButton.vue";
-import type { EdictDecision, EdictRecord } from "@/types/edictType";
-import { speakerMeta } from "@/utils/edictMeta";
+import { ref } from "vue";
+import type { EdictDecision, EdictRecord } from "../../types/edictType";
+import { speakerMeta } from "../../utils/edictMeta";
+import ImageTextButton from "../ImageTextButton.vue";
+import PageNavButton from "../PageNavButton.vue";
 
 withDefaults(
   defineProps<{
@@ -13,12 +14,28 @@ withDefaults(
   }>(),
   { decision: null, inputLocked: false },
 );
+
 const emit = defineEmits<{
   (e: "back"): void;
   (e: "debate"): void;
   (e: "decide", decision: EdictDecision): void;
   (e: "replayDebate"): void;
 }>();
+
+const pressedDecision = ref<EdictDecision | null>(null);
+
+function pressDecision(decision: EdictDecision) {
+  pressedDecision.value = decision;
+}
+
+function finishDecisionPress() {
+  if (!pressedDecision.value) {
+    return;
+  }
+  const decision = pressedDecision.value;
+  pressedDecision.value = null;
+  emit("decide", decision);
+}
 </script>
 
 <template>
@@ -39,14 +56,28 @@ const emit = defineEmits<{
             image="/common/images/edict/Common_Btn2_Bg.png"
             hoverImage="/common/images/edict/Common_Btn2_Hover.png"
             text="众卿怎么看？"
-            textPosition="middle"
+            :textTopMargin="45"
             :fontSize="30"
             :width="280"
             @click="emit('debate')" />
         </div>
         <div v-else-if="!decision" class="review-actions">
-          <button type="button" :disabled="inputLocked" @click="emit('decide', 'approved')">准奏</button>
-          <button type="button" :disabled="inputLocked" @click="emit('decide', 'rejected')">驳回</button>
+          <button
+            type="button"
+            :class="{ 'is-pressed': pressedDecision === 'approved' }"
+            :disabled="inputLocked"
+            @click="pressDecision('approved')"
+            @animationend="finishDecisionPress">
+            准奏
+          </button>
+          <button
+            type="button"
+            :class="{ 'is-pressed': pressedDecision === 'rejected' }"
+            :disabled="inputLocked"
+            @click="pressDecision('rejected')"
+            @animationend="finishDecisionPress">
+            驳回
+          </button>
         </div>
       </div>
       <div v-if="decision" class="stamp" :class="`stamp--${decision}`">
@@ -61,7 +92,7 @@ const emit = defineEmits<{
       class="replay"
       image="/common/images/edict/Edict_ThemeInfo_Btn.png"
       text="查看讨论"
-      :width="94"
+      :width="160"
       :disabled="inputLocked"
       @click="emit('replayDebate')" />
   </section>
@@ -128,21 +159,44 @@ const emit = defineEmits<{
 .review-actions {
   position: absolute;
   right: 0;
-  bottom: 4.5%;
+  bottom: 4%;
   left: 0;
   display: flex;
   justify-content: center;
   gap: 10%;
-  transform: translateY(25%);
 }
 .single-actions button {
   width: 300px;
   aspect-ratio: 512/129;
 }
 .review-actions button {
+  position: relative;
   width: 28%;
-  aspect-ratio: 512/61;
+  aspect-ratio: 512/123;
   background-image: url("/common/images/edict/Common_BuyPopup_Btn_Normal.png");
+  background-position: top 50% left 75%;
+  background-size: 92% 49%;
+  background-repeat: no-repeat;
+}
+.review-actions button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  background: url("/common/images/edict/Common_BuyPopup_Btn_Normal1.png") center/100% 100% no-repeat;
+  pointer-events: none;
+}
+.review-actions button:hover:not(:disabled) {
+  filter: none;
+  background-image: url("/common/images/edict/Common_BuyPopup_Btn_Hover.png");
+}
+.review-actions button:hover:not(:disabled)::after,
+.review-actions button:focus-visible:not(:disabled)::after {
+  background: url("/common/images/edict/Common_BuyPopup_Btn_Hover1.png") center/100% 100% no-repeat;
+}
+.review-actions button.is-pressed {
+  animation: button-press 180ms ease-out both;
 }
 button {
   border: 0;
@@ -156,8 +210,8 @@ button:hover:not(:disabled) {
 }
 .replay {
   position: absolute;
-  right: 5%;
-  bottom: 5%;
+  right: 6%;
+  bottom: 2%;
 }
 .stamp {
   position: absolute;
@@ -166,14 +220,14 @@ button:hover:not(:disabled) {
   bottom: 4%;
   width: 30%;
   transform: translateX(-50%);
-  animation: stamp-in 0.65s cubic-bezier(0.2, 0.85, 0.35, 1.2) both;
+  animation: stamp-in 0.3s both;
 }
 .stamp img {
   width: 100%;
 }
 .stamp span {
   position: absolute;
-  top: 39%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 48px;
@@ -184,18 +238,21 @@ button:hover:not(:disabled) {
 }
 @keyframes stamp-in {
   0% {
-    opacity: 0;
-    transform: translate(-50%, -300px) scale(1.2);
-  }
-  72% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(0.92);
-  }
-  88% {
-    transform: translate(-50%, 0) scale(1.06);
+    transform: translate(-50%, 0) scale(1.5);
   }
   100% {
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+@keyframes button-press {
+  0% {
+    scale: 1;
+  }
+  45% {
+    scale: 0.94;
+  }
+  100% {
+    scale: 1;
   }
 }
 @keyframes scroll-open-left {
