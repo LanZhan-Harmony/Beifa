@@ -141,10 +141,14 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
 
 <template>
   <div
-    class="message"
-    :class="[`message--${props.type}`, `message--${props.side}`]"
-    :style="props.type === 'bubble' ? bubbleSize : undefined"
+    v-if="props.type === 'bubble'"
+    class="message message--bubble"
+    :class="`message--${props.side}`"
+    :style="bubbleSize"
     role="status">
+    {{ displayedText }}
+  </div>
+  <div v-else class="message message--card" :class="`message--${props.side}`" role="status">
     {{ displayedText }}
   </div>
 </template>
@@ -153,14 +157,16 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
 .message {
   position: relative;
   width: max-content;
-  color: #811700;
   line-height: 1.35;
   white-space: pre-wrap;
   filter: drop-shadow(0 5px 8px #1c090780);
 }
+
+/* Bubble: Edict_ThemeInfo_Talking_L/R.png 九宫格。 */
 .message--bubble {
   box-sizing: border-box;
   min-height: var(--bubble-min-height);
+  color: #811700;
   padding: var(--bubble-padding-top) var(--bubble-padding-outer) var(--bubble-padding-bottom)
     var(--bubble-padding-inner);
   font-size: var(--bubble-font-size);
@@ -178,7 +184,7 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
   border-image-repeat: stretch;
   opacity: 0.95;
 }
-.message--left {
+.message--bubble.message--left {
   color: #1c5f4b;
 }
 .message--bubble.message--right {
@@ -190,33 +196,31 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
   border-image-slice: 30 138 88 65 fill;
   border-image-width: 30px 138px 88px 65px;
 }
+
+/* Card: Result_Main_Step2_DialogueTextBgLeft/Right.png 九宫格。 */
 .message--card {
-  padding: 14px 30px;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 54px;
+  padding: 10px 16px;
+  color: #811700;
   font-size: 26px;
-  background: #f1c792;
-  border: 3px solid #9d582e;
-  border-radius: 18px;
-  box-shadow: inset 0 0 0 2px #ffe0ad;
+  border: 2px solid transparent;
+  border-image-source: url("/common/images/popup/Result_Main_Step2_DialogueTextBgLeft.png");
+  /* border-image-slice 顺序为 top right bottom left。 */
+  border-image-slice: 47 108 47 128 fill;
+  /* 素材按 50% 显示，中间区域横向拉伸以适应文字长度。 */
+  border-image-width: 23.5px 54px 23.5px 64px;
+  border-image-repeat: stretch;
 }
-.message--card::after {
-  position: absolute;
-  top: 50%;
-  width: 25px;
-  height: 25px;
-  content: "";
-  background: inherit;
-  border: inherit;
-  transform: translateY(-50%) rotate(45deg);
+.message--card.message--left {
+  color: #811700;
 }
-.message--card.message--left::after {
-  left: -14px;
-  border-top: 0;
-  border-right: 0;
-}
-.message--card.message--right::after {
-  right: -14px;
-  border-bottom: 0;
-  border-left: 0;
+.message--card.message--right {
+  border-image-source: url("/common/images/popup/Result_Main_Step2_DialogueTextBgRight.png");
+  /* Right 素材左右切片颠倒：left=108, right=128。 */
+  border-image-slice: 47 128 47 108 fill;
+  border-image-width: 23.5px 64px 23.5px 54px;
 }
 @media (max-height: 500px) {
   .message {
@@ -232,6 +236,12 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
   }
   .message--card {
     font-size: 16px;
+    min-height: 27px;
+    padding: 5px 8px;
+    border-image-width: 12px 27px 12px 32px;
+  }
+  .message--card.message--right {
+    border-image-width: 12px 32px 12px 27px;
   }
 }
 </style>
