@@ -9,12 +9,14 @@ const props = withDefaults(
     width?: number;
     fontSize?: number;
     textTopMargin?: number;
+    scaleTransformOrigin?: string;
   }>(),
   {
     width: 70,
     fontSize: 20,
     textPosition: "bottom",
     textTopMargin: 70,
+    scaleTransformOrigin: "center center",
   },
 );
 
@@ -28,13 +30,14 @@ const buttonStyle = computed(() => ({
   width: props.width + "px",
   "--button-image": `url(${props.image})`,
   "--button-hover-image": props.hoverImage ? `url(${props.hoverImage})` : "none",
+  "--scale-transform-origin": props.scaleTransformOrigin,
 }));
 
 function handleClick() {
   isPressed.value = true;
 }
 
-function handleAnimationEnd() {
+function handleTransitionEnd() {
   if (!isPressed.value) {
     return;
   }
@@ -49,8 +52,8 @@ function handleAnimationEnd() {
     :class="{ 'is-pressed': isPressed }"
     :style="buttonStyle"
     @click="handleClick"
-    @animationend="handleAnimationEnd">
-    <img class="image-text-button-sizer" :src="props.image" alt="" aria-hidden="true" />
+    @transitionend="handleTransitionEnd">
+    <img class="image-text-button-sizer" :src="props.image" aria-hidden="true" />
     <span class="image-text-button-bg"></span>
     <span
       class="image-text-button-text"
@@ -72,9 +75,12 @@ function handleAnimationEnd() {
   background: none;
   border: none;
   overflow: hidden;
+  scale: 1;
+  font-family: inherit;
+  transition: scale 180ms ease-out;
 }
 .image-text-button.is-pressed {
-  animation: button-press 180ms ease-out both;
+  scale: 0.94;
 }
 .image-text-button-sizer {
   display: block;
@@ -118,22 +124,13 @@ function handleAnimationEnd() {
   white-space: nowrap;
   font-family: inherit;
 }
-
-@keyframes button-press {
-  0% {
-    scale: 1;
-  }
-  45% {
-    scale: 0.94;
-  }
-  100% {
-    scale: 1;
-  }
-}
-
 @media (max-height: 500px) {
   .image-text-button {
     scale: 0.7;
+    transform-origin: var(--scale-transform-origin);
+  }
+  .image-text-button.is-pressed {
+    scale: 0.658;
   }
 }
 </style>

@@ -45,7 +45,7 @@ function handleRefresh() {
         :disabled="inputLocked"
         :aria-label="`查看奏折：${edict.title}`"
         @click="emit('select', edict.id)">
-        <img src="/common/images/edict/Edict_Theme_Big01.png" alt="" />
+        <img src="/common/images/edict/Edict_Theme_Big01.png" s/>
         <span class="category" :style="{ color: categoryMeta[edict.type].color }">{{
           categoryMeta[edict.type].label
         }}</span>
@@ -62,6 +62,7 @@ function handleRefresh() {
         image="/common/images/edict/Common_Btn_Refresh.png"
         text="刷新"
         :width="160"
+        scaleTransformOrigin="bottom center"
         @click="handleRefresh" />
       <ImageTextButton
         class="archive"
@@ -71,6 +72,7 @@ function handleRefresh() {
         :fontSize="25"
         :width="200"
         :textTopMargin="45"
+        scaleTransformOrigin="top center"
         @click="emit('archive')" />
     </aside>
   </section>
@@ -233,4 +235,3 @@ function handleRefresh() {
   }
 }
 </style>
-

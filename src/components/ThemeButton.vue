@@ -49,6 +49,7 @@ async function handleClick() {
   display: inline-block;
   background: none;
   border: none;
+  font-family: inherit;
 }
 .theme-button-bg {
   display: block;

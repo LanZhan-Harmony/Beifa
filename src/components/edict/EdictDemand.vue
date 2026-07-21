@@ -43,8 +43,8 @@ function finishDecisionPress() {
     <PageNavButton text="奏折批阅" :navigate="false" @click="emit('back')" />
     <div class="scroll">
       <div class="scroll-bg" aria-hidden="true">
-        <img class="scroll-bg__half scroll-bg__half--left" src="/common/images/edict/Edict_Popup_Bg5.png" alt="" />
-        <img class="scroll-bg__half scroll-bg__half--right" src="/common/images/edict/Edict_Popup_Bg5.png" alt="" />
+        <img class="scroll-bg__half scroll-bg__half--left" src="/common/images/edict/Edict_Popup_Bg5.png" />
+        <img class="scroll-bg__half scroll-bg__half--right" src="/common/images/edict/Edict_Popup_Bg5.png" />
       </div>
       <div class="scroll-content">
         <p class="body">{{ edict.demand }}</p>
@@ -81,9 +81,7 @@ function finishDecisionPress() {
         </div>
       </div>
       <div v-if="decision" class="stamp" :class="`stamp--${decision}`">
-        <img
-          :src="`/common/images/edict/Edict_Theme_TypeIcon_${decision === 'approved' ? 'Approve' : 'Oppose'}.png`"
-          alt="" />
+        <img :src="`/common/images/edict/Edict_Theme_TypeIcon_${decision === 'approved' ? 'Approve' : 'Oppose'}.png`" />
         <span>{{ decision === "approved" ? "准奏" : "驳回" }}</span>
       </div>
     </div>
@@ -220,7 +218,7 @@ button:hover:not(:disabled) {
   bottom: 4%;
   width: 30%;
   transform: translateX(-50%);
-  animation: stamp-in 0.3s both;
+  animation: stamp-in 0.4s both;
 }
 .stamp img {
   width: 100%;
@@ -281,13 +279,10 @@ button:hover:not(:disabled) {
 }
 @media (max-height: 500px) {
   .body {
-    font-size: 20px;
+    font-size: 30px;
   }
   .signature {
-    font-size: 16px;
-  }
-  .single-actions button {
-    width: 180px;
+    font-size: 25px;
   }
   button {
     font-size: 16px;

@@ -132,12 +132,10 @@ async function returnToSplash() {
         </span>
         <img
           class="feature-button__icon feature-button__icon--original"
-          src="/common/images/main/Main_Btn_Storyline_Icon.png"
-          alt="" />
+          src="/common/images/main/Main_Btn_Storyline_Icon.png" />
         <img
           class="feature-button__icon feature-button__icon--start"
-          src="/common/images/main/Main_Btn_Storyline_Icon_Start.png"
-          alt="" />
+          src="/common/images/main/Main_Btn_Storyline_Icon_Start.png" />
       </button>
       <button
         class="feature-button feature-button--character"
@@ -153,12 +151,10 @@ async function returnToSplash() {
         </span>
         <img
           class="feature-button__icon feature-button__icon--original"
-          src="/common/images/main/Main_Btn_Character_Icon.png"
-          alt="" />
+          src="/common/images/main/Main_Btn_Character_Icon.png" />
         <img
           class="feature-button__icon feature-button__icon--start"
-          src="/common/images/main/Main_Btn_Character_Icon_Start.png"
-          alt="" />
+          src="/common/images/main/Main_Btn_Character_Icon_Start.png" />
       </button>
     </section>
 
@@ -168,7 +164,7 @@ async function returnToSplash() {
       type="button"
       @click="handleButtonClick('chapter', '/chapters', $event)"
       @mouseenter="handleHover">
-      <img src="/common/images/main/Main_Btn_Chapter.png" alt="" />
+      <img src="/common/images/main/Main_Btn_Chapter.png" />
       <span>全部<br />章节</span>
     </button>
 
@@ -177,13 +173,13 @@ async function returnToSplash() {
         探索进度 <em>{{ progressPercent }}%</em>
       </div>
       <div class="progress__track-row">
-        <img class="progress__ornament" src="/common/images/main/Main_Slider_Bg1.png" alt="" />
+        <img class="progress__ornament" src="/common/images/main/Main_Slider_Bg1.png" />
         <div class="progress__track">
-          <img class="progress__background" src="/common/images/main/Main_Slider_Bg.png" alt="" />
+          <img class="progress__background" src="/common/images/main/Main_Slider_Bg.png" />
           <div class="progress__fill-clip" :style="progressStyle">
-            <img src="/common/images/main/Main_Slider_Fill.png" alt="" />
+            <img src="/common/images/main/Main_Slider_Fill.png" />
           </div>
-          <img class="progress__handle" src="/common/images/main/Main_Handle.png" :style="handleStyle" alt="" />
+          <img class="progress__handle" src="/common/images/main/Main_Handle.png" :style="handleStyle" />
         </div>
       </div>
     </section>
@@ -197,12 +193,10 @@ async function returnToSplash() {
       @mouseenter="handleHover">
       <img
         class="edict-button__background"
-        :src="`/common/images/main/${edictEnabled ? 'Main_Btn_Edict.png' : 'Main_Btn_EdictLock.png'}`"
-        alt="" />
+        :src="`/common/images/main/${edictEnabled ? 'Main_Btn_Edict.png' : 'Main_Btn_EdictLock.png'}`" />
       <img
         class="edict-button__icon"
-        :src="`/common/images/main/${edictEnabled ? 'Main_Btn_Edict_Icon.png' : 'Main_Btn_Edict_IconLock.png'}`"
-        alt="" />
+        :src="`/common/images/main/${edictEnabled ? 'Main_Btn_Edict_Icon.png' : 'Main_Btn_Edict_IconLock.png'}`" />
       <span>上朝</span>
     </button>
 
@@ -841,4 +835,3 @@ button:focus-visible {
   }
 }
 </style>
-

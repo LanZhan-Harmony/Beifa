@@ -53,7 +53,9 @@ const archived = computed(() => records.value.filter((item) => item.status !== "
 const currentOutcome = computed(() =>
   decision.value && selected.value ? selected.value.outcomes[decision.value] : undefined,
 );
-const phaseTransitionName = computed(() => (phase.value === "picker" || phase.value === "demand" ? "" : "phase"));
+const phaseTransitionName = computed(() =>
+  phase.value === "picker" || phase.value === "demand" || phase.value === "detail" ? "" : "phase",
+);
 const characters: CharacterBrief[] = Object.entries(speakerMeta).map(([id, meta]) => ({
   id: id as keyof typeof speakerMeta,
   ...meta,
@@ -108,7 +110,16 @@ function selectEdict(id: string) {
     return;
   }
   selectedId.value = id;
-  activeEdict.value = records.value.find((item) => item.id === id) ?? null;
+  const found = records.value.find((item) => item.id === id);
+  activeEdict.value = found
+    ? {
+        ...found,
+        messages: [],
+        outcomes: {},
+        status: "pending",
+        shouldDeepThought: undefined,
+      }
+    : null;
   decision.value = null;
   phase.value = "demand";
 }
@@ -122,6 +133,14 @@ function backToPicker() {
   decision.value = null;
   inputLocked.value = false;
   chooseVisible();
+}
+
+/** 返回奏折详情页面 */
+function backToDemand() {
+  controller?.abort();
+  phase.value = "demand";
+  decision.value = null;
+  inputLocked.value = false;
 }
 
 /** 刷新可见奏折列表 */
@@ -319,7 +338,7 @@ onBeforeUnmount(() => {
         :edict="selected!"
         :replay="replaying"
         :live-complete="liveComplete"
-        :summary-busy="summaryWaiting"
+        @back="backToDemand"
         @complete="debateComplete" />
       <EdictDetail
         v-else-if="phase === 'detail' && currentOutcome"
@@ -415,4 +434,3 @@ onBeforeUnmount(() => {
   }
 }
 </style>
-

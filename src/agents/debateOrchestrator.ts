@@ -28,6 +28,9 @@ export async function runLiveDebate(
     Math.max(MIN_DEBATE_ROUNDS, options.maxRounds ?? DEFAULT_MAX_DEBATE_ROUNDS),
   );
   const transcript: DebateMessage[] = [];
+  const relevantCharacters = context.characters.filter(
+    (c) => c.id === context.edict.presenter || c.id === context.edict.objector,
+  );
 
   /**
    * 将消息添加到辩论记录中，并触发回调
@@ -43,8 +46,7 @@ export async function runLiveDebate(
   for (let round = 1; round <= maxRounds && transcript.length < MAX_TOTAL_DEBATE_MESSAGES - 1; round++) {
     const base = {
       edict: { ...context.edict, messages: transcript },
-      characters: context.characters,
-      transcript,
+      characters: relevantCharacters,
       round,
       maxRounds,
       remainingMessages: MAX_TOTAL_DEBATE_MESSAGES - 1 - transcript.length,
@@ -57,7 +59,7 @@ export async function runLiveDebate(
       }
     }
 
-    const negative = await objectorTurn({ ...base, transcript }, options.signal);
+    const negative = await objectorTurn(base, options.signal);
     for (const content of negative.messages) {
       if (transcript.length < MAX_TOTAL_DEBATE_MESSAGES - 1) {
         append("objector", content);
@@ -74,12 +76,6 @@ export async function runLiveDebate(
 
   return {
     messages: transcript,
-    conclusion: summarizeDebate(
-      { ...context.edict, messages: transcript },
-      transcript,
-      context.characters,
-      options.signal,
-    ),
+    conclusion: summarizeDebate({ ...context.edict, messages: transcript }, relevantCharacters, options.signal),
   };
 }
-

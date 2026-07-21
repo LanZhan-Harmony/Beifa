@@ -43,8 +43,8 @@ onBeforeUnmount(() => {
     <div class="shade"></div>
     <div class="scene">
       <div class="background"></div>
-      <img class="wing wing--left" src="/common/images/edict/Edict_judgment_Bg1_2.png" alt="" />
-      <img class="wing wing--right" src="/common/images/edict/Edict_judgment_Bg1_1.png" alt="" />
+      <img class="wing wing--left" src="/common/images/edict/Edict_judgment_Bg1_2.png" />
+      <img class="wing wing--right" src="/common/images/edict/Edict_judgment_Bg1_1.png" />
       <img class="officials" src="/common/images/edict/Edict_judgment_Bg2.png" alt="群臣进谏" />
       <div class="warning"><strong>陛下!!</strong><span>三思啊!</span></div>
     </div>
