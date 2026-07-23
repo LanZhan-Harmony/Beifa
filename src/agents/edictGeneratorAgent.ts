@@ -49,4 +49,3 @@ export async function generateEdicts(
       createdAt: new Date().toISOString(),
     }));
 }
-

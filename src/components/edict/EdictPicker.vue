@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { EdictRecord } from "../../types/edictType";
-import { categoryMeta } from "../../utils/edictMeta";
-import ImageTextButton from "../ImageTextButton.vue";
-import PageNavButton from "../PageNavButton.vue";
+import { categoryMeta } from "@/assets/data/edictMeta";
+import ImageTextButton from "@/components/ImageTextButton.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import { useMediaStore } from "@/stores/media";
+import type { EdictRecord } from "@/types/edictType";
+import { onMounted, ref } from "vue";
 
 withDefaults(
   defineProps<{
@@ -25,12 +26,28 @@ const emit = defineEmits<{
   (e: "archive"): void;
 }>();
 
+const mediaStore = useMediaStore();
+
 const refreshKey = ref(0);
 
-function handleRefresh() {
+async function handleRefresh() {
   refreshKey.value++;
   emit("refresh");
+  await mediaStore.setEffectAudioAsync("ui_zz_refresh");
 }
+
+async function handleEdictHover() {
+  await mediaStore.setEffectAudioAsync("ui_zz_hover");
+}
+
+async function handleEdictSelect(id: string) {
+  await mediaStore.setEffectAudioAsync("ui_universal_click");
+  emit("select", id);
+}
+
+onMounted(async () => {
+  await mediaStore.setEffectAudioAsync("ui_zz_show");
+});
 </script>
 
 <template>
@@ -41,11 +58,12 @@ function handleRefresh() {
         v-for="(edict, index) in edicts"
         :key="`${edict.id}`"
         class="card"
-        :style="{ '--delay': `${index * 70}ms` }"
+        :style="{ '--delay': `${index * 140}ms` }"
         :disabled="inputLocked"
         :aria-label="`查看奏折：${edict.title}`"
-        @click="emit('select', edict.id)">
-        <img src="/common/images/edict/Edict_Theme_Big01.png" s/>
+        @click="handleEdictSelect(edict.id)"
+        @mouseenter="handleEdictHover">
+        <img src="/common/images/edict/Edict_Theme_Big01.png" s />
         <span class="category" :style="{ color: categoryMeta[edict.type].color }">{{
           categoryMeta[edict.type].label
         }}</span>

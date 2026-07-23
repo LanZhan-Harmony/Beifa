@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useMediaStore } from "@/stores/media";
+import type { EdictDecision } from "@/types/edictType";
 import { onBeforeUnmount, onMounted } from "vue";
-import type { EdictDecision } from "../../types/edictType";
 
 const props = defineProps<{
   decision: EdictDecision;
@@ -9,6 +10,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "complete"): void;
 }>();
+
+const mediaStore = useMediaStore();
 
 let timer: number;
 const shakeTimers: number[] = [];
@@ -21,15 +24,16 @@ function shakePage(delay: number) {
       app.classList.remove("deep-thought-shake");
       void app.offsetWidth;
       app.classList.add("deep-thought-shake");
-      window.setTimeout(() => app.classList.remove("deep-thought-shake"), 420);
+      window.setTimeout(() => app.classList.remove("deep-thought-shake"), 200);
     }, delay),
   );
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await mediaStore.setEffectAudioAsync("ui_zz_interrupt");
   timer = window.setTimeout(() => emit("complete"), 3000);
-  shakePage(480);
-  shakePage(1860);
+  shakePage(420);
+  shakePage(890);
 });
 
 onBeforeUnmount(() => {
@@ -56,9 +60,6 @@ onBeforeUnmount(() => {
   z-index: 100;
   inset: 0;
   overflow: hidden;
-  animation:
-    thought-shake 0.42s 0.78s ease-in-out both,
-    thought-shake 0.42s 1.86s ease-in-out both;
   pointer-events: all;
 }
 .background,
@@ -105,7 +106,7 @@ onBeforeUnmount(() => {
   bottom: 0;
   left: 20%;
   height: 86%;
-  animation: officials-in 0.5s 0.08s cubic-bezier(0.18, 0.86, 0.28, 1) both;
+  animation: officials-in 0.3s 0.08s cubic-bezier(0.18, 0.86, 0.28, 1) both;
 }
 .warning {
   position: absolute;
@@ -119,13 +120,13 @@ onBeforeUnmount(() => {
 .warning strong {
   font-size: 110px;
   font-weight: 400;
-  animation: warning-strong-sequence 0.6s 0.08s ease-out both;
+  animation: warning-strong-sequence 0.6s 0.08s ease-in both;
 }
 .warning span {
   margin: 0% 0 0 40%;
   font-size: 68px;
   white-space: nowrap;
-  animation: warning-span-sequence 0.9s 1.25s ease-out both;
+  animation: warning-span-sequence 0.6s 0.5s ease-in both;
 }
 @keyframes fade-in {
   from {
@@ -174,7 +175,7 @@ onBeforeUnmount(() => {
 @keyframes warning-span-sequence {
   from {
     opacity: 0;
-    transform: translate(4%, -18%) scale(2.35);
+    transform: translate(4%, -18%) scale(1.5);
   }
   52% {
     opacity: 1;
@@ -197,29 +198,8 @@ onBeforeUnmount(() => {
     transform: translate(0, 0) rotate(0);
   }
 }
-@keyframes thought-shake {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  15% {
-    transform: translate(-6px, 2px);
-  }
-  30% {
-    transform: translate(7px, -2px);
-  }
-  45% {
-    transform: translate(-6px, 1px);
-  }
-  60% {
-    transform: translate(5px, 0);
-  }
-  75% {
-    transform: translate(-3px, -1px);
-  }
-}
 :global(#app-container.deep-thought-shake) {
-  animation: page-shake 0.42s ease-in-out both;
+  animation: page-shake 0.2s ease-in-out both;
 }
 @keyframes page-shake {
   0%,

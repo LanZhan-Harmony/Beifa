@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { EdictRecord } from "../../types/edictType";
+import type { EdictRecord } from "@/types/edictType";
 
 const props = defineProps<{ edicts: EdictRecord[] }>();
 
@@ -64,4 +64,3 @@ li {
   border-bottom: 1px solid #d5a25855;
 }
 </style>
-

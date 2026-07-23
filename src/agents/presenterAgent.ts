@@ -20,4 +20,3 @@ export async function presenterTurn(input: unknown, signal?: AbortSignal): Promi
     }),
   );
 }
-

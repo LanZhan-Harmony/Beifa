@@ -1,6 +1,6 @@
+import { toStreamUrl } from "@/utils/streamUrl";
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
-import { toStreamUrl } from "../utils/streamUrl";
 
 export const useMediaStore = defineStore("media", () => {
   const bgmAudio = new Audio();
@@ -109,23 +109,25 @@ export const useMediaStore = defineStore("media", () => {
     }
   }
 
+  /** 缓存已加载的 Audio 元素，避免每次播放短音效时重复创建/解码 */
+  const _effectAudioCache = new Map<string, HTMLAudioElement>();
+
   /**
    * 播放音效
    * @param name 音效文件名（不含扩展名）
    */
   async function setEffectAudioAsync(name: string) {
-    const effectAudio = new Audio(toStreamUrl(`/common/musics/${name}.opus`));
+    let effectAudio = _effectAudioCache.get(name);
+    if (!effectAudio) {
+      effectAudio = new Audio(toStreamUrl(`/common/musics/${name}.opus`));
+      _effectAudioCache.set(name, effectAudio);
+    }
     effectAudio.volume = actualEffectVolume.value;
-    // 播放结束后立即释放资源，避免 Audio 对象泄漏
-    effectAudio.onended = () => {
-      effectAudio.onended = null;
-      effectAudio.src = "";
-    };
+    effectAudio.currentTime = 0;
     try {
       await effectAudio.play();
     } catch (error) {
       console.error("无法播放音效:", error);
-      effectAudio.src = "";
     }
   }
 

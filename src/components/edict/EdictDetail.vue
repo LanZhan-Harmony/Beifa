@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref } from "vue";
-import type { EdictOutcome, EdictRecord } from "../../types/edictType";
-import ImageTextButton from "../ImageTextButton.vue";
+import ImageTextButton from "@/components/ImageTextButton.vue";
+import { useMediaStore } from "@/stores/media";
+import type { EdictOutcome, EdictRecord } from "@/types/edictType";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 const props = defineProps<{
   edict: EdictRecord;
@@ -13,12 +14,15 @@ const emit = defineEmits<{
   (e: "complete"): void;
 }>();
 
+const mediaStore = useMediaStore();
+
 const sealing = ref(false);
 const sealed = ref(false);
 let timer: number;
 const body = computed(() => `${props.outcome.emperorComment?.replace(/钦此[！。!]?\s*$/, "") ?? ""}钦此！`);
-function confirm() {
+async function confirm() {
   if (sealing.value) return;
+  await mediaStore.setEffectAudioAsync("ui_universal_stamp");
   sealing.value = true;
   timer = window.setTimeout(() => {
     sealing.value = false;
@@ -26,6 +30,11 @@ function confirm() {
     timer = window.setTimeout(() => emit("complete"), 1000);
   }, 300);
 }
+
+onMounted(async () => {
+  await mediaStore.setEffectAudioAsync("ui_zz_paper");
+});
+
 onBeforeUnmount(() => window.clearTimeout(timer));
 </script>
 <template>

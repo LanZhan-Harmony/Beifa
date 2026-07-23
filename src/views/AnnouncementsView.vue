@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ImageButton from "../components/ImageButton.vue";
-import router from "../router";
-import { useMediaStore } from "../stores/media";
+import ImageButton from "@/components/ImageButton.vue";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
 
 const mediaStore = useMediaStore();
 

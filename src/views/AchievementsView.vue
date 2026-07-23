@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import ImageButton from "@/components/ImageButton.vue";
+import router from "@/router";
+import { useAchievementStore } from "@/stores/achievement";
+import { useMediaStore } from "@/stores/media";
+import type { achievementType } from "@/types/achievementType";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import ImageButton from "../components/ImageButton.vue";
-import router from "../router";
-import { useAchievementStore } from "../stores/achievement";
-import { useMediaStore } from "../stores/media";
-import type { achievementType } from "../types/achievementType";
 
 const { tm } = useI18n();
 const mediaStore = useMediaStore();

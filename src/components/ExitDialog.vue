@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { watch } from "vue";
-import { useMediaStore } from "../stores/media";
-
 const props = defineProps<{
   exitDialogOpen: boolean;
   isExitDialogClosing: boolean;

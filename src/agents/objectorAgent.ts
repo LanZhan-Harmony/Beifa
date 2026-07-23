@@ -20,4 +20,3 @@ export async function objectorTurn(input: unknown, signal?: AbortSignal): Promis
     }),
   );
 }
-

@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import LoadingOverlay from "@/components/LoadingOverlay.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import MenuButton from "@/components/player/MenuButton.vue";
+import StoryletPlayer from "@/components/player/StoryletPlayer.vue";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
+import { usePlayerStore } from "@/stores/player";
+import { useSaveStore } from "@/stores/save";
 import { useMagicKeys } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import LoadingOverlay from "../components/LoadingOverlay.vue";
-import MenuButton from "../components/MenuButton.vue";
-import PageNavButton from "../components/PageNavButton.vue";
-import StoryletPlayer from "../components/StoryletPlayer.vue";
-import router from "../router";
-import { useMediaStore } from "../stores/media";
-import { usePlayerStore } from "../stores/player";
-import { useSaveStore } from "../stores/save";
 
 const mediaStore = useMediaStore();
 const saveStore = useSaveStore();
@@ -126,8 +126,7 @@ onUnmounted(() => {
       :pause="isPaused"
       @done="handleDone"
       @frame-capture="handleFrameCapture"
-      @playing="handlePlayerPlaying"
-    />
+      @playing="handlePlayerPlaying" />
 
     <div v-if="transitionFrame" class="transition-freeze" :style="transitionFreezeStyle" aria-hidden="true">
       <img :src="transitionFrame" alt="" />

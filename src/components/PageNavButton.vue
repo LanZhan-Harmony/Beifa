@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import router from "../router";
-import { useMediaStore } from "../stores/media";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
 import ArrowButton from "./ArrowButton.vue";
 
 const props = withDefaults(
@@ -35,9 +35,11 @@ async function handleClick() {
   }
 }
 </script>
+
 <template>
   <ArrowButton class="nav-btn" :text="text || $t('button.back')" direction="left" @click="handleClick" />
 </template>
+
 <style scoped>
 .nav-btn {
   position: relative;

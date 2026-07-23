@@ -1,6 +1,6 @@
+import type { playerInstructionType } from "@/types/playerInstructionType";
 import { defineStore } from "pinia";
 import { computed, ref, shallowReactive } from "vue";
-import type { playerInstructionType } from "../types/playerInstructionType.js";
 
 /**
  * 播放器 Store

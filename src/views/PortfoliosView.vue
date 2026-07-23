@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import characterUnlockConditions from "@/assets/data/characterUnlockConditions.json";
+import PageNavButton from "@/components/PageNavButton.vue";
+import ChatPopup from "@/components/portfolio/ChatPopup.vue";
+import CommentButton from "@/components/portfolio/CommentButton.vue";
+import { useMediaStore } from "@/stores/media";
+import { useSaveStore } from "@/stores/save";
+import type { characterType } from "@/types/characterType";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import characterUnlockConditions from "../assets/data/characterUnlockConditions.json";
-import CommentButton from "../components/CommentButton.vue";
-import PageNavButton from "../components/PageNavButton.vue";
-import { useMediaStore } from "../stores/media";
-import { useSaveStore } from "../stores/save";
-import type { characterType } from "../types/characterType";
 
 const { tm } = useI18n(); // tm 用于获取整个对象的翻译，适合需要获取数组或对象的情况
 const mediaStore = useMediaStore();
@@ -26,9 +27,12 @@ watch(selectedIndex, () => {
 const ANGLE_STEP = 5.5;
 
 const currentCharacter = computed<characterType | undefined>(() => characters.value[selectedIndex.value]);
+const chatOpen = ref(false);
+const chatStories = computed(() => currentCharacter.value?.stories.filter((story) => isStoryUnlocked(story.id)) ?? []);
 
 onMounted(async () => {
-  await mediaStore.setBGMAudioAsync("character_bgm", 4);
+  await mediaStore.setEffectAudioAsync("ui_character_open");
+  await mediaStore.setBGMAudioAsync("mus-character-loop");
   window.addEventListener("keydown", handleKeydown);
 });
 
@@ -36,8 +40,20 @@ onUnmounted(() => {
   window.removeEventListener("keydown", handleKeydown);
 });
 
-function selectItem(index: number) {
+async function selectItem(index: number) {
   selectedIndex.value = index;
+  chatOpen.value = false;
+  await mediaStore.setEffectAudioAsync("ui_character_list_click");
+}
+
+function openChat() {
+  if (currentCharacter.value) {
+    chatOpen.value = true;
+  }
+}
+
+function closeChat() {
+  chatOpen.value = false;
 }
 
 function navigate(direction: 1 | -1) {
@@ -52,8 +68,9 @@ function navigate(direction: 1 | -1) {
   }
 }
 
-function handleWheel(event: WheelEvent) {
+async function handleWheel(event: WheelEvent) {
   navigate(event.deltaY > 0 ? 1 : -1);
+  await mediaStore.setEffectAudioAsync("ui_character_rolling");
 }
 
 const touchStartY = ref(0);
@@ -71,6 +88,7 @@ function handleTouchEnd(event: TouchEvent) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
+  if (chatOpen.value) return;
   if (event.key === "ArrowDown" || event.key === "ArrowRight") {
     navigate(1);
   } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
@@ -112,15 +130,11 @@ function isStoryUnlocked(storyId: string): boolean {
   }
   return true;
 }
-
-async function playHoverSound() {
-  await mediaStore.setEffectAudioAsync("音效11");
-}
 </script>
 <template>
   <div class="container">
-    <img class="background" src="/common/images/人物档案背景.webp" />
-    <PageNavButton />
+    <img class="background" src="/common/images/portfolio/CharacterProfile_Main_bg.png" />
+    <PageNavButton text="风华人物" />
 
     <!-- 左侧扇形角色选择 -->
     <div class="selector-panel" @wheel="handleWheel" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
@@ -130,7 +144,6 @@ async function playHoverSound() {
         class="list-item"
         :class="{ active: index === selectedIndex }"
         :style="getItemStyle(index).wrapper"
-        @pointerenter="playHoverSound"
         @click="selectItem(index)">
         <div class="item-inner" :style="getItemStyle(index).inner">
           <div class="item-bg"></div>
@@ -153,37 +166,44 @@ async function playHoverSound() {
         :alt="currentCharacter.name"
         loading="lazy" />
       <div class="comment">
-        <CommentButton type="like" text="114514" />
-        <CommentButton type="dislike" text="114514" />
+        <button class="ai-icon" type="button" aria-label="与人物对话" @click="openChat" />
+        <CommentButton type="like" />
+        <CommentButton type="dislike" />
       </div>
     </div>
 
     <!-- 右侧人物信息 -->
     <div class="info-panel" v-if="currentCharacter">
-      <div class="info-header">
-        <img class="title-icon" src="/common/images/名字图标.webp" alt="icon" />
-        <h1 class="character-name">{{ currentCharacter.name }}</h1>
-      </div>
+      <span class="character-name">{{ currentCharacter.name }}</span>
+      <img class="header-divider" src="/common/images/portfolio/CharacterProfile_Title_Iine1.png" />
       <div class="info-content" ref="infoContentRef">
-        <h3 class="character-title">{{ $t("character.characterIntroduction") }}</h3>
         <p class="character-introduction">{{ currentCharacter.description }}</p>
-
         <template v-if="currentCharacter.stories.length > 0">
-          <span class="divider"></span>
-          <h3 class="character-title">{{ $t("character.characterStories") }}</h3>
+          <div class="character-story-title">
+            <img class="title-icon" src="/common/images/portfolio/CharacterProfile_Title_Icon2.png" />
+            <span>{{ $t("character.characterStories") }}</span>
+            <img class="title-line" src="/common/images/portfolio/CharacterProfile_Title_Iine2.png" />
+          </div>
           <div v-for="(story, idx) in currentCharacter.stories" :key="idx" class="character-story">
             <div v-if="!isStoryUnlocked(story.id)" class="story-locked">
-              <img src="/common/images/锁.webp" alt="locked" />
-              <span> {{ $t("character.characterStoryLocked") }}</span>
+              <img src="/common/images/portfolio/CharacterProfile_TextLockIcon_L.png" />
+              <span>继续探索后解锁</span>
+              <img src="/common/images/portfolio/CharacterProfile_TextLockIcon_R.png" />
             </div>
             <div v-else>
-              <h4 class="story-title">{{ story.title }}</h4>
+              <span class="story-title">{{ story.title }}</span>
               <p class="story-content">{{ story.content }}</p>
             </div>
           </div>
         </template>
       </div>
     </div>
+
+    <ChatPopup
+      v-if="chatOpen && currentCharacter"
+      :character="currentCharacter"
+      :stories="chatStories"
+      @close="closeChat" />
   </div>
 </template>
 <style scoped>
@@ -288,38 +308,44 @@ async function playHoverSound() {
   flex-direction: column;
   bottom: 30px;
   left: 0;
-  gap: 20px;
   margin-top: 0;
   z-index: 10;
 }
+.ai-icon {
+  width: 140px;
+  aspect-ratio: 241/230;
+  margin: 0 0 -5% 6%;
+  border: 0;
+  background: none;
+  background-image: url("/common/images/portfolio/CharacterProfile_BtnTurn_AI.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 0.3s;
+}
+.ai-icon:hover {
+  background-image: url("/common/images/portfolio/CharacterProfile_BtnTurnGlow_AI.png");
+}
 .info-panel {
   position: absolute;
-  right: 5%;
+  right: 3%;
   top: 10%;
   height: 80%;
-  width: 30%;
+  width: 32%;
   display: flex;
   flex-direction: column;
 }
-.info-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-.title-icon {
-  width: 40px;
-  height: 40px;
-}
 .character-name {
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 40px;
-  margin: 0;
+  color: #ffd479;
+  font-size: 50px;
+}
+.header-divider {
+  height: 2px;
 }
 .info-content {
   flex: 1;
   overflow-y: auto;
+  padding-top: 15px;
   padding-bottom: 30px;
   padding-right: 10px;
   scrollbar-width: none;
@@ -330,45 +356,54 @@ async function playHoverSound() {
 .info-content::-webkit-scrollbar {
   display: none;
 }
-
-.character-title {
+.character-story-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 25px 0 8px 0;
+}
+.character-story-title span {
   font-size: 26px;
-  margin: 20px 0 10px 0;
-  color: #f0e6d2;
+  color: #e88266;
+}
+.title-icon {
+  height: 20px;
+}
+.title-line {
+  height: 3px;
+  margin-left: 10px;
 }
 .character-introduction {
-  font-size: 18px;
+  font-size: 28px;
   line-height: 1.5;
-  color: #f0e6d2;
+  color: #fcd3b5;
   white-space: pre-wrap;
-}
-.divider {
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: #918375;
-  margin: 20px 0;
 }
 .character-story {
   margin-bottom: 15px;
 }
+.story-locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  color: #e5ab85c5;
+}
 .story-locked img {
   width: 20px;
   vertical-align: middle;
-  margin-right: 5px;
-}
-.story-locked span {
-  color: #f0e6d2;
 }
 .story-title {
-  font-size: 22px;
+  font-size: 28px;
   margin: 5px 0;
-  color: #f0e6d2;
+  color: #fcd3b5;
 }
 .story-content {
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.5;
-  color: #f0e6d2;
+  color: #fcd3b5;
   white-space: pre-wrap;
 }
 
@@ -390,21 +425,23 @@ async function playHoverSound() {
     width: 24px;
     height: 24px;
   }
-  .character-title {
+  .character-introduction {
     font-size: 18px;
   }
-  .character-introduction,
-  .story-content {
-    font-size: 14px;
+  .character-story-title span {
+    font-size: 18px;
   }
   .story-title {
+    font-size: 18px;
+  }
+  .story-content {
+    font-size: 16px;
+  }
+  .story-locked {
     font-size: 16px;
   }
   .story-locked img {
     width: 14px;
-  }
-  .story-locked span {
-    font-size: 14px;
   }
 }
 </style>

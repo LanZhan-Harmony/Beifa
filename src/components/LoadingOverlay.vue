@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
 <template>
   <div class="loading-overlay">
     <img src="/common/images/加载.webp" aria-label="Loading" />
   </div>
 </template>
+
 <style scoped>
 .loading-overlay {
   z-index: 100;

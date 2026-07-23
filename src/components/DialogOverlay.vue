@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useDialogStore } from "../stores/dialog";
+import { useDialogStore } from "@/stores/dialog";
 
 const dialogStore = useDialogStore();
 </script>
+
 <template>
   <div v-if="dialogStore.isAlertOpen" class="global-alert-overlay">
     <div

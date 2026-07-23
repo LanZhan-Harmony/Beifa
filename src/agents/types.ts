@@ -47,4 +47,3 @@ export interface DebateContext {
   characters: CharacterBrief[];
   maxRounds?: number;
 }
-

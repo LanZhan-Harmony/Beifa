@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import type { EdictDecision, EdictOutcome, EdictRecord } from "../../types/edictType";
-import { portraitUrl, speakerMeta } from "../../utils/edictMeta";
-import ImageTextButton from "../ImageTextButton.vue";
-import ThemeButton from "../ThemeButton.vue";
-import MessageBubble from "./MessageBubble.vue";
+import { portraitUrl, speakerMeta } from "@/assets/data/edictMeta";
+import ImageTextButton from "@/components/ImageTextButton.vue";
+import MessageBubble from "@/components/MessageBubble.vue";
+import ThemeButton from "@/components/ThemeButton.vue";
+import { useMediaStore } from "@/stores/media";
+import type { EdictDecision, EdictOutcome, EdictRecord } from "@/types/edictType";
+import { computed, onMounted } from "vue";
 
 const props = defineProps<{
   edict: EdictRecord;
@@ -17,10 +18,16 @@ const emit = defineEmits<{
   (e: "retire"): void;
 }>();
 
+const mediaStore = useMediaStore();
+
 const speakerId = computed(() =>
   props.outcome.feedback.speaker === "presenter" ? props.edict.presenter : props.edict.objector,
 );
 const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "right" : "left"));
+
+onMounted(async () => {
+  await mediaStore.setEffectAudioAsync("ui_zz_content");
+});
 </script>
 <template>
   <div class="result-mask">
@@ -66,6 +73,7 @@ const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "r
         :textTopMargin="45"
         :fontSize="32"
         :width="300"
+        scaleTransformOrigin="center center"
         @click="emit('continue')" />
       <ThemeButton
         class="retire"
@@ -291,7 +299,7 @@ const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "r
   position: absolute;
   bottom: 3%;
   left: 50%;
-  transform: translateX(-50%);
+  translate: -50% 0;
 }
 .retire {
   position: fixed;
@@ -311,11 +319,7 @@ const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "r
   }
 }
 @media (max-height: 500px) {
-  .result {
-    width: 750px;
-    max-width: calc(100vw - 40px);
-  }
-  h1 {
+  .title {
     font-size: 24px;
   }
   .content {
@@ -327,6 +331,9 @@ const side = computed(() => (props.outcome.feedback.speaker === "presenter" ? "r
   .feedback-link {
     width: 18px;
     margin-top: 19px;
+  }
+  .message {
+    margin: 12px 0 0 0;
   }
   .speaker {
     font-size: 14px;

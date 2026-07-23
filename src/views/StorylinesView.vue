@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { computed, nextTick, onMounted, onUnmounted, ref, shallowRef, watch } from "vue";
-import { useI18n } from "vue-i18n";
-import HelpOverlay from "../components/HelpOverlay.vue";
-import ImageButton from "../components/ImageButton.vue";
-import LoadingOverlay from "../components/LoadingOverlay.vue";
-import PageNavButton from "../components/PageNavButton.vue";
-import StorylineProgressBar from "../components/StorylineProgressBar.vue";
-import router from "../router";
-import { useMediaStore } from "../stores/media";
-import { usePlayerStore } from "../stores/player";
+import ImageButton from "@/components/ImageButton.vue";
+import LoadingOverlay from "@/components/LoadingOverlay.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import HelpOverlay from "@/components/storyline/HelpOverlay.vue";
+import StorylineProgressBar from "@/components/storyline/StorylineProgressBar.vue";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
+import { usePlayerStore } from "@/stores/player";
 import {
   getEndingType,
   getStoryletFromVideo,
   getVideosFromStorylet,
   hasValueChanges,
   useSaveStore,
-} from "../stores/save";
-import type { anchorType } from "../types/anchorType";
-import type { storylineType } from "../types/storylineType";
-import { convertToChapterId, convertToStoryletId, convertToVideoId } from "../utils/converter";
-import { debounce } from "../utils/debounce";
-import { DragZoomController } from "../utils/dragZoomController";
+} from "@/stores/save";
+import type { anchorType } from "@/types/anchorType";
+import type { storylineType } from "@/types/storylineType";
+import { convertToChapterId, convertToStoryletId, convertToVideoId } from "@/utils/converter";
+import { debounce } from "@/utils/debounce";
+import { DragZoomController } from "@/utils/dragZoomController";
+import { storeToRefs } from "pinia";
+import { computed, nextTick, onMounted, onUnmounted, ref, shallowRef, watch } from "vue";
+import { useI18n } from "vue-i18n";
 
 // ========== 模块级常量 ==========
 // SVG 文本缓存：同一章节二次进入时无需重复请求

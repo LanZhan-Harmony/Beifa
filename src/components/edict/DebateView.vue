@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { portraitUrl, speakerMeta } from "@/assets/data/edictMeta";
+import ImageTextButton from "@/components/ImageTextButton.vue";
+import MessageBubble from "@/components/MessageBubble.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import { useMediaStore } from "@/stores/media";
+import type { EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { useMediaStore } from "../../stores/media";
-import type { EdictRecord } from "../../types/edictType";
-import { portraitUrl, speakerMeta } from "../../utils/edictMeta";
-import ImageTextButton from "../ImageTextButton.vue";
-import PageNavButton from "../PageNavButton.vue";
-import MessageBubble from "./MessageBubble.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -749,3 +749,4 @@ onBeforeUnmount(() => {
   }
 }
 </style>
+

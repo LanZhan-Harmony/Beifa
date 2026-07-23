@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import ChapterDescription from "@/components/chapter/ChapterDescription.vue";
+import ChapterLineItem from "@/components/chapter/ChapterLineItem.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
+import { useSaveStore } from "@/stores/save";
+import type { chapterType } from "@/types/chapterType";
+import { toStreamUrl } from "@/utils/streamUrl";
 import { storeToRefs } from "pinia";
 import { computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
-import ChapterDescription from "../components/ChapterDescription.vue";
-import ChapterLineItem from "../components/ChapterLineItem.vue";
-import PageNavButton from "../components/PageNavButton.vue";
-import router from "../router";
-import { useMediaStore } from "../stores/media";
-import { useSaveStore } from "../stores/save";
-import type { chapterType } from "../types/chapterType";
-import { toStreamUrl } from "../utils/streamUrl";
 
 const { tm } = useI18n();
 const mediaStore = useMediaStore();

@@ -1,7 +1,7 @@
+import type { archiveType } from "@/types/archiveType";
+import type { briefArchiveType } from "@/types/briefArchiveType";
 import type { sessionType } from "@/types/sessionType";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
-import type { archiveType } from "../types/archiveType";
-import type { briefArchiveType } from "../types/briefArchiveType";
 
 /**
  * 处理动态cookie的API客户端
@@ -37,11 +37,11 @@ class APIClient {
   private sessionPromise: Promise<string> | null = null;
 
   private constructor() {
-    let foundCookie = null;
+    let foundCookie: string | null = null;
     if (typeof document !== "undefined") {
       const match = document.cookie.match(/_session=([^;]+)/);
       if (match) {
-        foundCookie = match[1];
+        foundCookie = match[1] ?? null;
       }
     }
 

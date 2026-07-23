@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { EdictDecision, EdictRecord } from "../../types/edictType";
-import { speakerMeta } from "../../utils/edictMeta";
-import ImageTextButton from "../ImageTextButton.vue";
-import PageNavButton from "../PageNavButton.vue";
+import { speakerMeta } from "@/assets/data/edictMeta";
+import ImageTextButton from "@/components/ImageTextButton.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import { useMediaStore } from "@/stores/media";
+import type { EdictDecision, EdictRecord } from "@/types/edictType";
+import { onMounted, ref } from "vue";
 
 withDefaults(
   defineProps<{
@@ -22,9 +23,16 @@ const emit = defineEmits<{
   (e: "replayDebate"): void;
 }>();
 
+const mediaStore = useMediaStore();
+
 const pressedDecision = ref<EdictDecision | null>(null);
 
-function pressDecision(decision: EdictDecision) {
+async function pressDecision(decision: EdictDecision) {
+  if (decision === "approved") {
+    await mediaStore.setEffectAudioAsync("ui_zz_click_approve");
+  } else {
+    await mediaStore.setEffectAudioAsync("ui_zz_click_deny");
+  }
   pressedDecision.value = decision;
 }
 
@@ -36,6 +44,10 @@ function finishDecisionPress() {
   pressedDecision.value = null;
   emit("decide", decision);
 }
+
+onMounted(async () => {
+  await mediaStore.setEffectAudioAsync("ui_zz_paper");
+});
 </script>
 
 <template>

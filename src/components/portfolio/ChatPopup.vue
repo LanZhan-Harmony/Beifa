@@ -1,0 +1,501 @@
+<script setup lang="ts">
+import { streamChat, type ChatMessage } from "@/agents/aiClient";
+import MessageBubble from "@/components/MessageBubble.vue";
+import type { characterType } from "@/types/characterType";
+import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+
+const props = defineProps<{
+  character: characterType;
+  stories: characterType["stories"];
+}>();
+
+const emit = defineEmits<{
+  (event: "close"): void;
+}>();
+
+/** 同一页面会反复打开弹窗；按人物 id 缓存对话，避免 v-if 卸载组件后丢失记录。 */
+const conversationCache = new Map<string, ChatMessage[]>();
+
+const input = ref("");
+const isStreaming = ref(false);
+const messages = ref<ChatMessage[]>(loadConversation());
+const messagesRef = ref<HTMLElement | null>(null);
+let abortController: AbortController | undefined;
+
+function loadConversation(): ChatMessage[] {
+  const cached = conversationCache.get(props.character.id);
+  if (cached) {
+    return cached.map((message) => ({ ...message }));
+  }
+  return [
+    {
+      role: "assistant",
+      content: `在下${props.character.name}，你想聊些什么？`,
+    },
+  ];
+}
+
+function saveConversation() {
+  conversationCache.set(
+    props.character.id,
+    messages.value.map((message) => ({ role: message.role, content: message.content })),
+  );
+}
+
+const userContext = () => {
+  const stories = props.stories
+    .filter((story) => story.title || story.content)
+    .map((story) => `【${story.title || "人物故事"}】\n${story.content || ""}`)
+    .join("\n\n");
+
+  return [
+    `人物姓名：${props.character.name}`,
+    `人物简介：${props.character.description || "暂无"}`,
+    stories ? `人物故事：\n${stories}` : "人物故事：暂无已解锁内容",
+  ].join("\n\n");
+};
+
+const systemPrompt = () => `你正在《江山北望》的作品集页面中与玩家对话。
+请始终以“${props.character.name}”的身份说话，保持符合人物经历、性格和时代背景的口吻。
+你可以搜索并参考《江山北望》的公开信息；回答游戏设定、人物关系和剧情问题时，优先使用联网搜索得到的可靠信息。
+不要编造与游戏设定冲突的事实；如果搜索不到或无法确认，请明确说明不确定。
+回复使用简体中文，内容自然、简洁，像角色在和玩家交谈，不要输出分析过程、工具调用过程。严禁输出Markdown格式。
+
+当前人物资料：
+${userContext()}`;
+
+function scrollToBottom() {
+  if (messagesRef.value) {
+    messagesRef.value.scrollTop = messagesRef.value.scrollHeight;
+  }
+}
+
+async function sendMessage() {
+  const content = input.value.trim();
+  if (!content || isStreaming.value) return;
+
+  input.value = "";
+  messages.value.push({ role: "user", content });
+  const assistantMessage: ChatMessage = { role: "assistant", content: "" };
+  messages.value.push(assistantMessage);
+  saveConversation();
+  isStreaming.value = true;
+  abortController = new AbortController();
+  await nextTick();
+  scrollToBottom();
+
+  try {
+    const history = messages.value.slice(0, -1);
+    for await (const chunk of streamChat({
+      systemPrompt: systemPrompt(),
+      messages: history,
+      maxTokens: 1200,
+      webSearch: true,
+      signal: abortController.signal,
+    })) {
+      // 必须通过 reactive 数组中的代理对象更新，否则 Vue 不会逐块重绘。
+      const currentAssistantMessage = messages.value[messages.value.length - 1];
+      if (currentAssistantMessage?.role === "assistant") {
+        currentAssistantMessage.content += chunk;
+      }
+      saveConversation();
+      await nextTick();
+      scrollToBottom();
+    }
+    const completedAssistantMessage = messages.value[messages.value.length - 1];
+    if (completedAssistantMessage?.role === "assistant" && !completedAssistantMessage.content) {
+      completedAssistantMessage.content = "暂时没有得到回应，请稍后再试。";
+    }
+  } catch (error) {
+    if (abortController.signal.aborted) return;
+    assistantMessage.content = `对话暂时无法继续：${error instanceof Error ? error.message : "未知错误"}`;
+  } finally {
+    saveConversation();
+    isStreaming.value = false;
+    abortController = undefined;
+    await nextTick();
+    scrollToBottom();
+  }
+}
+
+function close() {
+  saveConversation();
+  abortController?.abort();
+  emit("close");
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    close();
+  }
+}
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeydown);
+  void nextTick(scrollToBottom);
+});
+
+onBeforeUnmount(() => {
+  saveConversation();
+  abortController?.abort();
+  window.removeEventListener("keydown", handleKeydown);
+});
+</script>
+
+<template>
+  <div class="chat-mask" @click.self="close">
+    <section class="chat-popup" role="dialog" aria-modal="true" :aria-label="`与${character.name}对话`">
+      <img class="popup-background" src="/common/images/popup/Popup_Report_Bg.png" alt="" />
+      <div class="popup-title">与{{ character.name }}对话</div>
+      <button class="close-button" type="button" aria-label="关闭" @click="close">
+        <img src="/common/images/popup/SystemToast_Popup_Btn_Close.png" alt="" />
+      </button>
+
+      <div ref="messagesRef" class="messages">
+        <div
+          v-for="(message, index) in messages"
+          :key="`${message.role}-${index}`"
+          class="message-row"
+          :class="`message-row--${message.role}`">
+          <div class="speaker-block">
+            <div class="avatar">
+              <img
+                v-if="message.role === 'assistant'"
+                class="avatar-portrait avatar-portrait--character"
+                :src="`/characters/${character.id}.png`"
+                :alt="character.name" />
+              <span v-else class="avatar-portrait avatar-portrait--user">我</span>
+              <img class="avatar-frame" src="/common/images/popup/CharacterProfile_Tab_RoleHead.png" alt="" />
+            </div>
+            <span class="speaker-name">{{ message.role === "assistant" ? character.name : "我" }}</span>
+          </div>
+          <MessageBubble
+            :message="message.content || '…'"
+            :side="message.role === 'assistant' ? 'left' : 'right'"
+            type="card" />
+        </div>
+      </div>
+
+      <form class="composer" @submit.prevent="sendMessage">
+        <input v-model="input" :disabled="isStreaming" maxlength="500" autocomplete="off" placeholder="输入想说的话…" />
+        <button type="submit" :disabled="isStreaming || !input.trim()">发送</button>
+      </form>
+    </section>
+  </div>
+</template>
+
+<style scoped>
+.chat-mask {
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 3vh 3vw;
+  background: #120400b8;
+  animation: fade-in 0.2s ease-out;
+}
+
+.chat-popup {
+  position: relative;
+  width: min(92vw, 1180px);
+  height: min(88vh, 820px);
+  color: #7d3219;
+  animation: popup-in 0.24s ease-out;
+}
+
+.popup-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.popup-title {
+  position: absolute;
+  top: 3%;
+  left: 13%;
+  width: 74%;
+  color: #ffd49f;
+  font-size: clamp(26px, 3.2vw, 48px);
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 2px 5px #6b1b0d;
+  white-space: nowrap;
+}
+
+.close-button {
+  position: absolute;
+  top: 1.5%;
+  right: 1.2%;
+  width: clamp(42px, 5vw, 70px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.close-button:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+.close-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.messages {
+  position: absolute;
+  top: 14%;
+  right: 7%;
+  bottom: 16%;
+  left: 7%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.2vh, 26px);
+  overflow-y: auto;
+  padding: 8px 12px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: #a64e2c transparent;
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #a64e2c88;
+}
+
+.message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: min(88%, 840px);
+}
+
+.message-row--user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.speaker-block {
+  display: flex;
+  flex: 0 0 clamp(58px, 8vw, 100px);
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.avatar-portrait,
+.avatar-frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-portrait {
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.avatar-portrait--character {
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.avatar-portrait--user {
+  display: grid;
+  place-items: center;
+  color: #f8d69a;
+  background: #8e351d;
+  font-size: clamp(24px, 3vw, 42px);
+  text-shadow: 0 1px 3px #4c170d;
+}
+
+.avatar-frame {
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.speaker-name {
+  max-width: 100%;
+  margin-top: 2px;
+  color: #8a3a1e;
+  font-size: clamp(16px, 1.8vw, 26px);
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message-row :deep(.message--card) {
+  flex: 0 1 auto;
+  width: fit-content;
+  max-width: calc(100% - clamp(68px, 8vw, 110px) - 10px);
+  min-width: 0;
+  margin-top: clamp(12px, 2vh, 22px);
+  font-size: clamp(17px, 2vw, 28px);
+}
+
+.message-row--user :deep(.message--card) {
+  text-align: right;
+}
+
+.message-row--assistant :deep(.message--card.message--left) {
+  color: #811700;
+}
+
+.message-row--user :deep(.message--card.message--right) {
+  color: #1c5f4b;
+}
+
+.composer {
+  position: absolute;
+  right: 7%;
+  bottom: 5.5%;
+  left: 7%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 7px;
+  border: 1px solid #d3975d;
+  border-radius: 13px;
+  background: linear-gradient(180deg, #8f321dc9, #66200fc9);
+  box-shadow:
+    inset 0 0 0 2px #6b2414,
+    inset 0 0 0 3px #d59b5e66,
+    0 4px 10px #6b1b0d44;
+}
+
+.composer input {
+  flex: 1;
+  min-width: 0;
+  height: clamp(38px, 5vh, 56px);
+  box-sizing: border-box;
+  padding: 0 18px;
+  border: 2px solid #d2965f;
+  border-radius: 8px;
+  outline: none;
+  color: #6e2c16;
+  background: linear-gradient(180deg, #fff4dfe8, #f4d3aee8);
+  font: inherit;
+  font-size: clamp(16px, 1.8vw, 24px);
+  box-shadow: inset 0 1px 2px #6b1b0d22;
+}
+
+.composer input:focus {
+  border-color: #9c3e1e;
+  box-shadow: 0 0 0 3px #d79a5c55;
+}
+
+.composer button {
+  height: clamp(38px, 5vh, 56px);
+  min-width: clamp(76px, 10vw, 120px);
+  padding: 0 18px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f1c37d;
+  border-radius: 8px;
+  color: #fff0cf;
+  background: linear-gradient(180deg, #c15a2d, #8f2f18);
+  box-shadow:
+    inset 0 0 0 2px #7c2a16,
+    inset 0 1px 0 #f5d08d99,
+    0 2px 5px #6b1b0d55;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(16px, 1.8vw, 24px);
+}
+
+.composer button::before,
+.composer button::after {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  content: "";
+  border: 1px solid #f4cb8a;
+  transform: translateY(-50%) rotate(45deg);
+  opacity: 0.8;
+}
+
+.composer button::before {
+  left: 9px;
+}
+.composer button::after {
+  right: 9px;
+}
+
+.composer button:hover:not(:disabled) {
+  background: linear-gradient(180deg, #d36b37, #a33b1f);
+  filter: brightness(1.08);
+}
+
+.composer button:disabled,
+.composer input:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@media (max-height: 500px) {
+  .chat-mask {
+    padding: 2vh 2vw;
+  }
+
+  .chat-popup {
+    width: min(94vw, 1180px);
+    height: 94vh;
+  }
+
+  .message-row {
+    width: min(92%, 840px);
+  }
+
+  .messages {
+    top: 15%;
+    bottom: 18%;
+    gap: 8px;
+  }
+
+  .composer {
+    bottom: 5%;
+  }
+}
+</style>
+

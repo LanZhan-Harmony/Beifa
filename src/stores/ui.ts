@@ -1,7 +1,7 @@
+import i18n from "@/langs";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
-import i18n from "../langs";
 
 export const useUIStore = defineStore("ui", () => {
   // 从 i18n 实例获取初始值（该实例已包含 localStorage 和 浏览器语言探测逻辑）

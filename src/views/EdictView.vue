@@ -1,26 +1,23 @@
 <script setup lang="ts">
+import { MIN_PENDING_EDICTS, TARGET_PENDING_EDICTS } from "@/agents/config";
+import { runLiveDebate } from "@/agents/debateOrchestrator";
+import { generateEdicts } from "@/agents/edictGeneratorAgent";
+import { edictRepository } from "@/agents/edictRepository";
+import { readableAiError } from "@/agents/errors";
+import type { CharacterBrief } from "@/agents/types";
+import { speakerMeta } from "@/assets/data/edictMeta";
+import DebateView from "@/components/edict/DebateView.vue";
+import DeepThoughtPopup from "@/components/edict/DeepThoughtPopup.vue";
+import EdictDemand from "@/components/edict/EdictDemand.vue";
+import EdictDetail from "@/components/edict/EdictDetail.vue";
+import EdictPicker from "@/components/edict/EdictPicker.vue";
+import EdictResultPopup from "@/components/edict/EdictResultPopup.vue";
+import HistoryEdicts from "@/components/edict/HistoryEdicts.vue";
+import seedData from "@/langs/edicts/zh-CN.json";
+import { useMediaStore } from "@/stores/media";
+import type { EdictDecision, EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import type { CharacterBrief } from "../agents";
-import {
-  edictRepository,
-  generateEdicts,
-  MIN_PENDING_EDICTS,
-  readableAiError,
-  runLiveDebate,
-  TARGET_PENDING_EDICTS,
-} from "../agents";
-import DebateView from "../components/edict/DebateView.vue";
-import DeepThoughtPopup from "../components/edict/DeepThoughtPopup.vue";
-import EdictDemand from "../components/edict/EdictDemand.vue";
-import EdictDetail from "../components/edict/EdictDetail.vue";
-import EdictPicker from "../components/edict/EdictPicker.vue";
-import EdictResultPopup from "../components/edict/EdictResultPopup.vue";
-import HistoryEdicts from "../components/edict/HistoryEdicts.vue";
-import seedData from "../langs/edicts/zh-CN.json";
-import { useMediaStore } from "../stores/media";
-import type { EdictDecision, EdictRecord } from "../types/edictType";
-import { speakerMeta } from "../utils/edictMeta";
 
 type Phase = "picker" | "demand" | "preparingDebate" | "debate" | "review" | "deepThought" | "detail" | "result";
 const router = useRouter();
@@ -241,9 +238,14 @@ function decide(value: EdictDecision) {
   window.clearTimeout(stampTimer);
   stampTimer = window.setTimeout(() => {
     inputLocked.value = false;
-    if (selected.value?.shouldDeepThought) phase.value = "deepThought";
-    else phase.value = value === "approved" ? "detail" : "result";
-    if (value === "rejected" && !selected.value?.shouldDeepThought) finalize("rejected");
+    if (selected.value?.shouldDeepThought && value === "approved") {
+      phase.value = "deepThought";
+    } else {
+      phase.value = value === "approved" ? "detail" : "result";
+    }
+    if (value === "rejected" && !selected.value?.shouldDeepThought) {
+      finalize("rejected");
+    }
   }, 680);
 }
 
@@ -288,6 +290,7 @@ function continueReviewing() {
 /** 退朝 */
 async function retire() {
   controller?.abort();
+  await media.setEffectAudioAsync("vo_zz_02");
   await router.push("/main");
 }
 

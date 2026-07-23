@@ -1,18 +1,18 @@
+import { chapterEndingVideoIds } from "@/assets/data/chapterEndingVideos";
+import { endings } from "@/assets/data/endings";
+import { valueChangeVideoIds } from "@/assets/data/valueChangeVideos";
+import videos from "@/assets/data/videos.json";
+import type { actionGroupType, uiButtonActionGroupType } from "@/types/actionGroupType";
+import type { archiveType, ffiArgumentType, timelineLineType } from "@/types/archiveType";
+import type { videoType } from "@/types/videoType";
+import { apiClient } from "@/utils/apiClient";
+import { clamp, randomChance } from "@/utils/calc";
+import { deepArrayEquals } from "@/utils/comparer";
+import { convertToChapterId, convertToStoryletId, convertToVideoId } from "@/utils/converter";
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
-import { chapterEndingVideoIds } from "../assets/data/chapterEndingVideos.js";
-import { endings } from "../assets/data/endings.js";
-import { valueChangeVideoIds } from "../assets/data/valueChangeVideos.js";
-import videos from "../assets/data/videos.json";
-import type { actionGroupType, uiButtonActionGroupType } from "../types/actionGroupType.js";
-import type { archiveType, ffiArgumentType, timelineLineType } from "../types/archiveType.js";
-import type { videoType } from "../types/videoType.js";
-import { apiClient } from "../utils/apiClient.js";
-import { clamp, randomChance } from "../utils/calc.js";
-import { deepArrayEquals } from "../utils/comparer.js";
-import { convertToChapterId, convertToStoryletId, convertToVideoId } from "../utils/converter.js";
-import { useAchievementStore } from "./achievement.js";
-import { usePlayerStore } from "./player.js";
+import { useAchievementStore } from "./achievement";
+import { usePlayerStore } from "./player";
 
 // =============================
 // 静态游戏数据

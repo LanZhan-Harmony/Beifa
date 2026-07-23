@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import ExitDialog from "@/components/ExitDialog.vue";
+import ThemeButton from "@/components/ThemeButton.vue";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
+import { useSaveStore } from "@/stores/save";
+import type { chapterType } from "@/types/chapterType";
+import { toStreamUrl } from "@/utils/streamUrl";
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import ExitDialog from "../components/ExitDialog.vue";
-import ThemeButton from "../components/ThemeButton.vue";
-import router from "../router";
-import { useMediaStore } from "../stores/media";
-import { useSaveStore } from "../stores/save";
-import type { chapterType } from "../types/chapterType";
-import { toStreamUrl } from "../utils/streamUrl";
 
 const { tm } = useI18n();
 const mediaStore = useMediaStore();

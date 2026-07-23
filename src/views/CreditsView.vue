@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import ImageButton from "@/components/ImageButton.vue";
+import router from "@/router";
+import { useMediaStore } from "@/stores/media";
+import type { castType, creatorType } from "@/types/creditType";
 import { open } from "@tauri-apps/plugin-shell";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import ImageButton from "../components/ImageButton.vue";
-import router from "../router";
-import { useMediaStore } from "../stores/media";
-import type { castType, creatorType } from "../types/creditType";
 
 const { tm } = useI18n();
 const mediaStore = useMediaStore();
@@ -38,8 +38,7 @@ async function openProjectLink() {
         highlight-icon="/common/images/关闭高亮.webp"
         :side-length="40"
         :mobile-side-length="24"
-        @click="handleBack"
-      />
+        @click="handleBack" />
     </div>
     <div class="content">
       <div class="scroll-container">

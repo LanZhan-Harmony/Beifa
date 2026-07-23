@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMediaStore } from "@/stores/media";
 import { computed, ref } from "vue";
 
 const props = withDefaults(
@@ -24,6 +25,8 @@ const emit = defineEmits<{
   (e: "click"): void;
 }>();
 
+const mediaStore = useMediaStore();
+
 const isPressed = ref(false);
 
 const buttonStyle = computed(() => ({
@@ -33,7 +36,8 @@ const buttonStyle = computed(() => ({
   "--scale-transform-origin": props.scaleTransformOrigin,
 }));
 
-function handleClick() {
+async function handleClick() {
+  await mediaStore.setEffectAudioAsync("ui_universal_click");
   isPressed.value = true;
 }
 
@@ -80,7 +84,7 @@ function handleTransitionEnd() {
   transition: scale 180ms ease-out;
 }
 .image-text-button.is-pressed {
-  scale: 0.94;
+  scale: 0.9;
 }
 .image-text-button-sizer {
   display: block;
@@ -130,7 +134,7 @@ function handleTransitionEnd() {
     transform-origin: var(--scale-transform-origin);
   }
   .image-text-button.is-pressed {
-    scale: 0.658;
+    scale: 0.65;
   }
 }
 </style>
