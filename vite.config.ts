@@ -61,9 +61,10 @@ export default defineConfig({
     warmup: {
       clientFiles: [
         "./src/App.vue",
+        "./src/views/SplashView.vue",
         "./src/views/PlayerView.vue",
         "./src/views/MainMenuView.vue",
-        "./src/components/StoryletPlayer.vue",
+        "./src/components/player/StoryletPlayer.vue",
       ],
     },
     proxy: {

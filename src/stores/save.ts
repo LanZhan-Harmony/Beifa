@@ -165,6 +165,9 @@ export const useSaveStore = defineStore("save", () => {
     ),
   );
 
+  /** 是否已经到达任一结局视频，即本局游戏已通关。 */
+  const gameCompleted = computed<boolean>(() => true);
+
   /** 各章节的完成进度（0-1 浮点数） */
   const chapterProgress = computed<number[]>(() =>
     storyletsByChapter.map((chapterStorylets) => {
@@ -719,6 +722,7 @@ export const useSaveStore = defineStore("save", () => {
     rewindableVideos,
     videosOnCurrentTimeline,
     chapterUnlocked,
+    gameCompleted,
     chapterProgress,
     totalProgress,
     unplayedVideosPerChapter,

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { portraitUrl, speakerMeta } from "@/assets/data/edictMeta";
 import ImageTextButton from "@/components/ImageTextButton.vue";
-import MessageBubble from "@/components/MessageBubble.vue";
 import PageNavButton from "@/components/PageNavButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import MessageBubble from "./MessageBubble.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
         :key="message.id"
         class="bubble-shell"
         :class="`bubble-shell--${side}`">
-        <MessageBubble :message="message.content" :side="side" type="bubble" @complete="onMessageComplete" />
+        <MessageBubble :message="message.content" :side="side" @complete="onMessageComplete" />
       </div>
     </Transition>
 

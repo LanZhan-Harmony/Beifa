@@ -1,6 +1,5 @@
+import SplashView from "@/views/SplashView.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import MainMenuView from "../views/MainMenuView.vue";
-import SplashView from "../views/SplashView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,57 +12,62 @@ const router = createRouter({
     {
       path: "/main",
       name: "main",
-      component: MainMenuView,
+      component: () => import("@/views/MainMenuView.vue"),
     },
     {
       path: "/chapters",
       name: "chapters",
-      component: () => import("../views/ChaptersView.vue"),
+      component: () => import("@/views/ChaptersView.vue"),
     },
     {
       path: "/storylines",
       name: "storylines",
-      component: () => import("../views/StorylinesView.vue"),
+      component: () => import("@/views/StorylinesView.vue"),
     },
     {
       path: "/player",
       name: "player",
-      component: () => import("../views/PlayerView.vue"),
+      component: () => import("@/views/PlayerView.vue"),
     },
     {
       path: "/portfolios",
       name: "portfolios",
-      component: () => import("../views/PortfoliosView.vue"),
+      component: () => import("@/views/PortfoliosView.vue"),
     },
     {
       path: "/settings",
       name: "settings",
-      component: () => import("../views/SettingsView.vue"),
+      component: () => import("@/views/SettingsView.vue"),
     },
     {
       path: "/announcements",
       name: "announcements",
-      component: () => import("../views/AnnouncementsView.vue"),
+      component: () => import("@/views/AnnouncementsView.vue"),
     },
     {
       path: "/eula",
       name: "eula",
-      component: () => import("../views/EULAView.vue"),
+      component: () => import("@/views/EULAView.vue"),
     },
     {
       path: "/achievements",
       name: "achievements",
-      component: () => import("../views/AchievementsView.vue"),
+      component: () => import("@/views/AchievementsView.vue"),
     },
     {
       path: "/credits",
       name: "credits",
-      component: () => import("../views/CreditsView.vue"),
+      component: () => import("@/views/CreditsView.vue"),
     },
     {
       path: "/edict",
       name: "edict",
-      component: () => import("../views/EdictView.vue"),
+      component: () => import("@/views/EdictView.vue"),
+    },
+    {
+      path: "/personality",
+      name: "personality",
+      component: () => import("@/views/PersonalityView.vue"),
     },
   ],
 });

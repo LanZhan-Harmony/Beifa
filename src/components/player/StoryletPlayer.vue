@@ -6,6 +6,7 @@ import { useMediaStore } from "@/stores/media";
 import { usePlayerStore } from "@/stores/player";
 import { getEndingType, useSaveStore } from "@/stores/save";
 import { useUIStore } from "@/stores/ui";
+import { saveInitialAction } from "@/agents/personalityReportRepository";
 import type { uiButtonActionGroupType } from "@/types/actionGroupType";
 import type { endingType } from "@/types/endingType";
 import type { introductionType } from "@/types/introductionType";
@@ -826,6 +827,14 @@ async function skipToEnd() {
 async function handleLoopButtonClick(optionIndex: number) {
   await mediaStore.setEffectAudioAsync("音效12");
   await mediaStore.setEffectAudioAsync("选项飞出声音");
+  const actionGroup = props.instruction.actionGroups.find(
+    (group): group is uiButtonActionGroupType => group.type === "ui_button",
+  );
+  const action = actionGroup?.actions.find((item) => item.index === optionIndex);
+  if (action && saveStore.currentSave) {
+    // Only actual normal UI clicks are recorded; QTE and timeout paths never call this handler.
+    saveInitialAction(saveStore.currentSave.id, props.instruction.storyletId, action);
+  }
   await handleSelectOption(optionIndex);
 }
 

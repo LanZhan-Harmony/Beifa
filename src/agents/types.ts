@@ -1,6 +1,21 @@
 import type { CharacterId, DebateMessage, EdictCategory, EdictOutcome, EdictRecord } from "@/types/edictType";
 
-export type AgentName = "edict-generator" | "presenter" | "objector" | "summary";
+export type AgentName = "edict-generator" | "presenter" | "objector" | "summary" | "personality-report" | "personality-keywords";
+
+export interface PersonalityReportDraft {
+  roleId: string;
+  keywords: string[];
+  proportion: number;
+  friendId: string;
+  friendMessage: string;
+  enemyId: string;
+  enemyMessage: string;
+}
+
+export interface CachedPersonalityReport {
+  sourceFingerprint: string;
+  draft: PersonalityReportDraft;
+}
 
 export interface GeneratedEdictDraft {
   type: EdictCategory;

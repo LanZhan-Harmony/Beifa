@@ -4,6 +4,7 @@ import ThemeButton from "@/components/ThemeButton.vue";
 import router from "@/router";
 import { useMediaStore } from "@/stores/media";
 import { useSaveStore } from "@/stores/save";
+import { initialActions } from "@/agents/personalityReportRepository";
 import type { chapterType } from "@/types/chapterType";
 import { toStreamUrl } from "@/utils/streamUrl";
 import { computed, onMounted, ref } from "vue";
@@ -57,6 +58,12 @@ async function handleButtonClick(button: string, path: string, event: MouseEvent
   }, 180);
 }
 
+function openPersonality() {
+  const saveId = saveStore.currentSave?.id ?? Number(localStorage.getItem("saveId") ?? 0);
+  if (!Object.keys(initialActions(saveId)).length) return;
+  router.push("/personality");
+}
+
 async function openExitDialog() {
   isExitDialogClosing.value = false;
   exitDialogOpen.value = true;
@@ -99,7 +106,11 @@ async function returnToSplash() {
     </section>
 
     <section class="top-actions top-actions--right" aria-label="扩展功能">
-      <button class="top-action--personality" type="button" @mouseenter="handleHover">
+      <button
+        class="top-action--personality"
+        type="button"
+        @mouseenter="handleHover"
+        @click="openPersonality">
         <img src="/common/images/main/Main_Btn_Personality.png" />
         <span>人格报告测试</span>
       </button>

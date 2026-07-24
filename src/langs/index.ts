@@ -11,6 +11,7 @@ const introductionsFiles = import.meta.glob("./introductions/*.json", { eager: t
 const valueChangesFiles = import.meta.glob("./valueChanges/*.json", { eager: true, import: "default" });
 const creditsFiles = import.meta.glob("./credits/*.json", { eager: true, import: "default" });
 const edictsFiles = import.meta.glob("./edicts/*.json", { eager: true, import: "default" });
+const personalityFiles = import.meta.glob("./personalities/*.json", { eager: true, import: "default" });
 
 const messages: Record<string, any> = {};
 
@@ -39,6 +40,7 @@ mergeMessages(introductionsFiles, "introductions");
 mergeMessages(valueChangesFiles, "valueChanges");
 mergeMessages(creditsFiles, "credits");
 mergeMessages(edictsFiles, "edicts");
+mergeMessages(personalityFiles, "personalities");
 
 // 获取初始语言：优先读取本地缓存，其次匹配浏览器语言
 const getInitialLocale = (): string => {

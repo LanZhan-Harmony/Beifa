@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { streamChat, type ChatMessage } from "@/agents/aiClient";
-import MessageBubble from "@/components/MessageBubble.vue";
+import MessageCard from "@/components/MessageCard.vue";
 import type { characterType } from "@/types/characterType";
 import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
@@ -169,10 +169,9 @@ onBeforeUnmount(() => {
             </div>
             <span class="speaker-name">{{ message.role === "assistant" ? character.name : "我" }}</span>
           </div>
-          <MessageBubble
+          <MessageCard
             :message="message.content || '…'"
-            :side="message.role === 'assistant' ? 'left' : 'right'"
-            type="card" />
+            :side="message.role === 'assistant' ? 'left' : 'right'" />
         </div>
       </div>
 
@@ -191,15 +190,15 @@ onBeforeUnmount(() => {
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 3vh 3vw;
+  padding: 24px;
   background: #120400b8;
   animation: fade-in 0.2s ease-out;
 }
 
 .chat-popup {
   position: relative;
-  width: min(92vw, 1180px);
-  height: min(88vh, 820px);
+  width: 1380px;
+  aspect-ratio: 1024/528;
   color: #7d3219;
   animation: popup-in 0.24s ease-out;
 }
@@ -219,7 +218,7 @@ onBeforeUnmount(() => {
   left: 13%;
   width: 74%;
   color: #ffd49f;
-  font-size: clamp(26px, 3.2vw, 48px);
+  font-size: 48px;
   line-height: 1;
   text-align: center;
   text-shadow: 0 2px 5px #6b1b0d;
@@ -230,7 +229,7 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 1.5%;
   right: 1.2%;
-  width: clamp(42px, 5vw, 70px);
+  width: 70px;
   aspect-ratio: 1;
   padding: 0;
   border: 0;
@@ -260,7 +259,7 @@ onBeforeUnmount(() => {
   left: 7%;
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 2.2vh, 26px);
+  gap: 26px;
   overflow-y: auto;
   padding: 8px 12px 18px;
   scrollbar-width: thin;
@@ -280,7 +279,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  width: min(88%, 840px);
+  width: 840px;
 }
 
 .message-row--user {
@@ -290,7 +289,7 @@ onBeforeUnmount(() => {
 
 .speaker-block {
   display: flex;
-  flex: 0 0 clamp(58px, 8vw, 100px);
+  flex: 0 0 100px;
   flex-direction: column;
   align-items: center;
 }
@@ -329,7 +328,7 @@ onBeforeUnmount(() => {
   place-items: center;
   color: #f8d69a;
   background: #8e351d;
-  font-size: clamp(24px, 3vw, 42px);
+  font-size: 42px;
   text-shadow: 0 1px 3px #4c170d;
 }
 
@@ -343,7 +342,7 @@ onBeforeUnmount(() => {
   max-width: 100%;
   margin-top: 2px;
   color: #8a3a1e;
-  font-size: clamp(16px, 1.8vw, 26px);
+  font-size: 26px;
   line-height: 1.2;
   text-align: center;
   white-space: nowrap;
@@ -354,10 +353,10 @@ onBeforeUnmount(() => {
 .message-row :deep(.message--card) {
   flex: 0 1 auto;
   width: fit-content;
-  max-width: calc(100% - clamp(68px, 8vw, 110px) - 10px);
+  max-width: calc(100% - 120px);
   min-width: 0;
-  margin-top: clamp(12px, 2vh, 22px);
-  font-size: clamp(17px, 2vw, 28px);
+  margin-top: 22px;
+  font-size: 28px;
 }
 
 .message-row--user :deep(.message--card) {
@@ -393,7 +392,7 @@ onBeforeUnmount(() => {
 .composer input {
   flex: 1;
   min-width: 0;
-  height: clamp(38px, 5vh, 56px);
+  height: 56px;
   box-sizing: border-box;
   padding: 0 18px;
   border: 2px solid #d2965f;
@@ -402,7 +401,7 @@ onBeforeUnmount(() => {
   color: #6e2c16;
   background: linear-gradient(180deg, #fff4dfe8, #f4d3aee8);
   font: inherit;
-  font-size: clamp(16px, 1.8vw, 24px);
+  font-size: 24px;
   box-shadow: inset 0 1px 2px #6b1b0d22;
 }
 
@@ -412,8 +411,8 @@ onBeforeUnmount(() => {
 }
 
 .composer button {
-  height: clamp(38px, 5vh, 56px);
-  min-width: clamp(76px, 10vw, 120px);
+  height: 56px;
+  min-width: 120px;
   padding: 0 18px;
   position: relative;
   overflow: hidden;
@@ -427,7 +426,7 @@ onBeforeUnmount(() => {
     0 2px 5px #6b1b0d55;
   cursor: pointer;
   font: inherit;
-  font-size: clamp(16px, 1.8vw, 24px);
+  font-size: 24px;
 }
 
 .composer button::before,
@@ -475,16 +474,20 @@ onBeforeUnmount(() => {
 
 @media (max-height: 500px) {
   .chat-mask {
-    padding: 2vh 2vw;
+    padding: 12px;
   }
 
   .chat-popup {
-    width: min(94vw, 1180px);
-    height: 94vh;
+    width: 96%;
+    height: 470px;
   }
 
-  .message-row {
-    width: min(92%, 840px);
+  .popup-title {
+    font-size: 26px;
+  }
+
+  .close-button {
+    width: 42px;
   }
 
   .messages {
@@ -493,9 +496,41 @@ onBeforeUnmount(() => {
     gap: 8px;
   }
 
+  .message-row {
+    width: 92%;
+  }
+
+  .speaker-block {
+    flex: 0 0 58px;
+  }
+
+  .avatar-portrait--user {
+    font-size: 24px;
+  }
+
+  .speaker-name {
+    font-size: 16px;
+  }
+
+  .message-row :deep(.message--card) {
+    max-width: calc(100% - 78px);
+    margin-top: 12px;
+    font-size: 17px;
+  }
+
   .composer {
     bottom: 5%;
   }
+
+  .composer input {
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .composer button {
+    height: 38px;
+    min-width: 76px;
+    font-size: 16px;
+  }
 }
 </style>
-

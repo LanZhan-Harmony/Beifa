@@ -65,8 +65,8 @@ onMounted(async () => {
         </p>
         <div v-if="mode === 'demand'" class="single-actions">
           <ImageTextButton
-            image="/common/images/edict/Common_Btn2_Bg.png"
-            hoverImage="/common/images/edict/Common_Btn2_Hover.png"
+            image="/common/images/Common_Btn2_Bg.png"
+            hoverImage="/common/images/Common_Btn2_Hover.png"
             text="众卿怎么看？"
             :textTopMargin="45"
             :fontSize="30"
@@ -211,7 +211,7 @@ onMounted(async () => {
 button {
   border: 0;
   color: #f5d19c;
-  background: url("/common/images/edict/Common_Btn2_Bg.png") center/100% 100% no-repeat;
+  background: url("/common/images/Common_Btn2_Bg.png") center/100% 100% no-repeat;
   font: inherit;
   font-size: 30px;
 }

@@ -60,8 +60,8 @@ onBeforeUnmount(() => window.clearTimeout(timer));
       <p class="body">{{ body }}</p>
       <ImageTextButton
         class="confirm"
-        image="/common/images/edict/Common_Btn2_Bg.png"
-        hoverImage="/common/images/edict/Common_Btn2_Hover.png"
+        image="/common/images/Common_Btn2_Bg.png"
+        hoverImage="/common/images/Common_Btn2_Hover.png"
         text="钦此"
         :textTopMargin="45"
         :fontSize="32"

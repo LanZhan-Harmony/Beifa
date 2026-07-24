@@ -1,7 +1,7 @@
 import apiKeyFile from "./apikey.txt?raw";
 import { DEEPSEEK_MODEL } from "./config";
 import { AiError } from "./errors";
-import { WEB_SEARCH_TOOL } from "./tools/tool";
+import { WEB_SEARCH_TOOL } from "./tools/webSearch";
 import type { AgentName } from "./types";
 
 interface GenerateOptions {

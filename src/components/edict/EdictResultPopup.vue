@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { portraitUrl, speakerMeta } from "@/assets/data/edictMeta";
 import ImageTextButton from "@/components/ImageTextButton.vue";
-import MessageBubble from "@/components/MessageBubble.vue";
+import MessageCard from "@/components/MessageCard.vue";
 import ThemeButton from "@/components/ThemeButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictDecision, EdictOutcome, EdictRecord } from "@/types/edictType";
@@ -63,12 +63,12 @@ onMounted(async () => {
           </p>
         </div>
         <img class="feedback-link" src="/common/images/popup/Result_Main_Step2_DialogueTextBg1.png" />
-        <MessageBubble class="message" :message="outcome.feedback.content" :side="side" type="card" />
+        <MessageCard class="message" :message="outcome.feedback.content" :side="side" />
       </div>
       <ImageTextButton
         class="continue"
-        image="/common/images/edict/Common_Btn2_Bg.png"
-        hoverImage="/common/images/edict/Common_Btn2_Hover.png"
+        image="/common/images/Common_Btn2_Bg.png"
+        hoverImage="/common/images/Common_Btn2_Hover.png"
         text="继续批阅"
         :textTopMargin="45"
         :fontSize="32"
@@ -343,4 +343,3 @@ onMounted(async () => {
   }
 }
 </style>
-
