@@ -181,7 +181,11 @@ export async function generateObject<T>(options: GenerateOptions): Promise<T> {
     if (!content) {
       throw new AiError("DeepSeek 响应缺少 content。", "schema");
     }
-    return JSON.parse(stripFence(content)) as T;
+    // Some providers occasionally wrap the JSON object in a JSON-encoded
+    // string even when response_format=json_object is requested. Unwrap that
+    // extra layer so downstream schema validation sees the actual object.
+    const parsed = JSON.parse(stripFence(content));
+    return (typeof parsed === "string" ? JSON.parse(stripFence(parsed)) : parsed) as T;
   } catch (error) {
     if (error instanceof AiError) {
       throw error;

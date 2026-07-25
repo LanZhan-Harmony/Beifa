@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import ImageTextButton from "@/components/ImageTextButton.vue";
+import PageNavButton from "@/components/PageNavButton.vue";
 import personalityData from "@/langs/personalities/zh-CN.json";
+import TipView from "@/components/personality/TipView.vue";
 import type { PersonalityType } from "@/types/personalityType";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 type Section = "workplace" | "relationship" | "love";
 
@@ -18,9 +21,34 @@ const root = "/common/images/personality/";
 const roleImg = (id: string, suffix: string) => `${root}role/PersonalityReport_${suffix}_${id}.png`;
 const roleName = (id: string) => personalityData.personality.roles.find((role) => role.id === id)?.name ?? id;
 const relations = (id: string) => props.report.role.id === id;
+const note = personalityData.personality.note;
+const noteOpen = ref(false);
+const detailsWrap = ref<HTMLElement | null>(null);
+function closeNote() { noteOpen.value = false; }
+function onKeydown(event: KeyboardEvent) { if (event.key === "Escape") closeNote(); }
+function onPointerDown(event: PointerEvent) {
+  if (noteOpen.value && !detailsWrap.value?.contains(event.target as Node)) closeNote();
+}
+onMounted(() => {
+  window.addEventListener("keydown", onKeydown);
+  document.addEventListener("pointerdown", onPointerDown);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", onKeydown);
+  document.removeEventListener("pointerdown", onPointerDown);
+});
 </script>
 
 <template>
+  <PageNavButton text="个性测试报告" />
+  <div ref="detailsWrap" class="details-wrap">
+    <button class="details" aria-label="报告说明" :aria-expanded="noteOpen" @click="noteOpen = !noteOpen">
+      <img src="/common/images/personality/PersonalityReport_Details_Btn.png" />
+    </button>
+    <div v-if="noteOpen" class="note-popover" role="dialog" aria-modal="false" aria-label="报告说明">
+      <TipView :tip="note" />
+    </div>
+  </div>
   <section class="intro-view">
     <aside class="profile">
       <div class="type-name">
@@ -67,9 +95,9 @@ const relations = (id: string) => props.report.role.id === id;
         { id: 'relationship', text: '人际\n解析' },
         { id: 'love', text: '爱情\n解析' },
       ]" :key="tab.id" :style="{
-          backgroundImage: `url(${root}PersonalityReport_Info_BtnTaB.png)`,
-          '--tab-selected-image': `url(${root}PersonalityReport_Info_BtnTaBSelect.png)`,
-        }" @click="emit('open-analysis', tab.id as Section)">
+        backgroundImage: `url(${root}PersonalityReport_Info_BtnTaB.png)`,
+        '--tab-selected-image': `url(${root}PersonalityReport_Info_BtnTaBSelect.png)`,
+      }" @click="emit('open-analysis', tab.id as Section)">
         {{ tab.text }}
       </button>
     </nav>
@@ -111,14 +139,19 @@ const relations = (id: string) => props.report.role.id === id;
 <style scoped>
 .intro-view {
   position: absolute;
+  inset: 0;
   height: 100%;
   width: 100%;
 }
+.details-wrap { position: absolute; top: 16px; left: 410px; z-index: 3; }
+.details { border: 0; padding: 0; background: none; cursor: pointer; }
+.details img { width: 50px; display: block; }
+.note-popover { position: absolute; top: 50px; left: -30px; width: 630px; z-index: 20; }
 
 .profile {
   position: absolute;
   left: 1%;
-  top: 3%;
+  top: 12%;
   width: 650px;
   height: 100%;
 }
@@ -128,6 +161,7 @@ const relations = (id: string) => props.report.role.id === id;
   place-items: center;
   width: 650px;
   aspect-ratio: 1022/168;
+  animation: intro-scale-in 300ms ease-out both;
 }
 
 .type-name>* {
@@ -153,6 +187,7 @@ const relations = (id: string) => props.report.role.id === id;
   font-size: 30px;
   margin-top: -20px;
   color: #ffe29b;
+  animation: intro-fade-in 300ms 240ms ease-out both;
 }
 
 .role-base {
@@ -160,6 +195,7 @@ const relations = (id: string) => props.report.role.id === id;
   bottom: 28%;
   left: 12%;
   width: 500px;
+  animation: intro-rise-in 300ms 240ms ease-out both;
 }
 
 .role-art {
@@ -167,6 +203,7 @@ const relations = (id: string) => props.report.role.id === id;
   bottom: 31.5%;
   left: 25%;
   width: 49%;
+  animation: intro-rise-in 300ms 240ms ease-out both;
 }
 
 .role-typeicon {
@@ -174,6 +211,7 @@ const relations = (id: string) => props.report.role.id === id;
   bottom: 32%;
   left: 22%;
   width: 21%;
+  animation: intro-rise-in 300ms 240ms ease-out both;
 }
 
 .role-tag {
@@ -184,6 +222,7 @@ const relations = (id: string) => props.report.role.id === id;
   left: -4%;
   width: 200px;
   aspect-ratio: 254/129;
+  animation: intro-fade-in 300ms 500ms ease-out both;
 }
 
 .role-tag>* {
@@ -208,6 +247,7 @@ const relations = (id: string) => props.report.role.id === id;
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: intro-fade-in 300ms 500ms ease-out both;
 }
 
 .proportion-value,
@@ -238,7 +278,8 @@ const relations = (id: string) => props.report.role.id === id;
 .proportion b {
   color: #c9fffe;
   font-size: 30px;
-  font-family: "KuangShanKaiShu";
+  font-family: "JunYiShouShu";
+  font-weight: normal;
 }
 
 .proportion span {
@@ -251,17 +292,18 @@ const relations = (id: string) => props.report.role.id === id;
   position: absolute;
   bottom: 20%;
   left: 35%;
+  animation: intro-fade-in 300ms 500ms ease-out both;
 }
 
 .reading {
   position: absolute;
-  top: 5%;
+  top: 13%;
+  bottom: 21%;
   right: 16%;
   width: 43%;
-  height: 90%;
   overflow-y: auto;
-  scrollbar-color: #73bfb6 transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  animation: intro-reveal-down 300ms 600ms ease-out both;
 }
 
 .reading-content {
@@ -273,9 +315,9 @@ const relations = (id: string) => props.report.role.id === id;
   position: absolute;
   top: 48px;
   bottom: 0;
-  left: 12px;
+  left: 11px;
   width: 4px;
-  background: url("/common/images/personality/PersonalityReport_Info_TextBg3.png") repeat-y top center / 4px 16px;
+  background: url("/common/images/personality/PersonalityReport_Info_TextBg3.png") repeat-y top center / 3.5px 14px;
   pointer-events: none;
 }
 
@@ -323,18 +365,21 @@ const relations = (id: string) => props.report.role.id === id;
 
 .reading p {
   margin: 0;
-  font-size: 28px;
+  font-size: 27px;
   line-height: 1;
   color: #ced2ca;
+  margin-left: 10px;
   white-space: pre-wrap;
+  font-family: "KuangShanKaiShu";
 }
 
 .tabs {
   position: absolute;
   right: -190px;
-  top: 20%;
+  top: 28%;
   display: grid;
   gap: 30px;
+  animation: intro-slide-left-in 300ms 500ms ease-out both;
 }
 
 .tabs button {
@@ -363,10 +408,11 @@ const relations = (id: string) => props.report.role.id === id;
 
 .relationships {
   position: absolute;
-  bottom: 12%;
-  right: 10%;
+  bottom: 5%;
+  right: 9%;
   display: flex;
   gap: 30px;
+  animation: intro-slide-right-in 300ms 800ms ease-out both;
 }
 
 .relation {
@@ -466,12 +512,91 @@ const relations = (id: string) => props.report.role.id === id;
   margin-top: -2px;
 }
 
+@keyframes intro-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes intro-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-slide-left-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes intro-slide-right-in {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes intro-reveal-down {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 @media (max-height: 500px) {
+  .details-wrap { top: 14px; left: 260px; transform-origin: top left; }
+  .details img { width: 35px; }
+  .note-popover { top: 35px; left: -10px; width: 630px; }
   .intro-view {
     scale: 0.7;
     transform-origin: top left;
     width: 142.857%;
     height: 142.857%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-view * {
+    animation: none !important;
   }
 }
 </style>

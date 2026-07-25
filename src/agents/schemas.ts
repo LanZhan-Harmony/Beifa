@@ -1,9 +1,14 @@
 import type { CharacterId, EdictCategory, EdictOutcome } from "@/types/edictType";
+import type { PersonalityRoleId } from "@/types/personalityType";
 import { MAX_MESSAGE_CHARS, MAX_MESSAGES_PER_TURN } from "./config";
 import { AiError } from "./errors";
-import type { DebateConclusionOutput, DebateTurnOutput, GeneratedEdictBatch, GeneratedEdictDraft } from "./types";
-import type { PersonalityRoleId } from "@/types/personalityType";
-import type { PersonalityReportDraft } from "./types";
+import type {
+  DebateConclusionOutput,
+  DebateTurnOutput,
+  GeneratedEdictBatch,
+  GeneratedEdictDraft,
+  PersonalityReportDraft,
+} from "./types";
 
 export const characterIds = [
   "XieJianAn",
@@ -147,36 +152,58 @@ function validateOutcome(value: any, decision: "approved" | "rejected"): EdictOu
 export function validatePersonalityReport(
   value: unknown,
   roleIds: readonly PersonalityRoleId[],
-  allowedKeywords: readonly string[],
 ): PersonalityReportDraft {
   const row = value as Partial<PersonalityReportDraft>;
-  const isRole = (id: unknown): id is PersonalityRoleId => typeof id === "string" && roleIds.includes(id as PersonalityRoleId);
-  if (!isRole(row.roleId) || !isRole(row.friendId) || !isRole(row.enemyId) || new Set([row.roleId, row.friendId, row.enemyId]).size !== 3) {
+  const isRole = (id: unknown): id is PersonalityRoleId =>
+    typeof id === "string" && roleIds.includes(id as PersonalityRoleId);
+  if (
+    !isRole(row.roleId) ||
+    !isRole(row.friendId) ||
+    !isRole(row.enemyId) ||
+    new Set([row.roleId, row.friendId, row.enemyId]).size !== 3
+  ) {
     throw new AiError("人格角色格式无效。", "schema");
   }
-  const keywords = Array.isArray(row.keywords) ? [...new Set(row.keywords.filter((item): item is string => typeof item === "string"))] : [];
-  if (keywords.length < 12 || keywords.length > 18 || keywords.some((item) => !allowedKeywords.includes(item))) {
+  const keywords = Array.isArray(row.keywords)
+    ? [...new Set(row.keywords.filter((item): item is string => typeof item === "string"))]
+    : [];
+  if (keywords.length < 12 || keywords.length > 18) {
     throw new AiError("人格关键词格式无效。", "schema");
   }
   if (!Number.isInteger(row.proportion) || (row.proportion as number) < 1 || (row.proportion as number) > 99) {
     throw new AiError("人格占比格式无效。", "schema");
   }
   const message = (value: unknown, label: string) => {
-    if (typeof value !== "string" || value.trim().length < 6 || value.trim().length > 48) throw new AiError(`${label}格式无效。`, "schema");
+    if (typeof value !== "string" || value.trim().length < 6 || value.trim().length > 48)
+      throw new AiError(`${label}格式无效。`, "schema");
     return value.trim();
   };
-  return { roleId: row.roleId, keywords, proportion: row.proportion as number, friendId: row.friendId, friendMessage: message(row.friendMessage, "知己寄语"), enemyId: row.enemyId, enemyMessage: message(row.enemyMessage, "互补寄语") };
+  return {
+    roleId: row.roleId,
+    keywords,
+    proportion: row.proportion as number,
+    friendId: row.friendId,
+    friendMessage: message(row.friendMessage, "知己寄语"),
+    enemyId: row.enemyId,
+    enemyMessage: message(row.enemyMessage, "互补寄语"),
+  };
 }
 
 /** Validate the lightweight in-progress personality keyword payload. */
 export function validatePersonalityKeywords(value: unknown): string[] {
   const row = value as { keywords?: unknown };
   const keywords = Array.isArray(row.keywords)
-    ? [...new Set(row.keywords.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean))]
+    ? [
+        ...new Set(
+          row.keywords
+            .filter((item): item is string => typeof item === "string")
+            .map((item) => item.trim())
+            .filter(Boolean),
+        ),
+      ]
     : [];
   if (keywords.length < 12 || keywords.length > 18) {
     throw new AiError("人格关键词格式无效。", "schema");
   }
   return keywords;
 }
-

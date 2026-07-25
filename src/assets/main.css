@@ -80,3 +80,8 @@ a,
   font-family: NanoOldSong;
   src: url(/common/fonts/NanoOldSongA.ttf) format("opentype");
 }
+
+@font-face {
+  font-family: JunYiShouShu;
+  src: url(/common/fonts/字小魂俊逸手书.ttf) format("opentype");
+}

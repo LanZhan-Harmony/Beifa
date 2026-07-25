@@ -24,7 +24,7 @@ export async function generatePersonalityReport(
     maxTokens: 900,
     signal,
   });
-  const draft = validatePersonalityReport(raw, roleIds, allowedKeywords);
+  const draft = validatePersonalityReport(raw, roleIds);
   const role = roles.find((item) => item.id === draft.roleId);
   if (!role) throw new Error("人格角色不存在。");
   return {

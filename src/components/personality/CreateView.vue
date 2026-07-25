@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import ImageTextButton from "@/components/ImageTextButton.vue";
+import { ref } from "vue";
 
 const props = defineProps<{
   status: "idle" | "loading" | "empty" | "error";
+  errorMessage?: string;
 }>();
 
 const emit = defineEmits<{
@@ -10,6 +12,13 @@ const emit = defineEmits<{
 }>();
 
 const base = "/common/images/personality/create/";
+
+const showReportBg = ref(false);
+
+function handleSeeReport() {
+  showReportBg.value = true;
+  emit("generate");
+}
 </script>
 
 <template>
@@ -21,9 +30,10 @@ const base = "/common/images/personality/create/";
       <img class="orbit bg2" :src="base + 'PersonalityReport_Create_Bg2.png'" />
       <img class="orbit bg4 orbit-a" :src="base + 'PersonalityReport_Create_Bg4.png'" />
       <img class="orbit bg5" :src="base + 'PersonalityReport_Create_Bg5.png'" />
-      <img class="orbit bg6" :src="base + 'PersonalityReport_Create_Bg6.png'" />
+      <img class="orbit bg6" :class="{ 'fade-out': showReportBg }" :src="base + 'PersonalityReport_Create_Bg6.png'" />
       <img class="orbit bg7" :src="base + 'PersonalityReport_Create_Bg7.png'" />
       <img class="orbit bg8" :src="base + 'PersonalityReport_Create_Bg8.png'" />
+      <img class="orbit bg10" :class="{ 'fade-in': showReportBg }" :src="base + 'PersonalityReport_Create_Bg10.png'" />
     </div>
     <div v-if="status === 'idle'" class="message">
       恭喜通关，你已完成所有数据收集，<br />
@@ -38,8 +48,11 @@ const base = "/common/images/personality/create/";
       :width="300"
       :fontSize="30"
       :text-top-margin="45"
-      @click="emit('generate')" />
+      @click="handleSeeReport" />
     <div v-else-if="status === 'loading'" class="result-reveal">结果马上揭晓</div>
+    <div v-else-if="status === 'error'" class="message error">
+      {{ errorMessage || "报告生成失败，请重试。" }}
+    </div>
   </section>
 </template>
 
@@ -101,20 +114,40 @@ h1 {
 .bg1 {
   transform: scale(0.93);
 }
+
 .bg4 {
   transform: scale(1.32);
 }
+
 .bg5 {
   transform: scale(1.14);
 }
+
 .bg6 {
   transform: scale(0.78);
+  transition: opacity 0.5s;
 }
+
+.bg6.fade-out {
+  opacity: 0;
+}
+
 .bg7 {
   transform: scale(1.08);
 }
+
 .bg8 {
   transform: scale(1.8);
+}
+
+.bg10 {
+  transform: scale(1.05);
+  opacity: 0;
+  transition: opacity 0.5s 0.5s;
+}
+
+.bg10.fade-in {
+  opacity: 1;
 }
 
 .orbit-a {
@@ -140,13 +173,25 @@ h1 {
   opacity: 0;
   animation: content-fade-in var(--content-duration) ease-out var(--title-duration) forwards;
 }
-.result-reveal { position: absolute; top: 50%; transform: translateY(-50%); color: #f5ddab; font-size: 40px; line-height: 1.2; text-align: center; opacity: 0; animation: content-fade-in var(--content-duration) ease-out var(--title-duration) forwards; }
+
+.result-reveal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f5ddab;
+  font-size: 40px;
+  line-height: 1.2;
+  text-align: center;
+  opacity: 0;
+  animation: content-fade-in var(--content-duration) ease-out var(--title-duration) forwards;
+}
 
 @keyframes astrolabe-enter {
   from {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.7);
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
@@ -158,6 +203,7 @@ h1 {
     opacity: 0;
     clip-path: inset(0 50%);
   }
+
   to {
     opacity: 1;
     clip-path: inset(0 0);
@@ -168,6 +214,7 @@ h1 {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import ImageTextButton from "@/components/ImageTextButton.vue";
-import { computed, ref } from "vue";
+import PageNavButton from "@/components/PageNavButton.vue";
+import TipView from "@/components/personality/TipView.vue";
+import personalityData from "@/langs/personalities/zh-CN.json";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import ImageButton from "../ImageButton.vue";
 
 const props = defineProps<{
   keywords: string[];
@@ -17,6 +21,9 @@ const emit = defineEmits<{
 }>();
 
 const root = "/common/images/personality/keyword/";
+const note = personalityData.personality.note;
+const noteOpen = ref(false);
+const detailsWrap = ref<HTMLElement | null>(null);
 const slots: Array<[number, number]> = [
   [50, 47],
   [32, 32],
@@ -62,9 +69,37 @@ function refreshKeywords() {
   randomizedSlots.value = shuffleSlots(slots);
   emit("refresh");
 }
+function closeNote() {
+  noteOpen.value = false;
+}
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") closeNote();
+}
+function onPointerDown(event: PointerEvent) {
+  if (noteOpen.value && !detailsWrap.value?.contains(event.target as Node)) closeNote();
+}
+onMounted(() => {
+  window.addEventListener("keydown", onKeydown);
+  document.addEventListener("pointerdown", onPointerDown);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", onKeydown);
+  document.removeEventListener("pointerdown", onPointerDown);
+});
 </script>
 
 <template>
+  <template v-if="showProgress">
+    <PageNavButton text="人格测试" />
+    <div ref="detailsWrap" class="details-wrap">
+      <button class="details" aria-label="报告说明" :aria-expanded="noteOpen" @click="noteOpen = !noteOpen">
+        <img src="/common/images/personality/PersonalityReport_Details_Btn.png" />
+      </button>
+      <div v-if="noteOpen" class="note-popover" role="dialog" aria-modal="false" aria-label="报告说明">
+        <TipView :tip="note" />
+      </div>
+    </div>
+  </template>
   <section class="keywords">
     <div class="ornaments" aria-hidden="true">
       <img class="bg8 orbit" :src="root + 'PersonalityReport_Bg8.png'" />
@@ -92,9 +127,9 @@ function refreshKeywords() {
       <span>{{ errorMessage || "关键词生成失败。" }}</span>
       <button type="button" @click="emit('retry')">重试</button>
     </div>
-    <!-- <button class="close" aria-label="关闭词云" @click="emit('close')">
-      <img src="/common/images/personality/PersonalityReport_Draw_BtnClose.png" />
-    </button> -->
+    <button v-if="!showProgress" class="close" aria-label="关闭词云" @click="emit('close')">
+      <img src="/common/images/personality/PersonalityReport_BtnClose.png" />
+    </button>
     <ImageTextButton
       class="refresh"
       image="/common/images/personality/keyword/Common_Btn_Refresh.png"
@@ -116,6 +151,29 @@ function refreshKeywords() {
   --word-duration: 550ms;
   --progress-duration: 300ms;
   --refresh-duration: 300ms;
+}
+.details-wrap {
+  position: absolute;
+  top: 16px;
+  left: 340px;
+  z-index: 3;
+}
+.details {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.details img {
+  width: 50px;
+  display: block;
+}
+.note-popover {
+  position: absolute;
+  top: 50px;
+  left: -30px;
+  width: 630px;
+  z-index: 20;
 }
 .ornaments {
   position: absolute;
@@ -196,14 +254,15 @@ function refreshKeywords() {
 }
 .close {
   position: absolute;
-  top: 42px;
-  right: 53px;
+  top: 4%;
+  right: 5.1%;
+  width: 85px;
   border: 0;
   background: none;
   cursor: pointer;
 }
 .close img {
-  width: 32px;
+  width: 100%;
 }
 .refresh {
   position: absolute;
@@ -329,6 +388,19 @@ function refreshKeywords() {
 }
 
 @media (max-height: 500px) {
+  .details-wrap {
+    top: 14px;
+    left: 215px;
+    transform-origin: top left;
+  }
+  .details img {
+    width: 35px;
+  }
+  .note-popover {
+    top: 35px;
+    left: -10px;
+    width: 630px;
+  }
   .keywords {
     scale: 0.7;
     transform-origin: top left;
@@ -337,3 +409,4 @@ function refreshKeywords() {
   }
 }
 </style>
+
