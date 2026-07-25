@@ -50,3 +50,10 @@
    ```
 
 3. 在浏览器中打开 http://localhost:5173 即可游玩。
+
+## 4. AI 功能使用（可选）
+
+1. 创建 DeepSeek API Key
+   - 访问 https://platform.deepseek.com/api_keys 创建一个 API Key。
+
+2. 在本项目 `/src/agents/` 目录下创建 `apikey.txt` 文件，并将 API Key 写入该文件。
