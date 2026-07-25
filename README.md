@@ -4,6 +4,10 @@
 
 <div align="center">
   <img src="./preview/1.png" alt="江山北望" width="100%" style="border-radius: 8px;"/>
+  <img src="./preview/2.png" alt="江山北望" width="100%" style="border-radius: 8px;"/>
+  <img src="./preview/3.png" alt="江山北望" width="100%" style="border-radius: 8px;"/>
+  <img src="./preview/4.png" alt="江山北望" width="100%" style="border-radius: 8px;"/>
+  <img src="./preview/5.png" alt="江山北望" width="100%" style="border-radius: 8px;"/>
 </div>
 
 **当前状态**：🚀 基本完成

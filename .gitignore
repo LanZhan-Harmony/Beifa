@@ -14,7 +14,7 @@ dist
 dist-ssr
 coverage
 *.local
-/src/agents/apikey.txt
+
 
 # Editor directories and files
 .vscode
