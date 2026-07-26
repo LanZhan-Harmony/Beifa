@@ -479,9 +479,11 @@ article p {
   position: absolute;
   left: 18%;
   top: 42%;
+  max-width: 76%;
   transform: translateY(-50%);
   z-index: 2;
   font-size: 25px;
+  line-height: 1;
   color: #fffbdc;
   white-space: pre-wrap;
   overflow: hidden;
