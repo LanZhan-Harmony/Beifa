@@ -249,6 +249,7 @@ watch(
   width: 44%;
   overflow-y: auto;
   padding-right: 15px;
+  padding-bottom: 50px;
   scrollbar-width: none;
   mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);

@@ -62,7 +62,7 @@ const router = createRouter({
     {
       path: "/edict",
       name: "edict",
-      component: () => import("@/views/EdictView.vue"),
+      component: () => import("@/views/EdictsView.vue"),
     },
     {
       path: "/personality",
