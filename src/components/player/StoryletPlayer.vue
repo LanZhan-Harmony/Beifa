@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { saveInitialAction } from "@/agents/personalityReportRepository";
 import { videoAchievements } from "@/assets/data/videoAchievements";
 import PageNavButton from "@/components/PageNavButton.vue";
 import { useAchievementStore } from "@/stores/achievement";
@@ -6,7 +7,6 @@ import { useMediaStore } from "@/stores/media";
 import { usePlayerStore } from "@/stores/player";
 import { getEndingType, useSaveStore } from "@/stores/save";
 import { useUIStore } from "@/stores/ui";
-import { saveInitialAction } from "@/agents/personalityReportRepository";
 import type { uiButtonActionGroupType } from "@/types/actionGroupType";
 import type { endingType } from "@/types/endingType";
 import type { introductionType } from "@/types/introductionType";

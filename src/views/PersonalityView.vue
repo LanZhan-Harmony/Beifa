@@ -158,7 +158,11 @@ onBeforeUnmount(() => {
     <img class="background" src="/common/images/personality/PersonalityReport_Bg3.png" />
     <Transition name="personality-view" mode="out-in">
       <div :key="view" class="personality-view-shell">
-        <CreateView v-if="view === 'creating'" :status="status" :error-message="errorMessage" @generate="generateReport" />
+        <CreateView
+          v-if="view === 'creating'"
+          :status="status"
+          :error-message="errorMessage"
+          @generate="generateReport" />
         <IntroductionView
           v-else-if="view === 'introduction' && report"
           :report="report"
@@ -216,3 +220,4 @@ onBeforeUnmount(() => {
   inset: 0;
 }
 </style>
+

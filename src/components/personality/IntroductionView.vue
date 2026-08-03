@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import PageNavButton from "@/components/PageNavButton.vue";
-import personalityData from "@/langs/personalities/zh-CN.json";
 import TipView from "@/components/personality/TipView.vue";
+import personalityData from "@/langs/personalities/zh-CN.json";
 import type { PersonalityType } from "@/types/personalityType";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
@@ -24,8 +24,12 @@ const relations = (id: string) => props.report.role.id === id;
 const note = personalityData.personality.note;
 const noteOpen = ref(false);
 const detailsWrap = ref<HTMLElement | null>(null);
-function closeNote() { noteOpen.value = false; }
-function onKeydown(event: KeyboardEvent) { if (event.key === "Escape") closeNote(); }
+function closeNote() {
+  noteOpen.value = false;
+}
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") closeNote();
+}
 function onPointerDown(event: PointerEvent) {
   if (noteOpen.value && !detailsWrap.value?.contains(event.target as Node)) closeNote();
 }
@@ -73,9 +77,15 @@ onBeforeUnmount(() => {
           <span>当前占比</span>
         </div>
       </div>
-      <ImageTextButton class="keyword-button" :image="root + 'PersonalityReportMain_Btn.png'"
-        :hover-image="root + 'PersonalityReportMain_Btn_Glow.png'" text="查看词云" :width="190" :font-size="27"
-        :text-top-margin="48" @click="emit('open-keywords')" />
+      <ImageTextButton
+        class="keyword-button"
+        :image="root + 'PersonalityReportMain_Btn.png'"
+        :hover-image="root + 'PersonalityReportMain_Btn_Glow.png'"
+        text="查看词云"
+        :width="190"
+        :font-size="27"
+        :text-top-margin="48"
+        @click="emit('open-keywords')" />
     </aside>
     <main class="reading">
       <div class="reading-content">
@@ -90,14 +100,18 @@ onBeforeUnmount(() => {
       </div>
     </main>
     <nav class="tabs" aria-label="报告分析">
-      <button v-for="tab in [
-        { id: 'workplace', text: '职场\n解析' },
-        { id: 'relationship', text: '人际\n解析' },
-        { id: 'love', text: '爱情\n解析' },
-      ]" :key="tab.id" :style="{
-        backgroundImage: `url(${root}PersonalityReport_Info_BtnTaB.png)`,
-        '--tab-selected-image': `url(${root}PersonalityReport_Info_BtnTaBSelect.png)`,
-      }" @click="emit('open-analysis', tab.id as Section)">
+      <button
+        v-for="tab in [
+          { id: 'workplace', text: '职场\n解析' },
+          { id: 'relationship', text: '人际\n解析' },
+          { id: 'love', text: '爱情\n解析' },
+        ]"
+        :key="tab.id"
+        :style="{
+          backgroundImage: `url(${root}PersonalityReport_Info_BtnTaB.png)`,
+          '--tab-selected-image': `url(${root}PersonalityReport_Info_BtnTaBSelect.png)`,
+        }"
+        @click="emit('open-analysis', tab.id as Section)">
         {{ tab.text }}
       </button>
     </nav>
@@ -143,10 +157,29 @@ onBeforeUnmount(() => {
   height: 100%;
   width: 100%;
 }
-.details-wrap { position: absolute; top: 16px; left: 410px; z-index: 3; }
-.details { border: 0; padding: 0; background: none; cursor: pointer; }
-.details img { width: 50px; display: block; }
-.note-popover { position: absolute; top: 50px; left: -30px; width: 630px; z-index: 20; }
+.details-wrap {
+  position: absolute;
+  top: 16px;
+  left: 410px;
+  z-index: 3;
+}
+.details {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.details img {
+  width: 50px;
+  display: block;
+}
+.note-popover {
+  position: absolute;
+  top: 50px;
+  left: -30px;
+  width: 630px;
+  z-index: 20;
+}
 
 .profile {
   position: absolute;
@@ -164,7 +197,7 @@ onBeforeUnmount(() => {
   animation: intro-scale-in 300ms ease-out both;
 }
 
-.type-name>* {
+.type-name > * {
   grid-area: 1 / 1;
 }
 
@@ -225,7 +258,7 @@ onBeforeUnmount(() => {
   animation: intro-fade-in 300ms 500ms ease-out both;
 }
 
-.role-tag>* {
+.role-tag > * {
   grid-area: 1 / 1;
 }
 
@@ -258,8 +291,8 @@ onBeforeUnmount(() => {
   align-items: center;
 }
 
-.proportion-value>*,
-.proportion-label>* {
+.proportion-value > *,
+.proportion-label > * {
   grid-area: 1 / 1;
 }
 
@@ -421,7 +454,7 @@ onBeforeUnmount(() => {
   aspect-ratio: 507/155;
 }
 
-.relation>img:first-child {
+.relation > img:first-child {
   width: 100%;
 }
 
@@ -583,9 +616,19 @@ onBeforeUnmount(() => {
 }
 
 @media (max-height: 500px) {
-  .details-wrap { top: 14px; left: 260px; transform-origin: top left; }
-  .details img { width: 35px; }
-  .note-popover { top: 35px; left: -10px; width: 630px; }
+  .details-wrap {
+    top: 14px;
+    left: 260px;
+    transform-origin: top left;
+  }
+  .details img {
+    width: 35px;
+  }
+  .note-popover {
+    top: 35px;
+    left: -10px;
+    width: 630px;
+  }
   .intro-view {
     scale: 0.7;
     transform-origin: top left;

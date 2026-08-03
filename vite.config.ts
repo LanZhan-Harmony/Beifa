@@ -2,9 +2,9 @@ import { fileURLToPath, URL } from "node:url";
 
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
-import { tauriPublicAssetPlugin } from "./src/plugins/tauriPublicAssetPlugin";
-import pkg from "./package.json";
-import { sessionType } from "./src/types/sessionType";
+import pkg from "./package.json" with { type: "json" };
+import { tauriPublicAssetPlugin } from "./src/plugins/tauriPublicAssetPlugin.ts";
+import type { sessionType } from "./src/types/sessionType.ts";
 
 // 从本地 session 服务预取初始 cookie（仅 dev proxy 使用）
 let proxySessionCookie: string | null = null;

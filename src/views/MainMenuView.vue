@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { initialActions } from "@/agents/personalityReportRepository";
 import ExitDialog from "@/components/ExitDialog.vue";
 import ThemeButton from "@/components/ThemeButton.vue";
 import router from "@/router";
 import { useMediaStore } from "@/stores/media";
 import { useSaveStore } from "@/stores/save";
-import { initialActions } from "@/agents/personalityReportRepository";
 import type { chapterType } from "@/types/chapterType";
 import { toStreamUrl } from "@/utils/streamUrl";
 import { computed, onMounted, ref } from "vue";
@@ -106,11 +106,7 @@ async function returnToSplash() {
     </section>
 
     <section class="top-actions top-actions--right" aria-label="扩展功能">
-      <button
-        class="top-action--personality"
-        type="button"
-        @mouseenter="handleHover"
-        @click="openPersonality">
+      <button class="top-action--personality" type="button" @mouseenter="handleHover" @click="openPersonality">
         <img src="/common/images/main/Main_Btn_Personality.png" />
         <span>人格报告测试</span>
       </button>

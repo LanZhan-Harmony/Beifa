@@ -102,11 +102,7 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
 </script>
 
 <template>
-  <div
-    class="message message--bubble"
-    :class="`message--${props.side}`"
-    :style="bubbleStyle"
-    role="status">
+  <div class="message message--bubble" :class="`message--${props.side}`" :style="bubbleStyle" role="status">
     <!-- 使用连续文本节点占位，避免每个字符成为独立的最小换行单位。 -->
     <span class="bubble__sizer" aria-hidden="true">{{ props.message }}</span>
     <span class="bubble__text">{{ displayedText }}</span>
@@ -193,3 +189,4 @@ onBeforeUnmount(() => window.removeEventListener("resize", updateViewportHeight)
   }
 }
 </style>
+

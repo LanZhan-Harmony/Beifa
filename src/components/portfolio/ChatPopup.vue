@@ -169,9 +169,7 @@ onBeforeUnmount(() => {
             </div>
             <span class="speaker-name">{{ message.role === "assistant" ? character.name : "我" }}</span>
           </div>
-          <MessageCard
-            :message="message.content || '…'"
-            :side="message.role === 'assistant' ? 'left' : 'right'" />
+          <MessageCard :message="message.content || '…'" :side="message.role === 'assistant' ? 'left' : 'right'" />
         </div>
       </div>
 
@@ -534,3 +532,4 @@ onBeforeUnmount(() => {
   }
 }
 </style>
+

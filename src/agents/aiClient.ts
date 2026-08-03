@@ -4,7 +4,7 @@ import { AiError } from "./errors";
 import { WEB_SEARCH_TOOL } from "./tools/webSearch";
 import type { AgentName } from "./types";
 
-interface GenerateOptions {
+interface GenerateOptions<T> {
   /** Agent名称 */
   agent: AgentName;
   /** 系统提示词 */
@@ -15,11 +15,27 @@ interface GenerateOptions {
   maxTokens?: number;
   /** 可选的AbortSignal，用于取消请求 */
   signal?: AbortSignal;
+  /** 可选的响应校验器；校验失败也会触发重试。 */
+  validate?: (value: unknown) => T;
 }
 
 interface DeepSeekResponse {
   choices?: Array<{ message?: { content?: string } }>;
   error?: { message?: string };
+}
+
+/** 最多重试 5 次，因此最多发起 6 次请求（首次请求 + 5 次重试）。 */
+const MAX_RETRIES = 5;
+const MAX_JSON_STRING_LAYERS = 3;
+
+function shouldRetry(error: unknown): boolean {
+  return !(error instanceof AiError && (error.code === "cancelled" || error.code === "unavailable"));
+}
+
+function throwIfAborted(signal?: AbortSignal): void {
+  if (signal?.aborted) {
+    throw new AiError("AI 请求已取消。", "cancelled");
+  }
 }
 
 /**
@@ -61,13 +77,8 @@ export interface StreamChatOptions {
   webSearch?: boolean;
 }
 
-/**
- * 流式对话调用。每次迭代返回一段原始文本，不会尝试解析成对象。
- */
-export async function* streamChat(options: StreamChatOptions): AsyncGenerator<string> {
-  if (options.signal?.aborted) {
-    throw new AiError("AI 请求已取消。", "cancelled");
-  }
+async function* streamChatAttempt(options: StreamChatOptions): AsyncGenerator<string> {
+  throwIfAborted(options.signal);
 
   let response: Response;
   try {
@@ -140,12 +151,22 @@ export async function* streamChat(options: StreamChatOptions): AsyncGenerator<st
 }
 
 /**
- * 调用 API 生成对象
- * @param options 生成选项
- * @returns 解析后的对象
- * @throws {AiError} 如果请求失败或响应格式不正确，则抛出错误
+ * 流式对话调用。每次迭代返回一段原始文本，不会尝试解析成对象。
  */
-export async function generateObject<T>(options: GenerateOptions): Promise<T> {
+export async function* streamChat(options: StreamChatOptions): AsyncGenerator<string> {
+  for (let retry = 0; retry <= MAX_RETRIES; retry += 1) {
+    try {
+      yield* streamChatAttempt(options);
+      return;
+    } catch (error) {
+      if (!shouldRetry(error) || retry === MAX_RETRIES) {
+        throw error;
+      }
+    }
+  }
+}
+
+async function generateObjectAttempt<T>(options: GenerateOptions<T>): Promise<T> {
   if (options.signal?.aborted) {
     throw new AiError("AI 请求已取消。", "cancelled");
   }
@@ -181,11 +202,15 @@ export async function generateObject<T>(options: GenerateOptions): Promise<T> {
     if (!content) {
       throw new AiError("DeepSeek 响应缺少 content。", "schema");
     }
-    // Some providers occasionally wrap the JSON object in a JSON-encoded
-    // string even when response_format=json_object is requested. Unwrap that
-    // extra layer so downstream schema validation sees the actual object.
-    const parsed = JSON.parse(stripFence(content));
-    return (typeof parsed === "string" ? JSON.parse(stripFence(parsed)) : parsed) as T;
+
+    let parsed: unknown = JSON.parse(stripFence(content));
+    for (let layer = 0; typeof parsed === "string" && layer < MAX_JSON_STRING_LAYERS; layer += 1) {
+      parsed = JSON.parse(stripFence(parsed));
+    }
+    if (typeof parsed === "string") {
+      throw new AiError("DeepSeek 响应不是 JSON 对象。", "schema");
+    }
+    return options.validate ? options.validate(parsed) : (parsed as T);
   } catch (error) {
     if (error instanceof AiError) {
       throw error;
@@ -196,4 +221,24 @@ export async function generateObject<T>(options: GenerateOptions): Promise<T> {
     const message = error instanceof Error ? error.message : "未知错误";
     throw new AiError(`DeepSeek 请求失败：${message}`, message.includes("JSON") ? "schema" : "network");
   }
+}
+
+/**
+ * 调用 API 生成对象
+ * @param options 生成选项
+ * @returns 解析后的对象
+ * @throws {AiError} 如果请求失败或响应格式不正确，则抛出错误
+ */
+export async function generateObject<T>(options: GenerateOptions<T>): Promise<T> {
+  for (let retry = 0; retry <= MAX_RETRIES; retry += 1) {
+    try {
+      return await generateObjectAttempt(options);
+    } catch (error) {
+      if (!shouldRetry(error) || retry === MAX_RETRIES) {
+        throw error;
+      }
+    }
+  }
+
+  throw new AiError("DeepSeek 请求失败。", "unknown");
 }

@@ -12,7 +12,7 @@ export async function generatePersonalityReport(
   signal?: AbortSignal,
 ): Promise<{ report: PersonalityType; draft: PersonalityReportDraft }> {
   const roleIds = roles.map((role) => role.id) as PersonalityRoleId[];
-  const raw = await generateObject<PersonalityReportDraft>({
+  const draft = await generateObject<PersonalityReportDraft>({
     agent: "personality-report",
     systemPrompt: personalityReportPrompt,
     input: {
@@ -23,8 +23,8 @@ export async function generatePersonalityReport(
     },
     maxTokens: 900,
     signal,
+    validate: (value) => validatePersonalityReport(value, roleIds),
   });
-  const draft = validatePersonalityReport(raw, roleIds);
   const role = roles.find((item) => item.id === draft.roleId);
   if (!role) throw new Error("人格角色不存在。");
   return {
@@ -46,7 +46,7 @@ export async function generatePersonalityKeywords(
   chosenOptionPrompts: string[],
   signal?: AbortSignal,
 ): Promise<string[]> {
-  const raw = await generateObject<{ keywords: string[] }>({
+  return generateObject<string[]>({
     agent: "personality-keywords",
     systemPrompt: personalityKeywordsPrompt,
     input: {
@@ -55,6 +55,6 @@ export async function generatePersonalityKeywords(
     },
     maxTokens: 400,
     signal,
+    validate: (value) => validatePersonalityKeywords(value),
   });
-  return validatePersonalityKeywords(raw);
 }
