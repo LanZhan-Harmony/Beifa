@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { portraitUrl, speakerMeta } from "@/assets/data/edictMeta";
+import { portraitUrl, useSpeakerMeta } from "@/assets/data/edictMeta";
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import PageNavButton from "@/components/PageNavButton.vue";
 import { useMediaStore } from "@/stores/media";
@@ -25,6 +25,7 @@ const emit = defineEmits<{
 }>();
 
 const media = useMediaStore();
+const speakerMeta = useSpeakerMeta();
 const intro = ref(true);
 const index = ref(-1);
 const finished = ref(false);
@@ -749,4 +750,3 @@ onBeforeUnmount(() => {
   }
 }
 </style>
-

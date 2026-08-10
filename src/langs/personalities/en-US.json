@@ -1,0 +1,773 @@
+{
+    "personality": {
+        "note": "This report analyzes your (initial) choices to simulate personality traits, reflecting your strategic preferences in palace survival scenarios. Please note that this is not a real-life guide for work, love, or relationships. Keep the following in mind:\n1. Decisions are influenced by the designed flow, which may simplify or exaggerate real-world complexities.\n2. The labels in this report are for entertainment purposes only and should not be viewed as a substitute for professional psychological assessment.\n3. The analysis is based on a subjective design framework. We recommend interpreting it in light of your real-world context.\nReal-life actions and decisions are shaped by personal experiences, environment, culture, and values. This report is for reference only. We encourage you to adapt it to your current circumstances. May the joy and insights inspire growth in your everyday life.",
+        "keywords": [
+            "Power Player",
+            "The Maximizer",
+            "Never Enough",
+            "Iron Will",
+            "Sympathy Magnet",
+            "Patient Restraint",
+            "Evidence Handler",
+            "Too Busy to Care",
+            "Blame Dodger",
+            "Born Generous",
+            "Zero Tolerance",
+            "Patience of a Saint",
+            "Blunt Force",
+            "Natural Detective",
+            "Convenient Conclusions",
+            "Ever Vigilant",
+            "No Half Measures",
+            "Psychological Warfare",
+            "Flip-Flopper",
+            "Pot Stirrer",
+            "A Touch of Cunning",
+            "Master of Suspense",
+            "The Gourmand",
+            "Model Subject",
+            "Justice Served",
+            "Keeper of Old Debts",
+            "Shortcut Seeker",
+            "Power Partner",
+            "Rising Voice",
+            "Clean Break",
+            "The Long Game",
+            "Let‑Go Master",
+            "The Hoarder",
+            "No Strings",
+            "Swift and Decisive",
+            "Full of Ideas",
+            "Quick to Adapt",
+            "Scheme upon Scheme",
+            "Hand of Justice",
+            "Underdog's Director",
+            "Path of Least Resistance",
+            "The Debater",
+            "Trap Setter",
+            "All Bark",
+            "Unshakable",
+            "Knowing When to Push",
+            "Headline Maker",
+            "Infinite Patience",
+            "End It Forever",
+            "A Measure of Mercy",
+            "Silver Tongue, Iron Will",
+            "The Gentle Hand",
+            "Beyond Reproach",
+            "Decisive Action",
+            "The Romantic",
+            "Always a Backup Plan",
+            "Biding Time",
+            "Refuse to Bend",
+            "Open Book",
+            "Cards on the Table",
+            "Warmth Offensive",
+            "Sharp and Alert",
+            "Love Yourself",
+            "The Psychologist",
+            "Power of Kindness",
+            "Nothing Less Will Do",
+            "The Dreamer",
+            "The Team Player",
+            "All-Out, All-In",
+            "Lead from the Front",
+            "Seizing the Moment",
+            "Unbowed",
+            "Master of Fate",
+            "Never Surrender",
+            "Sees Through Everything",
+            "United Front",
+            "Free as the Wind",
+            "Firm Resolution",
+            "Lay Low, Stay Alive",
+            "The Fox Guards the Henhouse",
+            "Vanishing Act",
+            "Surprise Attack",
+            "Truth and Lies Entwined",
+            "A Touch of Strategy",
+            "The Great Escape",
+            "Misplaced Blame",
+            "Better Safe Than Sorry",
+            "Righting Wrongs",
+            "The Smooth Talker",
+            "Riding the Tide",
+            "Master Angler",
+            "Not Taking the Fall",
+            "Cold When It Counts",
+            "Face the Facts",
+            "Glad to Help",
+            "The Creative Mind",
+            "Measured Words",
+            "Born to Be Free",
+            "Gift of Gab",
+            "Hopeless Romantic",
+            "Stream of Consciousness",
+            "Few Words, Sharp Edges",
+            "Weakness Detector",
+            "Striking at the Gap",
+            "Playing the Long Game",
+            "The Persuader",
+            "VIP Status",
+            "The Recommender",
+            "Reading the Room",
+            "True to Your Word",
+            "Discretion Over Valor",
+            "Rolling with the Punches",
+            "Appeal to Reason",
+            "Appeal to the Heart",
+            "Professional Promise-Maker",
+            "The Empath",
+            "Gratitude Repaid",
+            "Feet on the Ground",
+            "One Card Held Back",
+            "The Patient Fisher",
+            "Core Strength Champion",
+            "In Perfect Sync",
+            "Speaks Plainly",
+            "Holding Position",
+            "A Heart That Lingers",
+            "Two Fronts at Once",
+            "The Enigma",
+            "Just the Right Pressure",
+            "Relentless Self-Improvement",
+            "The Flirt",
+            "Self-Reliant",
+            "Half-Said",
+            "The Information Broker",
+            "Sealed Lips",
+            "Bond of Trust",
+            "Independent Thinker",
+            "Attitude Adjustment",
+            "Off Script",
+            "Just Naturally Cheerful",
+            "Big Picture Thinker",
+            "True to the Beginning",
+            "Free Will",
+            "Wild Imagination",
+            "Quick on the Draw",
+            "Calm Under Fire",
+            "Silence Speaks",
+            "Sincerity Above All",
+            "The Deflector",
+            "A Tender Heart",
+            "The Performer",
+            "Kindness Returned",
+            "Shared Path",
+            "Self-Preservation",
+            "Act Now, Think Later",
+            "Old Flames Die Hard",
+            "Black and White",
+            "Cuts to the Bone",
+            "Never Misses the Follow-Up",
+            "Cool Analysis",
+            "Command of the Situation",
+            "Let the Facts Speak",
+            "A Gentle Answer",
+            "Led by the Heart",
+            "Silver-Tongued Romantic",
+            "Straight Shooter",
+            "Rewriting Fate",
+            "Free to Soar",
+            "Unbound",
+            "Fate's Observer",
+            "The Silent Watcher",
+            "Stepping Forward",
+            "Through Thick and Thin"
+        ],
+        "roles": [
+            {
+                "id": "MTL",
+                "name": "Romantic Datura",
+                "tag": "Romance",
+                "motto": "I'm Fine Moving at My Own Pace",
+                "introductions": [
+                    {
+                        "title": "Slow Build",
+                        "content": "The Datura looks delicate but carries potency. Like it, you seem hard to approach, though the sharpness is surface-level. You chose kindness. You help quietly without seeking recognition."
+                    },
+                    {
+                        "title": "The Steady One People Trust",
+                        "content": "You never cared for the spotlight. While others rush, you perfect every detail. At work, you focus on doing things properly. In love, your feelings run deep—shown through consistency and presence."
+                    },
+                    {
+                        "title": "Soft Only for a Few",
+                        "content": "Small gatherings work; anything larger feels like torture. Your social battery isn't built for endless interaction. You prefer sincerity over networking. People who match your wavelength always find you naturally."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "Detours Can Still Bloom",
+                        "content": "You obsess over details and hold high standards. You thrive in work demanding patience and craftsmanship. Success may be slow, but persistence builds something lasting. Make your work visible."
+                    },
+                    {
+                        "title": "Let Your Capabilities Be Heard",
+                        "content": "People trust you because you're dependable. You handle tasks well. But staying buried in work means others may overlook your effort. Speak up, share progress, let your strengths be seen."
+                    },
+                    {
+                        "title": "Soft-Spoken, Strong-Willed",
+                        "content": "You suit detail-heavy work like finance, law, or consulting. You keep everything steady. Even under pressure, you rarely lose composure. Your strength comes from quiet resilience and emotional steadiness."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Your composed, reliable character is a great strength. Don't let it remain unseen. The more people recognize what you bring, the more your hidden leadership will shine through."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Silence Isn't Always the Solution",
+                        "content": "You avoid conflict, but not every disagreement is harmful. Honest conversations prevent misunderstandings. Express concerns calmly while they're still small. \"I see it differently\" is often enough."
+                    },
+                    {
+                        "title": "Comfort Zones Have Doors for a Reason",
+                        "content": "You let connections happen naturally. But staying in familiar circles too long limits your world. Stay open to new people. Even someone who prefers the background deserves a spotlight sometimes."
+                    },
+                    {
+                        "title": "Kindness Needs Boundaries Too",
+                        "content": "Your warmth makes people comfortable, but always prioritizing others can burn you out. You're allowed to say no. Healthy relationships aren't weakened by boundaries—they're strengthened."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Stay sincere, but discerning. You don't need countless relationships to feel fulfilled. A few meaningful connections built with genuine care and emotional depth are already more valuable than a crowd of shallow ones."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "A Little Surprise Keeps Love Alive",
+                        "content": "Your love is quiet and steady, shown through routines. But even safe relationships can feel routine. Break the pattern sometimes—go somewhere new. Love needs moments that keep life feeling fresh."
+                    },
+                    {
+                        "title": "Routine Isn't Meant to Be Untouchable",
+                        "content": "You maintain stability well, making people feel secure. But relationships need spontaneity. A random gift or sharing an exciting experience brings fresh energy. Stability and excitement can coexist."
+                    },
+                    {
+                        "title": "Love Needs Room to Breathe",
+                        "content": "You keep emotions tightly held, but relationships aren't meant to be sealed off. Reach out instead of withdrawing. Let feelings come out before they harden into silence. Keep reaching for each other."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "You love sincerely, even if you don't always say it. The most meaningful moments happen when someone suddenly realizes, in something ordinary, just how deeply they've been cared for."
+                    }
+                ]
+            },
+            {
+                "id": "HDH",
+                "name": "Deadly Arsenic Trioxide",
+                "tag": "Deadly",
+                "motto": "Blazing Outward, Burning Eternal Within",
+                "introductions": [
+                    {
+                        "title": "Radiant, Intense, Always at Full Power",
+                        "content": "\"Arsenic Trioxide\" was impossible to ignore—much like you. You leave strong impressions instantly. When you commit, you go all in. Your energy is strong, your drive steady, always aiming higher."
+                    },
+                    {
+                        "title": "An All-Rounder with a Brilliant Mind",
+                        "content": "You're ambitious, quick-thinking, and adaptable—seeing change as opportunity. In relationships, you bring the same energy through spontaneity and enthusiasm that naturally lifts those around you."
+                    },
+                    {
+                        "title": "Passionate in Every Emotion",
+                        "content": "You have a strong presence that naturally draws people in. Your emotions are clear and genuine. That honesty makes others comfortable. Your life is filled with naturally forming friendships."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "Know When to Strike",
+                        "content": "You thrive in fast-moving situations needing sharp instincts and confident decisions. But not every win comes from speed. Life is like chess: mastery is knowing when to act and when to wait."
+                    },
+                    {
+                        "title": "Even the Strongest Medicine Needs Balance",
+                        "content": "Your decisiveness is a strength in leadership. You think quickly and see solutions early. But team success isn't just speed—it's alignment. Slow down when needed; help bring everyone along."
+                    },
+                    {
+                        "title": "Toxic Charm",
+                        "content": "You thrive in fast-paced environments. In sales, marketing, or quick-thinking roles, you use insight and drive effectively. Your charisma energizes others—people rally around your momentum and work through challenges."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Keep your passion and energy—you're already a well-rounded all-rounder, you're just missing endurance. Once you lock that in, you're a max-level character."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Hear Them Out First",
+                        "content": "You're charismatic and have strong opinions, but your energy can sometimes dominate conversations without meaning to. Give others space to speak first. Listening first often makes your own words carry even more weight."
+                    },
+                    {
+                        "title": "Don't Rush on Things",
+                        "content": "You feel emotions intensely, and your reactions flare quickly. That passion comes from caring deeply, but heat-of-the-moment responses are rarely your best. Pause for a few seconds before replying—it works much better."
+                    },
+                    {
+                        "title": "Stepping Back Doesn't Mean Losing",
+                        "content": "You naturally take charge. But if you lead every conversation, others may feel overshadowed. The strongest move is sometimes asking for someone else's perspective. Know when to step back."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Real strength is knowing when to shine and when to soften your edge. Holding back a little at the right moment can completely change the atmosphere and make your presence even more impactful."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "Surprise Is Completed by Daily Life",
+                        "content": "You're passionate with a talent for memorable romantic moments. But relationships aren't built on highlights alone—they're sustained through ordinary days and quiet care. Steady warmth creates safety."
+                    },
+                    {
+                        "title": "Romance Can Be Simple",
+                        "content": "You enjoy making your partner happy, but big gestures can become an escalation cycle. Focus on smaller details—remembering small comments, noticing needs. What matters is whether they feel seen."
+                    },
+                    {
+                        "title": "Moving Forward Together",
+                        "content": "You adapt quickly with strong momentum. But relationships move at the pace of two. Your energy can push your partner too fast. Love isn't about speed—it's about awareness and staying beside them."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Your presence already shines brightly. Remember to leave space for others to feel warm, supported, and included in that light. The strongest kind of energy lifts people up without leaving anyone behind."
+                    }
+                ]
+            },
+            {
+                "id": "XQG",
+                "name": "Extroverted Tangerine Pu-erh",
+                "tag": "Social Dynamo",
+                "motto": "Motivation On and Off",
+                "introductions": [
+                    {
+                        "title": "Sincerity Never Goes Out of Style",
+                        "content": "Like Tangerine Pu-erh, you balance freshness and depth. You may seem reserved at first, but people discover your warmth. Your sincere kindness naturally draws caring people toward you."
+                    },
+                    {
+                        "title": "Sharp at Work, Chill in Love",
+                        "content": "Your insight is like tea steeping—quiet at first, but unmistakable once settled. You handle challenges with clarity. In love, feelings deepen over time. Your sincerity remains steady and lasting."
+                    },
+                    {
+                        "title": "Carry Yourself with Natural Ease",
+                        "content": "You don't try hard socially, which puts people at ease. You don't force conversations or chase attention, yet others gravitate toward you. That straightforward sincerity is your charm."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "A Mind Built for Big Decisions",
+                        "content": "Like tangerine pu-erh that clears the mind, you stay sharp in complex situations, cutting through the noise to find what matters. Your calm presence makes chaos feel manageable and suits leadership roles well."
+                    },
+                    {
+                        "title": "The Human Side of High Performance",
+                        "content": "You're efficient and disciplined, pursuing goals with focus. But being overly results-driven creates distance. Make space for casual conversations—check-ins, shared meals. Let your warm side show."
+                    },
+                    {
+                        "title": "Sharp, but Never Cold",
+                        "content": "You thrive where analysis and precision matter. In finance, strategy, or data, you turn chaos into clear plans. People trust your judgment and you—making you both strong strategist and teammate."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Manage your time and energy like a fine blade—rest and boundaries keep your mind sharp. With intelligence and sincerity together, you have what it takes for a much larger stage."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Protect Your Kindness with Boundaries",
+                        "content": "You care genuinely, but some may lean on you too much. Over time, you carry weight that isn't yours. Check if relationships feel balanced. Your kindness isn't unlimited—keep some for yourself."
+                    },
+                    {
+                        "title": "Trust People, but Keep the Door Latched",
+                        "content": "You naturally trust people, connecting easily but risking overextension. Take more time before letting someone fully in. Let trust build gradually. The right people respect boundaries."
+                    },
+                    {
+                        "title": "Keep Your Warmth Flowing Both Ways",
+                        "content": "You seem calm and steady on the surface, but holding emotions in doesn't make them vanish—they pile up. Find a simple outlet: talk, walk, write, game, sit quietly. Nothing big. Just let your feelings breathe."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "You don't need to know everyone. What matters is being around people who match your energy. Quality over quantity—those closest should genuinely value having you in their life."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "Logic Guides You, but Emotion Gives You Depth",
+                        "content": "You're future-focused, often mapping where relationships could go. But love doesn't always need analyzing. Sometimes your partner just wants warmth or a playful moment. Respond with presence. Feeling matters."
+                    },
+                    {
+                        "title": "Leave Room for the Unexpected",
+                        "content": "You're thoughtful and plan carefully. You value stability, but love needs spontaneity. Surprises can be trying something new together. Use your attention to detail to notice unspoken hopes."
+                    },
+                    {
+                        "title": "Don't Let Your Feelings Stay Unspoken",
+                        "content": "You show love through effort and consistency. But others may not see the feelings behind it. A little explanation makes intentions personal. Actions and words together create meaningful memories."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Stay independent, but don't let logic completely overshadow your softer side. Quiet love still deserves to be expressed. The best relationships are the ones that can survive both careful thought and genuine emotion."
+                    }
+                ]
+            },
+            {
+                "id": "BLG",
+                "name": "Carefree Isatis Root",
+                "tag": "Easygoing",
+                "motto": "Lying Flat ls My Final Stand",
+                "introductions": [
+                    {
+                        "title": "Extremely Good at Self-Soothing",
+                        "content": "Isatis Root is unassuming but dependable—that's similar to you. Steady and grounded, you don't chase attention or rush. You focus on what matters. Regardless of success, your inner calm already puts you ahead."
+                    },
+                    {
+                        "title": "Life Over Work",
+                        "content": "Your view of work is simple and balanced—you value stability and peace over status or competition. In love, you're not chasing romance, but emotional resonance: someone who brings calm and depth to your inner world."
+                    },
+                    {
+                        "title": "Effortless Socializing",
+                        "content": "You don't care for attention, conflict, or outside opinions. Calm comes naturally to you. You enjoy solitude not from disliking people, but from preferring meaningful connection over small talk."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "The Upgrade Path of Calmness",
+                        "content": "Your steady nature gives you quiet control in difficult situations. You restore order calmly. But if you don't highlight your role, your impact goes unnoticed. Let contributions be seen when it matters."
+                    },
+                    {
+                        "title": "Time to Switch from Solo Mode",
+                        "content": "You prefer working quietly and independently. But staying in that comfort zone too long means missing opportunities. Step into new spaces and meet different people. You need allies to thrive in multiplayer mode."
+                    },
+                    {
+                        "title": "Isatis Root Saves the Day",
+                        "content": "Your strengths fit roles needing focus and precision—research, analysis, writing, or admin. Quiet settings bring out your best. You become a stabilizing force others rely on, building trust naturally."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "You already have the ability to succeed. What may be missing is direction and ambition. Once you know what you want, you're fully capable of building something meaningful—just allow yourself to aim higher."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Don't Confuse Carefree with Disengaged",
+                        "content": "You're not cold—you just focus energy on what matters. But relationships need small gestures. A quick check-in means more than you realize. Showing up now and then is already enough."
+                    },
+                    {
+                        "title": "You Were Made for Solitude, Not Isolation",
+                        "content": "Solitude helps you think and recharge. But staying isolated narrows your perspective. Even the sharpest mind benefits from occasional engagement with the outside world. Stay connected to possibility."
+                    },
+                    {
+                        "title": "Your Empathy Matters More Than You Realize",
+                        "content": "You understand yourself deeply. But processing internally can underestimate others' intensity. You don't need to fix—just listening is enough. Your attention carries real weight when offered."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Stay sincere and kind. Be someone others rely on when life gets heavy. You don't need the spotlight, but when you show up, you bring reassurance. Staying calm in chaos is rare strength."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "You Shine Quietly, Not Dimly",
+                        "content": "Your low-key nature is a rare strength. But value needs visibility. Let yourself be seen—share moments, show interests. Like a lighthouse, you don't chase attention—just stay visible."
+                    },
+                    {
+                        "title": "Love Favors the People Who Let Themselves Be Seen",
+                        "content": "You create mystery, but sometimes that tips into unreachable. If closeness feels too hard, people won't try. Simple openness—greeting people or saying yes—increases chances of real connections."
+                    },
+                    {
+                        "title": "Allow Yourself to Shine Forth",
+                        "content": "Being alone recharges you. But wanting others in your life means leaving space for connection. Relationships come through small openings—shared interests, simple conversations. Let people notice you."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Someone as thoughtful as you deserves to be noticed. You don't need to become louder—just open the door a little wider. A glimpse is often enough to recognize what's there."
+                    }
+                ]
+            },
+            {
+                "id": "JSQ",
+                "name": "Overachiever Lurid Bolete",
+                "tag": "Overachiever",
+                "motto": "Too Wild to Stay Still",
+                "introductions": [
+                    {
+                        "title": "Too Wild to Stay Still",
+                        "content": "The Lurid Bolete is strikingly unpredictable—that energy matches you. You don't like routine, gravitating toward change. Your mind brims with ideas. Others see it as pushing hard; to you, it's living fully."
+                    },
+                    {
+                        "title": "Allergic to Anything Boring",
+                        "content": "At work, your creativity is highly active—drawn to new, unconventional ideas. Routine doesn't suit you. In love, you seek the same: someone who brings freshness and curiosity to your life."
+                    },
+                    {
+                        "title": "Few Close Friends, Countless Acquaintances",
+                        "content": "You're naturally socially adept, connecting easily across circles. But deeper bonds take time. Instead of constantly shifting to new connections, slow down and give a few relationships space to deepen."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "Fly and Last",
+                        "content": "Your mind moves fast—you learn quickly and get energized by new things. But energy fades fast too. Long-term success comes from continuing after excitement fades. Pair creativity with follow-through."
+                    },
+                    {
+                        "title": "Networking Isn't Just Collecting Contacts",
+                        "content": "You fit most circles easily. But surface connections won't become real support. Focus on a few people who align with your goals. Go beyond small talk—share ideas and challenges. Build quality connections."
+                    },
+                    {
+                        "title": "Your Creative Power",
+                        "content": "Creative fields reward originality. In design, media, travel, or crafts, you thrive where ideas evolve. Your thinking is flexible and surprising. You notice opportunities others miss, surprising people wherever you go."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Your strength is adaptability, but flexibility can scatter energy without direction. Your creativity is like an engine that never stops—it works best with a main track to follow."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Learn to Build the Kind of Closeness That Lasts",
+                        "content": "You may have friends but miss someone to call anytime and simply say \"I'm not okay.\" Those bonds take time. Choose a few to truly let in, moving talks beyond surface. That shift changes everything."
+                    },
+                    {
+                        "title": "Sincerity Matters More Than Being Fun",
+                        "content": "You're witty, adaptable, enjoyable. But real closeness comes from sincerity. Show care tangibly: a note, showing up when needed. Being fun gets noticed; sincerity keeps people close."
+                    },
+                    {
+                        "title": "Stay Relaxed, But Don't Drift Too Far",
+                        "content": "Your easygoing nature is pleasant, but too far and others misread it as disinterest. A quick \"Busy now, see you tonight\" reassures in seconds. Freedom and consideration just need a little communication."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Good relationships aren't about knowing the most people, but making those who know you feel remembered. You've got natural charm—just leave a little for the people who matter."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "Nobody Wins When the String Breaks",
+                        "content": "In love, you're like a kite. Without signals, distance feels uncertain. Simple check-ins maintain connection without limiting freedom. Freedom and reassurance coexist with a little communication."
+                    },
+                    {
+                        "title": "Something Freestyle, Something Solid",
+                        "content": "You connect deeply mentally with your partner. But connection needs grounding in daily life. Small gestures—bringing something they like, planning for important days—turn closeness into something lasting."
+                    },
+                    {
+                        "title": "Don't Let Your Feelings Stay Unspoken",
+                        "content": "You're comfortable in solitude, but intimacy needs shared moments. Silence shouldn't become the default. Security grows from consistent signals: \"I'm here.\" Don't make your partner guess your state."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Keep your lightness and freedom, but learn to come back down. The healthiest love is two people who can return to solid ground. Leave a trace of security for the one you care most about."
+                    }
+                ]
+            },
+            {
+                "id": "LXX",
+                "name": "Tender Ambergris",
+                "tag": "Tender",
+                "motto": "No Desire to Rule, Only to Live Freely",
+                "introductions": [
+                    {
+                        "title": "Like Soothing Moonlight",
+                        "content": "Ambergris is rare, valued for warmth and lasting depth. You seem gentle and easy to be around, but reveal more depth as people get closer. Your care makes your presence quietly memorable."
+                    },
+                    {
+                        "title": "Deeply Devoted",
+                        "content": "Your learning ability suits many roles, but your real strength is warmth. You care naturally, helping people trust you. In teams, you're the emotional anchor. In love, steady on surface, deep below."
+                    },
+                    {
+                        "title": "A Safe Harbor for Everyone",
+                        "content": "You're warm, balanced, and easy to be around. You notice subtle emotional shifts others miss. Friends value your kindness and loyalty—they hope you give yourself the same care you offer them."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "A Fragrance That Adapts",
+                        "content": "You adapt to new environments quickly, handling obstacles with flexibility. When something doesn't work, you find another path. Paired with communication skills, this adaptability resolves problems efficiently."
+                    },
+                    {
+                        "title": "Gentleness Is Its Own Power",
+                        "content": "You naturally use gentleness to overcome force—a rare workplace skill. You hold ground with calm confidence. People accept your ideas because your confidence isn't combative. Try new challenges to grow."
+                    },
+                    {
+                        "title": "Elegant, But Not Distant",
+                        "content": "Your warmth gives you an edge in HR, PR, or product management. Empathy is your strongest asset. Combined with curiosity and fast learning, you find breakthrough points quickly."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Your talent is connecting people. Your lesson: connecting knowledge. Once you master both, you become irreplaceable. Making people understood is your start; expertise is your true ceiling."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Awkward Honesty Feels More Real Than Perfect Words",
+                        "content": "Your social instincts are sharp. When a friend struggles, direct honesty often means more than polished words. \"What's going on? I'm here\" feels more real. Trust is built by showing up and meaning it."
+                    },
+                    {
+                        "title": "Don't Forget Your True Form",
+                        "content": "You adapt like water taking any shape, but constant change can blur your own form. Pause and check: Did I say something I didn't mean? Your instincts know what feels right before your mind does."
+                    },
+                    {
+                        "title": "Humor With Perfect Timing",
+                        "content": "Your humor is a real social strength—you lighten moods naturally. But in serious moments, pause and be present. A quiet \"I'm here\" means more than a joke. Not every silence needs filling."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "You bring warmth wherever you go. But remember to save a little light for yourself—even healers need healing sometimes."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "Love Yourself a Little More",
+                        "content": "You make others comfortable by adapting to needs. But over time, your preferences blur with theirs. Save energy for yourself. Don't always yield—let your partner see your own voice too."
+                    },
+                    {
+                        "title": "Save Your Warmth for Just One",
+                        "content": "Your social strengths make connection easy, but intimacy means reaching one person deeply. Focus your attention: remember the details, stay beside your loved one in hard times, and make them feel valued."
+                    },
+                    {
+                        "title": "The Best Fragrance Takes Time to Settle",
+                        "content": "Your emotions move like tides—overwhelming when they rise. Set aside regular time for yourself. A clear boundary like one afternoon a week alone isn't distance—it's maintenance. You're best when not always burning."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Deep love doesn't mean burning yourself away. Stay clear and whole while feelings flow deeply. Treasure others and yourself. You deserve to be loved and to love yourself. Some truths never fade."
+                    }
+                ]
+            },
+            {
+                "id": "XHJ",
+                "name": "Fierce Realgar Wine",
+                "tag": "Fierce",
+                "motto": "Laugh Through Where You Fall",
+                "introductions": [
+                    {
+                        "title": "Fast, Fearless, and Ruthlessly Efficient",
+                        "content": "Realgar wine has strong, sharp character—yours is similar. You control situations and act decisively. You prefer clarity over ambiguity. That directness makes your presence confident and striking."
+                    },
+                    {
+                        "title": "Always Running at Full Power",
+                        "content": "You handle problems quickly and precisely. Your presence brings reliability and direction. In relationships, you're direct—expressing feelings clearly so the other person understands their importance."
+                    },
+                    {
+                        "title": "Real Presence Doesn't Need to Chase Attention",
+                        "content": "In social situations, you're strong-minded and decisive. Your communication is direct, helping you stand out. You prefer sincerity over small talk. Your relationships are stable and long-lasting."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "What Does Losing Feel Like Again?",
+                        "content": "Your greatest strength is decisive action combined with sharp instincts. You handle challenges with impressive efficiency. Stay aware of industry shifts and opportunities to turn performance into momentum."
+                    },
+                    {
+                        "title": "Let Your Fierceness Give a Little Warmth",
+                        "content": "Like realgar wine, your presence is hard to ignore. When sharing ideas, leave space for others. \"That's my take—what do you think?\" invites contribution without weakening authority. Be open to strengthen your influence."
+                    },
+                    {
+                        "title": "A Flexible Leadership",
+                        "content": "You thrive in fast-paced roles—management, leadership, creative direction. Your decisiveness makes others look to you. Just loosen your grip sometimes; let others contribute and enjoy the process."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "A great commander doesn't win by charging forward nonstop. They know when to attack and when to hold position. True strength comes from knowing how to be flexible as well."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "Let Them Speak First",
+                        "content": "You have strong, persuasive opinions. But communication isn't just being right. Let others finish before responding. Acknowledge their point first. People are more receptive when they feel heard."
+                    },
+                    {
+                        "title": "Half a Step Back Makes You Stronger",
+                        "content": "You often lead socially with good results. But not every moment needs \"follow me.\" Sometimes \"let's figure this out together\" builds stronger loyalty. Checking in makes people feel valued."
+                    },
+                    {
+                        "title": "Turn On Your Emotional Radar",
+                        "content": "You're goal-oriented socially but may miss quiet emotional signals. Small changes in tone or body language carry meaning. Checking in gently prevents misunderstandings. Awareness strengthens leadership."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Intensity shouldn't be all people remember. Alongside your sharpness, let them remember your warmth. You can be unforgettable like fiery liquor, and also the remedy someone needed in cold winter."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "Love Slowly",
+                        "content": "You love intensely, going all in. But intensity can move faster than your partner processes. Spread care into everyday moments—small, consistent acts are as meaningful as grand surprises. Stay steady."
+                    },
+                    {
+                        "title": "Let Your Eyes Take in Daily Life",
+                        "content": "Your instincts are sharp at work, but in love you can miss quieter signals. While planning big gestures, you might overlook stress signs. Pay attention to everyday details. Small care speaks loudest."
+                    },
+                    {
+                        "title": "Two Better Than One",
+                        "content": "You handle difficulties alone—quiet under pressure, carrying setbacks yourself. That's strength, but also distance. A relationship isn't faced alone. \"I'm overwhelmed, I'll talk later\" is enough to stay connected."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Your light has never lacked brightness. What it needs is warmth people can truly feel. You may be a natural leader, but in relationships, it also matters to know when to follow someone else's lead."
+                    }
+                ]
+            },
+            {
+                "id": "RSG",
+                "name": "Everyone's Favorite Pepino Melon",
+                "tag": "Everyone's Favorite",
+                "motto": "No Big Lectures, Just Little Pleasures",
+                "introductions": [
+                    {
+                        "title": "Effortlessly Winning at Life",
+                        "content": "The Pepino Melon is quiet but carries its own value. You don't compete for attention—calm and steady, people feel comfortable around you. Your consistency and natural ease speak for themselves."
+                    },
+                    {
+                        "title": "Grounded to the Core",
+                        "content": "You approach things with rare care and precision. In relationships, you show love through actions—steady, protective, quietly present. Your care runs deeper than it appears, understood fully over time."
+                    },
+                    {
+                        "title": "Born to Socialize",
+                        "content": "You're quiet socially—not flashy. Many connections form because others are drawn to you. You balance openness with caution. Once someone earns your trust, you give genuine sincerity and full commitment."
+                    }
+                ],
+                "workplaceAnalyses": [
+                    {
+                        "title": "Release on Full Charge",
+                        "content": "Quietly building skills doesn't mean staying hidden. Take opportunities to step forward. Your precision already sets you apart. Now let that work be seen in small but visible ways."
+                    },
+                    {
+                        "title": "Beyond Doing It Alone",
+                        "content": "You handle things alone—a strength, but also a limit. Letting others share the load improves results. Collaboration brings ideas that don't appear in isolation. Different perspectives change outcomes."
+                    },
+                    {
+                        "title": "\"Nurturing\" Is Your Thing",
+                        "content": "Education, healthcare, and public service suit you—they need patience. You don't get discouraged by slow progress. Your warmth makes you someone others rely on for safety and support."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Being grounded doesn't mean standing still. Stay patient and steady, but don't forget to step into the sunlight sometimes too. For a tree to grow taller, it needs both deep roots below and open space above."
+                    }
+                ],
+                "relationshipAnalyses": [
+                    {
+                        "title": "You Have Your Own Rhythm",
+                        "content": "Good socializing isn't about frequency but depth. Connect meaningfully with a few trusted people. Your presence isn't defined by how often you appear, but by the comfort you bring when you do."
+                    },
+                    {
+                        "title": "Don't Forget to Reach Out Too",
+                        "content": "People like you, and connections start because others reach out first. But always waiting means some relationships may fade. Small actions—\"Glad you were there\" or \"How have you been?\"—keep bonds alive."
+                    },
+                    {
+                        "title": "Showing Weakness Can Sometimes Earn You More",
+                        "content": "You manage emotions well, but it can be a barrier if everything stays internal. Letting small vulnerability show doesn't weaken you. It reminds others you're human. Relationships deepen when guards drop."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "A good relationship is like a strong tree: deep roots, lasting through time. Your connections may be few, but steady, meaningful, and built to endure."
+                    }
+                ],
+                "loveAnalyses": [
+                    {
+                        "title": "A Small Flower Hidden in a Serene Forest",
+                        "content": "Your relationship feels like a calm forest—steady and safe. But even quiet spaces need signs of life. Simple moments—sharing something funny, saying something sincere—make love feel real and lasting."
+                    },
+                    {
+                        "title": "The Meaning of Small Exceptions",
+                        "content": "People listen when you speak, but in love, this charm alone doesn't create closeness. Your partner wants to feel specially chosen. Small exceptions turn reliability into intimacy."
+                    },
+                    {
+                        "title": "Let Your Actions Send a Notification Too",
+                        "content": "You trust actions over words. But quiet care can go unnoticed without expression. Simple messages translate intentions into something felt. When actions and words combine, care becomes clearer and warmer."
+                    },
+                    {
+                        "title": "Advanced Strategy",
+                        "content": "Once the fruit is ripe, let people know. Be seen a little more while keeping your steadiness. You make others feel safe enough to cry, and also cherished enough to smile."
+                    }
+                ]
+            }
+        ]
+    }
+}

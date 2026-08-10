@@ -5,7 +5,7 @@ import { generateEdicts } from "@/agents/edictGeneratorAgent";
 import { edictRepository } from "@/agents/edictRepository";
 import { readableAiError } from "@/agents/errors";
 import type { CharacterBrief } from "@/agents/types";
-import { speakerMeta } from "@/assets/data/edictMeta";
+import { speakerIds, useSpeakerMeta } from "@/assets/data/edictMeta";
 import DebateView from "@/components/edict/DebateView.vue";
 import DeepThoughtPopup from "@/components/edict/DeepThoughtPopup.vue";
 import EdictDemand from "@/components/edict/EdictDemand.vue";
@@ -21,6 +21,7 @@ import { useRouter } from "vue-router";
 
 type Phase = "picker" | "demand" | "preparingDebate" | "debate" | "review" | "deepThought" | "detail" | "result";
 const router = useRouter();
+const speakerMeta = useSpeakerMeta();
 const media = useMediaStore();
 const phase = ref<Phase>("picker");
 const records = ref<EdictRecord[]>([]);
@@ -53,10 +54,7 @@ const currentOutcome = computed(() =>
 const phaseTransitionName = computed(() =>
   phase.value === "picker" || phase.value === "demand" || phase.value === "detail" ? "" : "phase",
 );
-const characters: CharacterBrief[] = Object.entries(speakerMeta).map(([id, meta]) => ({
-  id: id as keyof typeof speakerMeta,
-  ...meta,
-}));
+const characters = computed<CharacterBrief[]>(() => speakerIds.map((id) => ({ id, ...speakerMeta.value[id] })));
 
 /** 同步奏折记录 */
 function syncRecords() {
@@ -84,7 +82,11 @@ async function replenish() {
   generating.value = true;
   replenishPromise = (async () => {
     try {
-      const generated = await generateEdicts(Math.min(5, TARGET_PENDING_EDICTS - pending), characters, records.value);
+      const generated = await generateEdicts(
+        Math.min(5, TARGET_PENDING_EDICTS - pending),
+        characters.value,
+        records.value,
+      );
       edictRepository.addMany(generated);
       syncRecords();
       if (!visibleIds.value.length) {
@@ -163,7 +165,7 @@ function startDebate() {
   void (async () => {
     try {
       const result = await runLiveDebate(
-        { edict: activeEdict.value!, characters },
+        { edict: activeEdict.value!, characters: characters.value },
         {
           signal: controller!.signal,
           onMessage: (message) => {

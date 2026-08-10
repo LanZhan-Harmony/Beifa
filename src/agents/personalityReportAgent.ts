@@ -1,7 +1,7 @@
+import i18n from "@/langs";
 import type { PersonalityRoleId, PersonalityRoleType, PersonalityType } from "@/types/personalityType";
 import { generateObject } from "./aiClient";
-import { personalityKeywordsPrompt } from "./prompts/personalityKeywordsPrompt";
-import { personalityReportPrompt } from "./prompts/personalityReportPrompt";
+import { getAgentPrompt } from "./getAgentPrompt";
 import { validatePersonalityKeywords, validatePersonalityReport } from "./schemas";
 import type { PersonalityReportDraft } from "./types";
 
@@ -14,9 +14,9 @@ export async function generatePersonalityReport(
   const roleIds = roles.map((role) => role.id) as PersonalityRoleId[];
   const draft = await generateObject<PersonalityReportDraft>({
     agent: "personality-report",
-    systemPrompt: personalityReportPrompt,
+    systemPrompt: getAgentPrompt("personalityReportPrompt"),
     input: {
-      locale: "zh-CN",
+      locale: i18n.global.locale.value,
       roleIds,
       allowedKeywords,
       chosenOptionPrompts: chosenOptionPrompts.slice(0, 120).map((item) => item.slice(0, 80)),
@@ -48,9 +48,9 @@ export async function generatePersonalityKeywords(
 ): Promise<string[]> {
   return generateObject<string[]>({
     agent: "personality-keywords",
-    systemPrompt: personalityKeywordsPrompt,
+    systemPrompt: getAgentPrompt("personalityKeywordsPrompt"),
     input: {
-      locale: "zh-CN",
+      locale: i18n.global.locale.value,
       chosenOptionPrompts: chosenOptionPrompts.slice(0, 120).map((item) => item.slice(0, 80)),
     },
     maxTokens: 400,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { streamChat, type ChatMessage } from "@/agents/aiClient";
+import { getAgentPrompt } from "@/agents/getAgentPrompt";
 import MessageCard from "@/components/MessageCard.vue";
 import type { characterType } from "@/types/characterType";
 import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
@@ -55,15 +56,6 @@ const userContext = () => {
   ].join("\n\n");
 };
 
-const systemPrompt = () => `你正在《江山北望》的作品集页面中与玩家对话。
-请始终以“${props.character.name}”的身份说话，保持符合人物经历、性格和时代背景的口吻。
-你可以搜索并参考《江山北望》的公开信息；回答游戏设定、人物关系和剧情问题时，优先使用联网搜索得到的可靠信息。
-不要编造与游戏设定冲突的事实；如果搜索不到或无法确认，请明确说明不确定。
-回复使用简体中文，内容自然、简洁，像角色在和玩家交谈，不要输出分析过程、工具调用过程。严禁输出Markdown格式。
-
-当前人物资料：
-${userContext()}`;
-
 function scrollToBottom() {
   if (messagesRef.value) {
     messagesRef.value.scrollTop = messagesRef.value.scrollHeight;
@@ -85,9 +77,12 @@ async function sendMessage() {
   scrollToBottom();
 
   try {
-    const history = messages.value.slice(0, -1);
+    const history = [
+      { role: "user" as const, content: `当前人物资料：\n${userContext()}` },
+      ...messages.value.slice(0, -1),
+    ];
     for await (const chunk of streamChat({
-      systemPrompt: systemPrompt(),
+      systemPrompt: getAgentPrompt("chatPrompt"),
       messages: history,
       maxTokens: 1200,
       webSearch: true,
@@ -532,4 +527,3 @@ onBeforeUnmount(() => {
   }
 }
 </style>
-

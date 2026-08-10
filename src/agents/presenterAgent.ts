@@ -1,5 +1,5 @@
 import { generateObject } from "./aiClient";
-import { presenterPrompt } from "./prompts/presenterPrompt";
+import { getAgentPrompt } from "./getAgentPrompt";
 import { validateTurn } from "./schemas";
 import type { DebateTurnOutput } from "./types";
 
@@ -13,7 +13,7 @@ export async function presenterTurn(input: unknown, signal?: AbortSignal): Promi
   return validateTurn(
     await generateObject({
       agent: "presenter",
-      systemPrompt: presenterPrompt,
+      systemPrompt: getAgentPrompt("presenterPrompt"),
       input,
       maxTokens: 900,
       signal,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { portraitUrl, speakerMeta } from "@/assets/data/edictMeta";
+import { portraitUrl, useSpeakerMeta } from "@/assets/data/edictMeta";
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import MessageCard from "@/components/MessageCard.vue";
 import ThemeButton from "@/components/ThemeButton.vue";
@@ -19,6 +19,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const speakerMeta = useSpeakerMeta();
 
 const speakerId = computed(() =>
   props.outcome.feedback.speaker === "presenter" ? props.edict.presenter : props.edict.objector,
@@ -343,4 +344,3 @@ onMounted(async () => {
   }
 }
 </style>
-

@@ -1,6 +1,6 @@
 import type { EdictRecord } from "@/types/edictType";
 import { generateObject } from "./aiClient";
-import { summaryPrompt } from "./prompts/summaryPrompt";
+import { getAgentPrompt } from "./getAgentPrompt";
 import { validateConclusion } from "./schemas";
 import type { CharacterBrief, DebateConclusionOutput } from "./types";
 
@@ -18,7 +18,7 @@ export async function summarizeDebate(
   return validateConclusion(
     await generateObject({
       agent: "summary",
-      systemPrompt: summaryPrompt,
+      systemPrompt: getAgentPrompt("summaryPrompt"),
       input: {
         edict: {
           type: edict.type,

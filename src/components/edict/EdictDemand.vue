@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { speakerMeta } from "@/assets/data/edictMeta";
+import { useSpeakerMeta } from "@/assets/data/edictMeta";
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import PageNavButton from "@/components/PageNavButton.vue";
 import { useMediaStore } from "@/stores/media";
@@ -24,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const speakerMeta = useSpeakerMeta();
 
 const pressedDecision = ref<EdictDecision | null>(null);
 

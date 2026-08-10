@@ -57,16 +57,6 @@ export default defineConfig({
         "**/node_modules/**", // 依赖（chokidar 默认已忽略，显式声明更稳）
       ],
     },
-    // 预热核心页面，服务就绪后立即编译，浏览器打开直接命中缓存
-    warmup: {
-      clientFiles: [
-        "./src/App.vue",
-        "./src/views/SplashView.vue",
-        "./src/views/PlayerView.vue",
-        "./src/views/MainMenuView.vue",
-        "./src/components/player/StoryletPlayer.vue",
-      ],
-    },
     proxy: {
       "/session": {
         target: "http://untamed.qzz.io:5152",
@@ -83,7 +73,19 @@ export default defineConfig({
               "User-Agent",
               "BeifaClientFull/1.1.16 (packaged:release) Electron/37.10.3 Chromium/138.0.7204.251 Node/22.21.1 win32/10.0.26200 (Windows_NT; x64; Windows 11 Pro for Workstations)",
             );
-            proxyReq.setHeader("Locale", "zh_CN");
+
+            // 转发 API 客户端根据当前界面语言生成的语言头。
+            const localeHeader = req.headers.locale;
+            const locale = Array.isArray(localeHeader) ? localeHeader[0] : localeHeader;
+            proxyReq.setHeader("Locale", locale || "zh_CN");
+
+            const acceptLanguageHeader = req.headers["accept-language"];
+            const acceptLanguage = Array.isArray(acceptLanguageHeader)
+              ? acceptLanguageHeader[0]
+              : acceptLanguageHeader;
+            if (acceptLanguage) {
+              proxyReq.setHeader("Accept-Language", acceptLanguage);
+            }
 
             // 如果浏览器请求没带 Cookie，尝试用本地 session 服务预取的 cookie 注入
             if (!req.headers.cookie || !req.headers.cookie.includes("_session=")) {

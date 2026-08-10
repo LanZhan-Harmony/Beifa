@@ -1,8 +1,9 @@
+import i18n from "@/langs";
 import type { EdictRecord } from "@/types/edictType";
 import { v7 as uuidv7 } from "uuid";
 import { generateObject } from "./aiClient";
 import { MAX_GENERATION_BATCH } from "./config";
-import { edictGeneratorPrompt } from "./prompts/edictGeneratorPrompt";
+import { getAgentPrompt } from "./getAgentPrompt";
 import { categories, characterIds, validateBatch } from "./schemas";
 import type { CharacterBrief, GeneratedEdictBatch } from "./types";
 
@@ -23,10 +24,10 @@ export async function generateEdicts(
   const amount = Math.max(1, Math.min(MAX_GENERATION_BATCH, count));
   const raw = await generateObject<GeneratedEdictBatch>({
     agent: "edict-generator",
-    systemPrompt: edictGeneratorPrompt,
+    systemPrompt: getAgentPrompt("edictGeneratorPrompt"),
     input: {
       count: amount,
-      locale: "zh-CN",
+      locale: i18n.global.locale.value,
       categories,
       allowedCharacterIds: characterIds,
       characters,

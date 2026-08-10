@@ -1,0 +1,151 @@
+{
+    "edicts": [
+        {
+            "id": "019f7551-e333-7498-b805-b5e04a8a1725",
+            "source": "authored",
+            "type": "culture",
+            "title": "Scenic Spot Stamp Rally",
+            "presenter": "SiKongYu",
+            "objector": "XieXuan",
+            "demand": "I request that stone-carved seals be set up at the famous sights of the divine capital, so the people may tour, collect stamps as keepsakes, and let them proclaim Great Xuan's flourishing age.",
+            "messages": [
+                {
+                    "id": 0,
+                    "sender": "presenter",
+                    "content": "Your Majesty, we could install stone-carved seals at famous sights to encourage the people to travel and collect stamps!"
+                },
+                {
+                    "id": 1,
+                    "sender": "presenter",
+                    "content": "Collecting stamps while touring the mountains and rivers of Great Zhou would broaden their horizons and bring more customers to the taverns!"
+                },
+                {
+                    "id": 2,
+                    "sender": "objector",
+                    "content": "……There are eight hundred famous sights across the realm. Site selection, surveying, carving……does it all fall to the Ministry of Works?"
+                },
+                {
+                    "id": 3,
+                    "sender": "objector",
+                    "content": "I haven't even finished the water-conservancy plans on my desk……"
+                },
+                {
+                    "id": 4,
+                    "sender": "presenter",
+                    "content": "Without a stamp as proof, who would believe you had been to Dragon Gate?"
+                },
+                {
+                    "id": 5,
+                    "sender": "presenter",
+                    "content": "With stamps, the people will finally have the motivation to leave home!"
+                },
+                {
+                    "id": 6,
+                    "sender": "objector",
+                    "content": "Carving the stamps is easy enough……but then my research project will have to stop……"
+                },
+                {
+                    "id": 7,
+                    "sender": "presenter",
+                    "content": "Only by traveling far and seeing more will the people learn how good Great Xuan is!"
+                },
+                {
+                    "id": 8,
+                    "sender": "objector",
+                    "content": "Rushing around for stamps without enjoying the sights—is that any different from a courier racing along the road……"
+                },
+                {
+                    "id": 9,
+                    "sender": "objector",
+                    "content": "My new invention is one step from completion. Your Majesty, please don't give the Ministry of Works any more tasks……"
+                },
+                {
+                    "id": 10,
+                    "sender": "objector",
+                    "content": "Your Majesty, please judge this matter wisely!"
+                }
+            ],
+            "status": "pending",
+            "shouldDeepThought": false,
+            "outcomes": {
+                "approved": {
+                    "title": "Approved! Let the Stamp Tour Begin",
+                    "content": "Stone-carved seals spread across the divine capital, and the people competed to tour and collect stamps. From then on, every teahouse and tavern set up its own check-in seal, and merchants took advantage of the craze to raise prices—a bowl of tea cost more than a jug of wine. Travelers cared only about stamping their books and hurrying onward; they neither admired the scenery nor savored the tea. Famous sights became places to queue, and spring outings turned into the misery of going to market.",
+                    "feedback": {
+                        "speaker": "presenter",
+                        "content": "Your Majesty is wise indeed! From this day forth, Great Xuan's splendor will be renowned throughout the four seas!"
+                    },
+                    "emperorComment": "Emperor Wu Xuan decrees:\n\tI have received the Mandate of Heaven and rule all under Heaven.\nPlace stone seals at famous sites across the realm, so travelers may collect impressions and celebrate Great Xuan's magnificent mountains and rivers. Without a seal as proof, who would believe you had been to Dragon Gate? The stamp tour will boost inns and taverns everywhere, broaden people's horizons, and enliven common life. The Ministry of Works shall choose the sites and carve them at once."
+                }
+            }
+        },
+        {
+            "id": "019f7551-e333-7498-b805-b93f333c9f50",
+            "source": "authored",
+            "type": "technology",
+            "title": "Ecliptic Armillary Sphere",
+            "presenter": "XieXuan",
+            "objector": "ChenWanEr",
+            "demand": "I seek to improve the armillary sphere and precisely measure the stars using ecliptic degrees. Please grant it substantial funding.",
+            "messages": [
+                {
+                    "id": 0,
+                    "sender": "presenter",
+                    "content": "Your Majesty, I ask to improve the armillary sphere, so that we may understand changes in the heavens and correct errors in the calendar."
+                },
+                {
+                    "id": 1,
+                    "sender": "objector",
+                    "content": "Your craftsmanship is always admirable, but how much will this armillary sphere cost?"
+                },
+                {
+                    "id": 2,
+                    "sender": "presenter",
+                    "content": "……I am still calculating……"
+                },
+                {
+                    "id": 3,
+                    "sender": "objector",
+                    "content": "Oh dear, you submitted the memorial before the budget was even ready? You are rushing things."
+                },
+                {
+                    "id": 4,
+                    "sender": "presenter",
+                    "content": "The old instrument is no longer adequate. If we do not correct it, we may delay the farming seasons and leave the people with poor harvests!"
+                },
+                {
+                    "id": 5,
+                    "sender": "objector",
+                    "content": "Celestial phenomena are mysterious indeed. If we spend a fortune and still get them wrong, how am I to answer for it?"
+                },
+                {
+                    "id": 6,
+                    "sender": "presenter",
+                    "content": "How can we know it will fail without trying…… I believe this technology could benefit all the people……"
+                },
+                {
+                    "id": 7,
+                    "sender": "objector",
+                    "content": "Benefiting all the people has my full support. Submit the budget, and the Ministry of Revenue can review it at its leisure."
+                },
+                {
+                    "id": 8,
+                    "sender": "objector",
+                    "content": "Your Majesty, please judge this matter wisely!"
+                }
+            ],
+            "status": "pending",
+            "shouldDeepThought": false,
+            "outcomes": {
+                "rejected": {
+                    "title": "Rejected! Hold Fast to Principle",
+                    "content": "Observations continue to rely on the old instrument, and the heavens still look just as ancient in the eyes of the officials. Though a valuable opportunity for astronomical research was lost, the Directorate of Astronomy followed precedent and preserved long-term stability.",
+                    "feedback": {
+                        "speaker": "objector",
+                        "content": "Your Majesty is wise. The majesty of the Heavenly Way must be upheld according to ancient laws and institutions."
+                    }
+                }
+            }
+        }
+    ]
+}

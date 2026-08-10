@@ -1,6 +1,7 @@
 import type { archiveType } from "@/types/archiveType";
 import type { briefArchiveType } from "@/types/briefArchiveType";
 import type { sessionType } from "@/types/sessionType";
+import i18n, { getAcceptLanguage, getServerLocale } from "@/langs";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 
 /**
@@ -13,9 +14,7 @@ class APIClient {
   private sessionCookie: string | null;
   private headers: Record<string, string> = {
     Accept: "application/json",
-    "Accept-Language": "zh-cmn-Hans, zh-cmn-Hans;q=0.1",
     "Accept-Encoding": "gzip, deflate, br, zstd",
-    Locale: "zh_CN",
     "User-Agent":
       "BeifaClientFull/1.1.16 (packaged:release) Electron/37.10.3 Chromium/138.0.7204.251 Node/22.21.1 win32/10.0.26200 (Windows_NT; x64; Windows 11 Pro for Workstations)",
     "Sec-CH-UA": '"Not)A;Brand";v="8", "Chromium";v="138"',
@@ -46,6 +45,13 @@ class APIClient {
     }
 
     this.sessionCookie = foundCookie;
+    this.setLocale(i18n.global.locale.value);
+  }
+
+  /** 更新后续 API 请求使用的语言头 */
+  public setLocale(locale: string): void {
+    this.headers["Accept-Language"] = getAcceptLanguage(locale);
+    this.headers.Locale = getServerLocale(locale);
   }
 
   /**
@@ -121,6 +127,9 @@ class APIClient {
 
     const isTauri = !!(window as any).__TAURI_INTERNALS__;
     const isDev = import.meta.env.DEV && !isTauri;
+
+    // 读取最新语言，避免切换语言后必须重建 API 客户端。
+    this.setLocale(i18n.global.locale.value);
 
     // 基础头部信息
     const headers: Record<string, string> = { ...this.headers };

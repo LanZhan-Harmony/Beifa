@@ -1,5 +1,5 @@
 import { generateObject } from "./aiClient";
-import { objectorPrompt } from "./prompts/objectorPrompt";
+import { getAgentPrompt } from "./getAgentPrompt";
 import { validateTurn } from "./schemas";
 import type { DebateTurnOutput } from "./types";
 
@@ -13,7 +13,7 @@ export async function objectorTurn(input: unknown, signal?: AbortSignal): Promis
   return validateTurn(
     await generateObject({
       agent: "objector",
-      systemPrompt: objectorPrompt,
+      systemPrompt: getAgentPrompt("objectorPrompt"),
       input,
       maxTokens: 900,
       signal,
