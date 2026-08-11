@@ -9,7 +9,7 @@ import type { characterType } from "@/types/characterType";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { tm } = useI18n(); // tm 用于获取整个对象的翻译，适合需要获取数组或对象的情况
+const { t, tm } = useI18n(); // tm 用于获取整个对象的翻译，适合需要获取数组或对象的情况
 const mediaStore = useMediaStore();
 const saveStore = useSaveStore();
 
@@ -134,7 +134,7 @@ function isStoryUnlocked(storyId: string): boolean {
 <template>
   <div class="container">
     <img class="background" src="/common/images/portfolio/CharacterProfile_Main_bg.png" />
-    <PageNavButton text="风华人物" />
+    <PageNavButton :text="t('character.title')" />
 
     <!-- 左侧扇形角色选择 -->
     <div class="selector-panel" @wheel="handleWheel" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
@@ -166,7 +166,7 @@ function isStoryUnlocked(storyId: string): boolean {
         :alt="currentCharacter.name"
         loading="lazy" />
       <div class="comment">
-        <button class="ai-icon" type="button" aria-label="与人物对话" @click="openChat" />
+        <button class="ai-icon" type="button" :aria-label="t('character.chatWithCharacter')" @click="openChat" />
         <CommentButton type="like" />
         <CommentButton type="dislike" />
       </div>
@@ -187,7 +187,7 @@ function isStoryUnlocked(storyId: string): boolean {
           <div v-for="(story, idx) in currentCharacter.stories" :key="idx" class="character-story">
             <div v-if="!isStoryUnlocked(story.id)" class="story-locked">
               <img src="/common/images/portfolio/CharacterProfile_TextLockIcon_L.png" />
-              <span>继续探索后解锁</span>
+              <span>{{ t("character.continueExploringToUnlock") }}</span>
               <img src="/common/images/portfolio/CharacterProfile_TextLockIcon_R.png" />
             </div>
             <div v-else>

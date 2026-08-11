@@ -4,24 +4,43 @@
         "exit": "Выйти",
         "exitConfirmMessage": "Вы уверены, что хотите выйти?"
     },
-    "menu": {
-        "startStory": "Начать историю",
-        "continueStory": "Продолжить историю",
-        "chapterSelection": "Выбор главы",
-        "portfolios": "Досье персонажей",
-        "exitGame": "Выйти из игры"
-    },
-    "bottomBar": {
-        "copyright": "Студия Муянь",
-        "demo": "Демо-версия",
-        "settings": "Настройки",
-        "announcements": "Объявления",
-        "eula": "Лицензионное соглашение",
+    "navigation": {
         "achievements": "Достижения",
-        "credits": "Список создателей"
+        "announcements": "Объявления"
+    },
+    "errors": {
+        "aiUnavailable": "Сервис ИИ временно недоступен. Повторите попытку позже."
+    },
+    "mainMenu": {
+        "systemFunctions": "Системные функции",
+        "exit": "Выйти",
+        "settings": "Настройки",
+        "extendedFunctions": "Дополнительные функции",
+        "personalityTest": "Тест отчёта о личности",
+        "achievements": "Достижения",
+        "announcements": "Объявления",
+        "exploreFunctions": "Функции исследования",
+        "storyline": {
+            "lead": "С",
+            "rest": "южетная линия"
+        },
+        "characters": {
+            "lead": "П",
+            "rest": "ыдающиеся личности"
+        },
+        "allChapters": {
+            "lead": "Все",
+            "rest": "главы"
+        },
+        "explorationProgress": "Прогресс исследования",
+        "edict": "Явиться ко двору",
+        "startStory": "Начать историю",
+        "continue": "Продолжить",
+        "returnToLogin": "Вернуться к экрану входа?"
     },
     "button": {
-        "back": "Назад"
+        "back": "Назад",
+        "refresh": "Обновить"
     },
     "setting": {
         "mainVolume": "Общая громкость",
@@ -31,7 +50,15 @@
         "language": "Язык интерфейса",
         "fullscreen": "Режим отображения",
         "fullscreenOn": "Полный экран",
-        "fullscreenOff": "Оконный режим"
+        "fullscreenOff": "Оконный режим",
+        "localeNames": {
+            "zh-CN": "Упрощённый китайский",
+            "zh-HK": "Традиционный китайский",
+            "en-US": "Английский",
+            "ja-JP": "Японский",
+            "ko-KR": "Корейский",
+            "ru-RU": "Русский"
+        }
     },
     "chapter": {
         "enterChapter": "Войти в главу"
@@ -52,12 +79,19 @@
     },
     "character": {
         "characterIntroduction": "Описание персонажа",
+        "title": "Выдающиеся личности",
         "characterStories": "Истории персонажей",
-        "characterStoryLocked": "Текущий прогресс заблокирован"
+        "characterStoryLocked": "Текущий прогресс заблокирован",
+        "continueExploringToUnlock": "Продолжайте исследование, чтобы открыть",
+        "chatWithCharacter": "Поговорить с персонажем"
     },
     "player": {
         "storyline": "Линия сюжета",
-        "enterNextChapter": "Перейти к следующей главе"
+        "enterNextChapter": "Перейти к следующей главе",
+        "qte": {
+            "click": "Нажмите",
+            "hold": "Нажмите и удерживайте"
+        }
     },
     "credit": {
         "creators": "Главные создатели",
@@ -80,5 +114,186 @@
         "continueStory": "Продолжить игру",
         "backToStoryline": "Вернуться к линии сюжета",
         "settings": "Настройки"
+    },
+    "edictUi": {
+        "notice": {
+            "generatedDelivered": "Прибыло новых докладов: {count}",
+            "noneGenerated": "Новые доклады не были созданы",
+            "outcomeUnavailable": "Этот вывод ещё не сформирован. Проведите придворное совещание ещё раз."
+        },
+        "preparing": {
+            "errorTitle": "Министры сбежали",
+            "title": "Министры готовятся к придворному совещанию…"
+        },
+        "actions": {
+            "retry": "Повторить",
+            "backToDemand": "Вернуться к докладу"
+        }
+    },
+    "edict": {
+        "category": {
+            "livelihood": "Благосостояние народа",
+            "economy": "Экономика",
+            "entertainment": "Развлечения",
+            "culture": "Культура",
+            "technology": "Наука и технологии",
+            "military": "Военное дело",
+            "diplomacy": "Дипломатия",
+            "workplace": "Рабочая сфера"
+        },
+        "navigation": {
+            "reviewMemorials": "Рассмотреть доклады"
+        },
+        "memorial": {
+            "viewAriaLabel": "Просмотреть доклад: {title}"
+        },
+        "picker": {
+            "generating": "Составление нового доклада…",
+            "empty": "Нет докладов для рассмотрения"
+        },
+        "archive": {
+            "title": "Архив докладов",
+            "empty": "Завершённых докладов пока нет"
+        },
+        "demand": {
+            "askMinisters": "Что скажете, мои министры?"
+        },
+        "decision": {
+            "approve": "Одобрить",
+            "reject": "Отклонить"
+        },
+        "deepThought": {
+            "ministersAlt": "Увещевания сановников",
+            "addressEmperor": "Ваше Величество!!",
+            "thinkAgain": "Подумайте хорошенько, Ваше Величество!"
+        },
+        "detail": {
+            "closingFormula": "{comment} Так повелено!",
+            "reconsider": "Подумать ещё",
+            "title": "Императорский указ",
+            "confirmFormula": "Так повелено",
+            "sealApplyingAlt": "Нанесение императорской печати",
+            "sealMarkAlt": "Знак императорской печати",
+            "sealAppliedAlt": "Императорская печать поставлена"
+        },
+        "debate": {
+            "viewDiscussion": "Посмотреть обсуждение",
+            "skip": "Пропустить",
+            "intro": {
+                "courtDebate": "Придворное совещание",
+                "begins": "Начинается"
+            }
+        },
+        "result": {
+            "dialogLabel": "Рассмотрение доклада завершено",
+            "continueReview": "Продолжить рассмотрение",
+            "retire": "Завершить аудиенцию"
+        },
+        "outcome": {
+            "approvedTitle": "Одобрено!",
+            "rejectedTitle": "Отклонено!"
+        },
+        "debateMessage": {
+            "judgmentAppeal": "Ваше Величество, вынесите решение!"
+        }
+    },
+    "portfolio": {
+        "vote": {
+            "like": "Подарить цветы",
+            "dislike": "Бросить яйца"
+        },
+        "chat": {
+            "greeting": "Я {name}. О чём вы хотели бы поговорить?",
+            "emptyResponse": "Ответ не получен. Повторите попытку позже.",
+            "continueError": "Диалог пока нельзя продолжить: {error}",
+            "unknownError": "Неизвестная ошибка",
+            "title": "Разговор с {name}",
+            "close": "Закрыть",
+            "userLabel": "Я",
+            "inputPlaceholder": "Введите сообщение…",
+            "send": "Отправить"
+        }
+    },
+    "personalityUi": {
+        "create": {
+            "completedTitle": "Поздравляем с прохождением",
+            "completedMessageLine1": "Поздравляем с прохождением! Вы завершили сбор всех данных.",
+            "completedMessageLine2": "Просмотрите свой итоговый отчёт!",
+            "viewReport": "Просмотреть отчёт",
+            "resultReveal": "Результаты скоро будут объявлены",
+            "error": "Не удалось создать отчёт. Повторите попытку."
+        },
+        "report": {
+            "title": "Отчёт о тесте личности",
+            "detailsLabel": "Сведения об отчёте",
+            "currentProportion": "Текущая доля",
+            "viewWordCloud": "Просмотреть облако слов",
+            "analysisLabel": "Анализ отчёта",
+            "tabs": {
+                "workplace": "Анализ\nкарьеры",
+                "relationship": "Межличностный\nанализ",
+                "love": "Любовный\nанализ"
+            },
+            "sections": {
+                "career": "Анализ карьеры",
+                "relationship": "Межличностный анализ",
+                "love": "Любовный анализ"
+            },
+            "relationships": {
+                "confidantRole": "Роль близкого человека",
+                "complementaryRole": "Дополняющая роль"
+            }
+        },
+        "keywords": {
+            "navTitle": "Тест личности",
+            "loading": "Обрабатываем ваши ключевые слова…",
+            "error": "Не удалось создать ключевые слова.",
+            "retry": "Повторить",
+            "close": "Закрыть облако слов",
+            "refresh": "Обновить",
+            "resultProgress": "До раскрытия результатов:"
+        },
+        "chart": {
+            "love": {
+                "ariaLabel": "График анализа любовных качеств",
+                "sliderAriaLabel": "{left} до {right}: {value}%"
+            },
+            "loveTraits": {
+                "pragmatic": "Практичный тип",
+                "romantic": "Романтичный тип",
+                "independent": "Независимый тип",
+                "dependent": "Зависимый тип",
+                "open": "Открытый тип",
+                "loyal": "Верный тип",
+                "conservativeWait": "Осторожный выжидающий тип",
+                "proactivePursuit": "Инициативный тип",
+                "reasonLed": "Рациональный тип",
+                "emotionLed": "Эмоциональный тип"
+            },
+            "workplace": {
+                "ariaLabel": "График анализа профессиональных навыков"
+            },
+            "relationship": {
+                "ariaLabel": "График анализа межличностных качеств"
+            },
+            "labels": {
+                "workplace": {
+                    "resourcefulness": "Находчивость",
+                    "ambitionAchievement": "Амбиции и достижения",
+                    "managingUp": "Управление отношениями с руководством",
+                    "changeResilience": "Устойчивость к изменениям",
+                    "bidingTime": "Умение выжидать, скрывая силу",
+                    "decisiveness": "Решительность и оперативность",
+                    "adaptability": "Умение быстро адаптироваться"
+                },
+                "relationship": {
+                    "sociability": "Общительность",
+                    "emotionalStability": "Эмоциональная стабильность",
+                    "curiosity": "Любознательность",
+                    "openness": "Открытость",
+                    "skepticism": "Скептицизм"
+                }
+            }
+        }
     }
 }

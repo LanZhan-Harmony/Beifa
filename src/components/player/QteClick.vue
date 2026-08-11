@@ -11,7 +11,7 @@ import { convertToStoryletId } from "@/utils/converter";
 import { computed, useCssVars } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { tm } = useI18n();
+const { t, tm } = useI18n();
 
 const props = defineProps<{
   videoId: string;
@@ -46,7 +46,7 @@ const handleClick = () => {
 <template>
   <div class="qte-container">
     <div class="qte-click" @click.stop="handleClick">
-      <div class="qte-text">点击</div>
+      <div class="qte-text">{{ t("player.qte.click") }}</div>
     </div>
     <div class="qte-description-text">{{ descriptionText }}</div>
   </div>

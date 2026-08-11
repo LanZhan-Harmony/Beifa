@@ -4,24 +4,43 @@
         "exit": "종료",
         "exitConfirmMessage": "정말 종료하시겠습니까?"
     },
-    "menu": {
-        "startStory": "이야기 시작",
-        "continueStory": "이야기 계속",
-        "chapterSelection": "챕터 선택",
-        "portfolios": "캐릭터 프로필",
-        "exitGame": "게임 종료"
-    },
-    "bottomBar": {
-        "copyright": "목염 스튜디오",
-        "demo": "체험판",
-        "settings": "설정",
-        "announcements": "공지",
-        "eula": "이용 약관",
+    "navigation": {
         "achievements": "업적",
-        "credits": "제작진 명단"
+        "announcements": "공지사항"
+    },
+    "errors": {
+        "aiUnavailable": "AI 서비스를 일시적으로 이용할 수 없습니다. 나중에 다시 시도해 주세요."
+    },
+    "mainMenu": {
+        "systemFunctions": "시스템 기능",
+        "exit": "종료",
+        "settings": "설정",
+        "extendedFunctions": "확장 기능",
+        "personalityTest": "성격 보고서 테스트",
+        "achievements": "업적",
+        "announcements": "공지사항",
+        "exploreFunctions": "탐색 기능",
+        "storyline": {
+            "lead": "스",
+            "rest": "토리라인"
+        },
+        "characters": {
+            "lead": "주",
+            "rest": "요 인물"
+        },
+        "allChapters": {
+            "lead": "모든",
+            "rest": "챕터"
+        },
+        "explorationProgress": "탐색 진행도",
+        "edict": "조정에 나가기",
+        "startStory": "이야기 시작",
+        "continue": "계속",
+        "returnToLogin": "로그인 화면으로 돌아가시겠습니까?"
     },
     "button": {
-        "back": "뒤로가기"
+        "back": "뒤로가기",
+        "refresh": "새로 고침"
     },
     "setting": {
         "mainVolume": "전체 음량",
@@ -31,7 +50,15 @@
         "language": "인터페이스 언어",
         "fullscreen": "화면 모드",
         "fullscreenOn": "전체 화면",
-        "fullscreenOff": "창 모드"
+        "fullscreenOff": "창 모드",
+        "localeNames": {
+            "zh-CN": "중국어(간체)",
+            "zh-HK": "중국어(번체)",
+            "en-US": "영어",
+            "ja-JP": "일본어",
+            "ko-KR": "한국어",
+            "ru-RU": "러시아어"
+        }
     },
     "chapter": {
         "enterChapter": "챕터 입장"
@@ -52,12 +79,19 @@
     },
     "character": {
         "characterIntroduction": "캐릭터 소개",
+        "title": "주요 인물",
         "characterStories": "캐릭터 이야기",
-        "characterStoryLocked": "현재 진행 상황이 잠금되어 있습니다"
+        "characterStoryLocked": "현재 진행 상황이 잠금되어 있습니다",
+        "continueExploringToUnlock": "계속 탐색하면 잠금 해제",
+        "chatWithCharacter": "캐릭터와 대화"
     },
     "player": {
         "storyline": "스토리라인",
-        "enterNextChapter": "다음 챕터로 이동"
+        "enterNextChapter": "다음 챕터로 이동",
+        "qte": {
+            "click": "클릭",
+            "hold": "길게 누르기"
+        }
     },
     "credit": {
         "creators": "주요 제작진",
@@ -80,5 +114,186 @@
         "continueStory": "게임 계속하기",
         "backToStoryline": "스토리라인으로 돌아가기",
         "settings": "설정"
+    },
+    "edictUi": {
+        "notice": {
+            "generatedDelivered": "새로 작성된 상소문 {count}건이 도착했습니다",
+            "noneGenerated": "새로운 상소문이 생성되지 않았습니다",
+            "outcomeUnavailable": "이 결론은 아직 생성되지 않았습니다. 다시 조정 회의를 진행해 주세요."
+        },
+        "preparing": {
+            "errorTitle": "신하들이 도망쳤습니다",
+            "title": "신하들이 조회를 준비하고 있습니다……"
+        },
+        "actions": {
+            "retry": "다시 시도",
+            "backToDemand": "상소문으로 돌아가기"
+        }
+    },
+    "edict": {
+        "category": {
+            "livelihood": "민생",
+            "economy": "경제",
+            "entertainment": "오락",
+            "culture": "문화",
+            "technology": "과학기술",
+            "military": "군사",
+            "diplomacy": "외교",
+            "workplace": "직장"
+        },
+        "navigation": {
+            "reviewMemorials": "상소문 검토"
+        },
+        "memorial": {
+            "viewAriaLabel": "상소문 보기: {title}"
+        },
+        "picker": {
+            "generating": "새 상소문 작성 중……",
+            "empty": "검토할 상소문이 없습니다"
+        },
+        "archive": {
+            "title": "상소문 보관함",
+            "empty": "처리 완료된 상소문이 아직 없습니다"
+        },
+        "demand": {
+            "askMinisters": "경들은 어떻게 생각하오?"
+        },
+        "decision": {
+            "approve": "윤허",
+            "reject": "기각"
+        },
+        "deepThought": {
+            "ministersAlt": "신하들의 간언",
+            "addressEmperor": "폐하!!",
+            "thinkAgain": "부디 다시 한번 생각해 주십시오!"
+        },
+        "detail": {
+            "closingFormula": "{comment} 이에 명한다!",
+            "reconsider": "다시 생각하기",
+            "title": "칙서",
+            "confirmFormula": "이에 명함",
+            "sealApplyingAlt": "옥새를 찍는 중",
+            "sealMarkAlt": "옥새 자국",
+            "sealAppliedAlt": "옥새 날인 완료"
+        },
+        "debate": {
+            "viewDiscussion": "논의 보기",
+            "skip": "건너뛰기",
+            "intro": {
+                "courtDebate": "조정 회의",
+                "begins": "시작"
+            }
+        },
+        "result": {
+            "dialogLabel": "상소문 처리 완료",
+            "continueReview": "계속 심사",
+            "retire": "조회 종료"
+        },
+        "outcome": {
+            "approvedTitle": "윤허!",
+            "rejectedTitle": "기각!"
+        },
+        "debateMessage": {
+            "judgmentAppeal": "폐하, 부디 판결을 내려 주십시오!"
+        }
+    },
+    "portfolio": {
+        "vote": {
+            "like": "꽃 보내기",
+            "dislike": "달걀 던지기"
+        },
+        "chat": {
+            "greeting": "저는 {name}입니다. 무엇에 대해 이야기하고 싶으신가요?",
+            "emptyResponse": "응답을 받지 못했습니다. 잠시 후 다시 시도해 주세요.",
+            "continueError": "대화를 계속할 수 없습니다: {error}",
+            "unknownError": "알 수 없는 오류",
+            "title": "{name}와 대화",
+            "close": "닫기",
+            "userLabel": "나",
+            "inputPlaceholder": "하고 싶은 말을 입력하세요…",
+            "send": "보내기"
+        }
+    },
+    "personalityUi": {
+        "create": {
+            "completedTitle": "클리어를 축하합니다",
+            "completedMessageLine1": "클리어를 축하합니다. 모든 데이터 수집을 완료했습니다.",
+            "completedMessageLine2": "최종 보고서를 확인해 보세요!",
+            "viewReport": "보고서 보기",
+            "resultReveal": "곧 결과가 공개됩니다",
+            "error": "보고서를 생성하지 못했습니다. 다시 시도해 주세요."
+        },
+        "report": {
+            "title": "성격 테스트 보고서",
+            "detailsLabel": "보고서 안내",
+            "currentProportion": "현재 비율",
+            "viewWordCloud": "워드 클라우드 보기",
+            "analysisLabel": "보고서 분석",
+            "tabs": {
+                "workplace": "직장\n분석",
+                "relationship": "대인관계\n분석",
+                "love": "연애\n분석"
+            },
+            "sections": {
+                "career": "커리어 분석",
+                "relationship": "대인관계 분석",
+                "love": "연애 분석"
+            },
+            "relationships": {
+                "confidantRole": "마음이 통하는 역할",
+                "complementaryRole": "상호보완 역할"
+            }
+        },
+        "keywords": {
+            "navTitle": "성격 테스트",
+            "loading": "키워드를 정리하는 중…",
+            "error": "키워드를 생성하지 못했습니다.",
+            "retry": "다시 시도",
+            "close": "워드 클라우드 닫기",
+            "refresh": "새로 고침",
+            "resultProgress": "결과 공개까지:"
+        },
+        "chart": {
+            "love": {
+                "ariaLabel": "연애 특성 분석 차트",
+                "sliderAriaLabel": "{left}에서 {right}까지: {value}%"
+            },
+            "loveTraits": {
+                "pragmatic": "현실형",
+                "romantic": "낭만형",
+                "independent": "독립형",
+                "dependent": "의존형",
+                "open": "개방형",
+                "loyal": "충성형",
+                "conservativeWait": "보수적 대기형",
+                "proactivePursuit": "적극적 추구형",
+                "reasonLed": "이성 주도형",
+                "emotionLed": "감정 주도형"
+            },
+            "workplace": {
+                "ariaLabel": "직장 능력 분석 차트"
+            },
+            "relationship": {
+                "ariaLabel": "대인 특성 분석 차트"
+            },
+            "labels": {
+                "workplace": {
+                    "resourcefulness": "기지",
+                    "ambitionAchievement": "야망과 성취",
+                    "managingUp": "상향 관리",
+                    "changeResilience": "변화 회복탄력성",
+                    "bidingTime": "실력을 감추고 때를 기다림",
+                    "decisiveness": "신속하고 단호함",
+                    "adaptability": "임기응변"
+                },
+                "relationship": {
+                    "sociability": "사교성",
+                    "emotionalStability": "정서 안정성",
+                    "curiosity": "호기심",
+                    "openness": "개방성",
+                    "skepticism": "회의성"
+                }
+            }
+        }
     }
 }

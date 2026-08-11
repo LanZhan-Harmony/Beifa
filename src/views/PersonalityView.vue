@@ -14,14 +14,18 @@ import AnalysesView from "@/components/personality/AnalysesView.vue";
 import CreateView from "@/components/personality/CreateView.vue";
 import IntroductionView from "@/components/personality/IntroductionView.vue";
 import KeywordsView from "@/components/personality/KeywordsView.vue";
-import personalityData from "@/langs/personalities/zh-CN.json";
 import { useMediaStore } from "@/stores/media";
 import { useSaveStore } from "@/stores/save";
-import type { PersonalityRoleType, PersonalityType } from "@/types/personalityType";
+import type { personalityReportType, personalityRoleType, personalityType } from "@/types/personalityType";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 type View = "creating" | "introduction" | "analyses" | "keywords";
 type Section = "workplace" | "relationship" | "love";
+
+const { tm } = useI18n();
+const personalityData = computed(() => tm("personalities") as personalityType);
+
 const mediaStore = useMediaStore();
 const saveStore = useSaveStore();
 const view = ref<View>("creating");
@@ -29,10 +33,10 @@ const section = ref<Section>("workplace");
 const status = ref<"idle" | "loading" | "empty" | "error">("idle");
 const keywordStatus = ref<"loading" | "ready" | "error">("loading");
 const errorMessage = ref("");
-const report = ref<PersonalityType | null>(null);
+const report = ref<personalityReportType | null>(null);
 const keywords = ref<string[]>([]);
 let controller: AbortController | undefined;
-const roles = personalityData.personality.roles as PersonalityRoleType[];
+const roles = personalityData.value.roles;
 const progressPercent = computed(() =>
   Math.round((saveStore.chapterUnlocked.filter(Boolean).length / saveStore.chapterUnlocked.length) * 100),
 );
@@ -47,16 +51,16 @@ function chosenPrompts() {
     .map((key) => initialActions(saveId())[key]!.prompt);
 }
 
-function reportFromDraft(draft: ReturnType<typeof validatePersonalityReport>): PersonalityType {
+function reportFromDraft(draft: ReturnType<typeof validatePersonalityReport>): personalityReportType {
   const role = roles.find((item) => item.id === draft.roleId);
   if (!role) throw new Error("人格角色不存在。");
   return {
     role,
     keywords: draft.keywords,
     proportion: draft.proportion,
-    friendId: draft.friendId as PersonalityType["friendId"],
+    friendId: draft.friendId as personalityReportType["friendId"],
     friendMessage: draft.friendMessage,
-    enemyId: draft.enemyId as PersonalityType["enemyId"],
+    enemyId: draft.enemyId as personalityReportType["enemyId"],
     enemyMessage: draft.enemyMessage,
   };
 }
@@ -75,7 +79,7 @@ async function generateReport() {
   try {
     const result = await generatePersonalityReport(
       roles,
-      personalityData.personality.keywords,
+      personalityData.value.keywords,
       values,
       requestController.signal,
     );

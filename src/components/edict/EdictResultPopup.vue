@@ -6,6 +6,7 @@ import ThemeButton from "@/components/ThemeButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictDecision, EdictOutcome, EdictRecord } from "@/types/edictType";
 import { computed, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   edict: EdictRecord;
@@ -19,6 +20,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const { t } = useI18n();
 const speakerMeta = useSpeakerMeta();
 
 const speakerId = computed(() =>
@@ -32,7 +34,7 @@ onMounted(async () => {
 </script>
 <template>
   <div class="result-mask">
-    <section class="result" role="dialog" aria-modal="true" aria-label="奏折结案">
+    <section class="result" role="dialog" aria-modal="true" :aria-label="t('edict.result.dialogLabel')">
       <img class="board" src="/common/images/popup/Common_Popup1_Bg1.png" />
       <img class="wing wing--left" src="/common/images/popup/Common_Popup1_bg3_1_L.png" />
       <img class="wing wing--right" src="/common/images/popup/Common_Popup1_bg3_1_R.png" />
@@ -70,7 +72,7 @@ onMounted(async () => {
         class="continue"
         image="/common/images/Common_Btn2_Bg.png"
         hoverImage="/common/images/Common_Btn2_Hover.png"
-        text="继续批阅"
+        :text="t('edict.result.continueReview')"
         :textTopMargin="45"
         :fontSize="32"
         :width="300"
@@ -80,7 +82,7 @@ onMounted(async () => {
         class="retire"
         backgroundImage="/common/images/popup/Main_Btn1_Bg1.png"
         foregroundImage="/common/images/popup/Edict_Icon.png"
-        text="退朝"
+        :text="t('edict.result.retire')"
         :foregroundWidthPercent="70"
         :fontSize="22"
         @click="emit('retire')" />

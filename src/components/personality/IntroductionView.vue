@@ -2,14 +2,12 @@
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import PageNavButton from "@/components/PageNavButton.vue";
 import TipView from "@/components/personality/TipView.vue";
-import personalityData from "@/langs/personalities/zh-CN.json";
-import type { PersonalityType } from "@/types/personalityType";
-import { onBeforeUnmount, onMounted, ref } from "vue";
-
-type Section = "workplace" | "relationship" | "love";
+import type { personalityReportType, personalityType } from "@/types/personalityType";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
-  report: PersonalityType;
+  report: personalityReportType;
 }>();
 
 const emit = defineEmits<{
@@ -17,11 +15,16 @@ const emit = defineEmits<{
   (e: "open-keywords"): void;
 }>();
 
+type Section = "workplace" | "relationship" | "love";
+
+const { t, tm } = useI18n();
+
+const personalityData = computed(() => tm("personalities") as personalityType);
+
 const root = "/common/images/personality/";
 const roleImg = (id: string, suffix: string) => `${root}role/PersonalityReport_${suffix}_${id}.png`;
-const roleName = (id: string) => personalityData.personality.roles.find((role) => role.id === id)?.name ?? id;
-const relations = (id: string) => props.report.role.id === id;
-const note = personalityData.personality.note;
+const roleName = (id: string) => personalityData.value.roles.find((role) => role.id === id)?.name ?? id;
+const note = personalityData.value.note;
 const noteOpen = ref(false);
 const detailsWrap = ref<HTMLElement | null>(null);
 function closeNote() {
@@ -44,12 +47,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <PageNavButton text="个性测试报告" />
+  <PageNavButton :text="t('personalityUi.report.title')" />
   <div ref="detailsWrap" class="details-wrap">
-    <button class="details" aria-label="报告说明" :aria-expanded="noteOpen" @click="noteOpen = !noteOpen">
+    <button
+      class="details"
+      :aria-label="t('personalityUi.report.detailsLabel')"
+      :aria-expanded="noteOpen"
+      @click="noteOpen = !noteOpen">
       <img src="/common/images/personality/PersonalityReport_Details_Btn.png" />
     </button>
-    <div v-if="noteOpen" class="note-popover" role="dialog" aria-modal="false" aria-label="报告说明">
+    <div
+      v-if="noteOpen"
+      class="note-popover"
+      role="dialog"
+      aria-modal="false"
+      :aria-label="t('personalityUi.report.detailsLabel')">
       <TipView :tip="note" />
     </div>
   </div>
@@ -74,14 +86,14 @@ onBeforeUnmount(() => {
         </div>
         <div class="proportion-label">
           <img :src="root + 'PersonalityReport_Info_RoleBtn2_2.png'" />
-          <span>当前占比</span>
+          <span>{{ t("personalityUi.report.currentProportion") }}</span>
         </div>
       </div>
       <ImageTextButton
         class="keyword-button"
         :image="root + 'PersonalityReportMain_Btn.png'"
         :hover-image="root + 'PersonalityReportMain_Btn_Glow.png'"
-        text="查看词云"
+        :text="t('personalityUi.report.viewWordCloud')"
         :width="190"
         :font-size="27"
         :text-top-margin="48"
@@ -99,12 +111,12 @@ onBeforeUnmount(() => {
         </article>
       </div>
     </main>
-    <nav class="tabs" aria-label="报告分析">
+    <nav class="tabs" :aria-label="t('personalityUi.report.analysisLabel')">
       <button
         v-for="tab in [
-          { id: 'workplace', text: '职场\n解析' },
-          { id: 'relationship', text: '人际\n解析' },
-          { id: 'love', text: '爱情\n解析' },
+          { id: 'workplace', text: t('personalityUi.report.tabs.workplace') },
+          { id: 'relationship', text: t('personalityUi.report.tabs.relationship') },
+          { id: 'love', text: t('personalityUi.report.tabs.love') },
         ]"
         :key="tab.id"
         :style="{
@@ -126,7 +138,7 @@ onBeforeUnmount(() => {
         <span>
           <span class="relation-label">
             <img :src="root + 'PersonalityReport_Info_Friend_2.png'" />
-            知己角色
+            {{ t("personalityUi.report.relationships.confidantRole") }}
           </span>
           <b>{{ roleName(report.friendId) }}</b>
         </span>
@@ -141,7 +153,7 @@ onBeforeUnmount(() => {
         <span>
           <span class="relation-label">
             <img :src="root + 'PersonalityReport_Info_Enemy_2.png'" />
-            互补角色
+            {{ t("personalityUi.report.relationships.complementaryRole") }}
           </span>
           <b>{{ roleName(report.enemyId) }}</b>
         </span>

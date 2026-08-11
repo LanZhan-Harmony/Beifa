@@ -2,9 +2,9 @@
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import PageNavButton from "@/components/PageNavButton.vue";
 import TipView from "@/components/personality/TipView.vue";
-import personalityData from "@/langs/personalities/zh-CN.json";
+import type { personalityType } from "@/types/personalityType";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import ImageButton from "../ImageButton.vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   keywords: string[];
@@ -20,8 +20,12 @@ const emit = defineEmits<{
   (e: "refresh"): void;
 }>();
 
+const { t, tm } = useI18n();
+
+const personalityData = computed(() => tm("personalities") as personalityType);
+
 const root = "/common/images/personality/keyword/";
-const note = personalityData.personality.note;
+const note = personalityData.value.note;
 const noteOpen = ref(false);
 const detailsWrap = ref<HTMLElement | null>(null);
 const slots: Array<[number, number]> = [
@@ -90,12 +94,21 @@ onBeforeUnmount(() => {
 
 <template>
   <template v-if="showProgress">
-    <PageNavButton text="人格测试" />
+    <PageNavButton :text="t('personalityUi.keywords.navTitle')" />
     <div ref="detailsWrap" class="details-wrap">
-      <button class="details" aria-label="报告说明" :aria-expanded="noteOpen" @click="noteOpen = !noteOpen">
+      <button
+        class="details"
+        :aria-label="t('personalityUi.report.detailsLabel')"
+        :aria-expanded="noteOpen"
+        @click="noteOpen = !noteOpen">
         <img src="/common/images/personality/PersonalityReport_Details_Btn.png" />
       </button>
-      <div v-if="noteOpen" class="note-popover" role="dialog" aria-modal="false" aria-label="报告说明">
+      <div
+        v-if="noteOpen"
+        class="note-popover"
+        role="dialog"
+        aria-modal="false"
+        :aria-label="t('personalityUi.report.detailsLabel')">
         <TipView :tip="note" />
       </div>
     </div>
@@ -122,22 +135,22 @@ onBeforeUnmount(() => {
       :style="{ left: item.slot[0] + '%', top: item.slot[1] + '%' }"
       >{{ item.word }}</span
     >
-    <div v-if="status === 'loading'" class="loading">正在整理你的关键词…</div>
+    <div v-if="status === 'loading'" class="loading">{{ t("personalityUi.keywords.loading") }}</div>
     <div v-else-if="status === 'error'" class="loading error">
-      <span>{{ errorMessage || "关键词生成失败。" }}</span>
-      <button type="button" @click="emit('retry')">重试</button>
+      <span>{{ errorMessage || t("personalityUi.keywords.error") }}</span>
+      <button type="button" @click="emit('retry')">{{ t("personalityUi.keywords.retry") }}</button>
     </div>
-    <button v-if="!showProgress" class="close" aria-label="关闭词云" @click="emit('close')">
+    <button v-if="!showProgress" class="close" :aria-label="t('personalityUi.keywords.close')" @click="emit('close')">
       <img src="/common/images/personality/PersonalityReport_BtnClose.png" />
     </button>
     <ImageTextButton
       class="refresh"
       image="/common/images/personality/keyword/Common_Btn_Refresh.png"
-      text="刷新"
+      :text="t('personalityUi.keywords.refresh')"
       :width="128"
       @click="refreshKeywords" />
     <p v-if="showProgress" class="progress">
-      距离结果揭晓还有：<b>{{ progressPercent }}%</b>
+      {{ t("personalityUi.keywords.resultProgress") }}<b>{{ progressPercent }}%</b>
     </p>
   </section>
 </template>

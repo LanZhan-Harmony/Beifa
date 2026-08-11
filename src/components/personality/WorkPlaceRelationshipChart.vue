@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 
 type ChartSection = "workplace" | "relationship";
 
@@ -19,22 +20,24 @@ type Item = {
   align: "left" | "right";
 };
 
+const { t } = useI18n();
+
 const charts: Record<ChartSection, Item[]> = {
   workplace: [
-    { label: "足智多谋", value: 14, color: "#b77162", tab: 1, x: 50, y: 22, align: "left" },
-    { label: "抱负成就", value: 9, color: "#e0a85e", tab: 5, x: 62, y: 50, align: "right" },
-    { label: "向上管理", value: 13, color: "#67c5b1", tab: 6, x: 53, y: 81, align: "right" },
-    { label: "变革韧性", value: 16, color: "#a09bd3", tab: 7, x: 18, y: 84, align: "right" },
-    { label: "韬光养晦", value: 10, color: "#8db7c8", tab: 4, x: -3, y: 60, align: "left" },
-    { label: "雷厉风行", value: 17, color: "#d99abb", tab: 3, x: -5, y: 33, align: "left" },
-    { label: "随机应变", value: 21, color: "#ddd377", tab: 2, x: 22, y: 15, align: "left" },
+    { label: "personalityUi.chart.labels.workplace.resourcefulness", value: 14, color: "#b77162", tab: 1, x: 50, y: 22, align: "left" },
+    { label: "personalityUi.chart.labels.workplace.ambitionAchievement", value: 9, color: "#e0a85e", tab: 5, x: 62, y: 50, align: "right" },
+    { label: "personalityUi.chart.labels.workplace.managingUp", value: 13, color: "#67c5b1", tab: 6, x: 53, y: 81, align: "right" },
+    { label: "personalityUi.chart.labels.workplace.changeResilience", value: 16, color: "#a09bd3", tab: 7, x: 18, y: 84, align: "right" },
+    { label: "personalityUi.chart.labels.workplace.bidingTime", value: 10, color: "#8db7c8", tab: 4, x: -3, y: 60, align: "left" },
+    { label: "personalityUi.chart.labels.workplace.decisiveness", value: 17, color: "#d99abb", tab: 3, x: -5, y: 33, align: "left" },
+    { label: "personalityUi.chart.labels.workplace.adaptability", value: 21, color: "#ddd377", tab: 2, x: 22, y: 15, align: "left" },
   ],
   relationship: [
-    { label: "乐群性", value: 18, color: "#e0a85e", tab: 5, x: 58, y: 33, align: "right" },
-    { label: "情绪稳定性", value: 12, color: "#67c5b1", tab: 6, x: 60, y: 70, align: "right" },
-    { label: "好奇心", value: 20, color: "#a09bd3", tab: 7, x: 12, y: 82, align: "right" },
-    { label: "开放性", value: 26, color: "#8db7c8", tab: 4, x: -5, y: 50, align: "left" },
-    { label: "怀疑性", value: 24, color: "#d99abb", tab: 3, x: 20, y: 15, align: "left" },
+    { label: "personalityUi.chart.labels.relationship.sociability", value: 18, color: "#e0a85e", tab: 5, x: 58, y: 33, align: "right" },
+    { label: "personalityUi.chart.labels.relationship.emotionalStability", value: 12, color: "#67c5b1", tab: 6, x: 60, y: 70, align: "right" },
+    { label: "personalityUi.chart.labels.relationship.curiosity", value: 20, color: "#a09bd3", tab: 7, x: 12, y: 82, align: "right" },
+    { label: "personalityUi.chart.labels.relationship.openness", value: 26, color: "#8db7c8", tab: 4, x: -5, y: 50, align: "left" },
+    { label: "personalityUi.chart.labels.relationship.skepticism", value: 24, color: "#d99abb", tab: 3, x: 20, y: 15, align: "left" },
   ],
 };
 
@@ -70,7 +73,7 @@ const labelStyle = (item: Item) => ({
   <div
     class="relationship-chart"
     :class="section"
-    :aria-label="section === 'workplace' ? '职场能力分析图' : '人际特质分析图'">
+    :aria-label="t(section === 'workplace' ? 'personalityUi.chart.workplace.ariaLabel' : 'personalityUi.chart.relationship.ariaLabel')">
     <div class="chart-stage">
       <div class="chart-plane" aria-hidden="true">
         <img class="star-map" :src="root + 'PersonalityReport_Type_Bg1.png'" />
@@ -99,7 +102,7 @@ const labelStyle = (item: Item) => ({
         :style="labelStyle(item)">
         <div class="label-copy">
           <img class="label-bg" :src="root + 'PersonalityReportType_TabBg.png'" />
-          <span>{{ item.label }}</span>
+          <span>{{ t(item.label) }}</span>
         </div>
         <div class="value-tab">
           <img :src="root + `PersonalityReportType_Tab${item.tab}.png`" />
@@ -316,4 +319,3 @@ const labelStyle = (item: Item) => ({
   }
 }
 </style>
-

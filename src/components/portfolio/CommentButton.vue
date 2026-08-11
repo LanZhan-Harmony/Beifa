@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMediaStore } from "@/stores/media";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   type: "like" | "dislike";
@@ -11,6 +12,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const { t } = useI18n();
 
 const isPressed = ref(false);
 
@@ -45,7 +47,7 @@ function handleTransitionEnd() {
       src="/common/images/portfolio/CharacterProfile_Btn_Flower.png " />
     <img v-else class="comment-button-fg-dislike" src="/common/images/portfolio/CharacterProfile_Voteicon_Egg.png" />
     <span class="comment-button-text">
-      {{ props.type === "like" ? "送鲜花" : "扔鸡蛋" }}
+      {{ t(props.type === "like" ? "portfolio.vote.like" : "portfolio.vote.dislike") }}
     </span>
   </button>
 </template>

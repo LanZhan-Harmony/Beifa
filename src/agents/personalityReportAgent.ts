@@ -1,17 +1,17 @@
 import i18n from "@/langs";
-import type { PersonalityRoleId, PersonalityRoleType, PersonalityType } from "@/types/personalityType";
+import type { personalityReportType, personalityRoleId, personalityRoleType } from "@/types/personalityType";
 import { generateObject } from "./aiClient";
 import { getAgentPrompt } from "./getAgentPrompt";
 import { validatePersonalityKeywords, validatePersonalityReport } from "./schemas";
 import type { PersonalityReportDraft } from "./types";
 
 export async function generatePersonalityReport(
-  roles: PersonalityRoleType[],
+  roles: personalityRoleType[],
   allowedKeywords: string[],
   chosenOptionPrompts: string[],
   signal?: AbortSignal,
-): Promise<{ report: PersonalityType; draft: PersonalityReportDraft }> {
-  const roleIds = roles.map((role) => role.id) as PersonalityRoleId[];
+): Promise<{ report: personalityReportType; draft: PersonalityReportDraft }> {
+  const roleIds = roles.map((role) => role.id) as personalityRoleId[];
   const draft = await generateObject<PersonalityReportDraft>({
     agent: "personality-report",
     systemPrompt: getAgentPrompt("personalityReportPrompt"),
@@ -33,9 +33,9 @@ export async function generatePersonalityReport(
       role,
       keywords: draft.keywords,
       proportion: draft.proportion,
-      friendId: draft.friendId as PersonalityRoleId,
+      friendId: draft.friendId as personalityRoleId,
       friendMessage: draft.friendMessage,
-      enemyId: draft.enemyId as PersonalityRoleId,
+      enemyId: draft.enemyId as personalityRoleId,
       enemyMessage: draft.enemyMessage,
     },
   };
@@ -58,3 +58,4 @@ export async function generatePersonalityKeywords(
     validate: (value) => validatePersonalityKeywords(value),
   });
 }
+

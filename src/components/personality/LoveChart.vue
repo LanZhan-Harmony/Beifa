@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { getDirection, getLoveTraits, type LoveTrait } from "./chartData";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 
 const root = "/common/images/personality/chart/";
 
-const traits: LoveTrait[] = getLoveTraits();
+const { t } = useI18n();
+const traits = computed<LoveTrait[]>(() =>
+  getLoveTraits().map((trait) => ({
+    ...trait,
+    left: t(`personalityUi.chart.loveTraits.${trait.leftKey}`),
+    right: t(`personalityUi.chart.loveTraits.${trait.rightKey}`),
+  })),
+);
 
 const fillWidth = (trait: LoveTrait) => (getDirection(trait.value) === "left" ? trait.value : 100 - trait.value);
 
@@ -17,7 +26,7 @@ const markerStyle = (trait: LoveTrait) => ({
 </script>
 
 <template>
-  <section class="love-chart" aria-label="爱情特质分析图">
+  <section class="love-chart" :aria-label="t('personalityUi.chart.love.ariaLabel')">
     <div class="ornaments" aria-hidden="true">
       <img class="bg2-1" src="/common/images/personality/keyword/PersonalityReport_Bg2_1.png" />
       <img class="bg2-2" src="/common/images/personality/keyword/PersonalityReport_Bg2_2.png" />
@@ -30,7 +39,9 @@ const markerStyle = (trait: LoveTrait) => ({
         <span>{{ trait.left }}</span>
         <span>{{ trait.right }}</span>
       </div>
-      <div class="slider" :aria-label="`${trait.left}至${trait.right}：${trait.value}%`">
+      <div
+        class="slider"
+        :aria-label="t('personalityUi.chart.love.sliderAriaLabel', { left: trait.left, right: trait.right, value: trait.value })">
         <img class="slider-background" :src="root + 'PersonalityReportType_Love_SliderBg1.png'" alt="" />
         <div class="slider-fill" :class="getDirection(trait.value)" :style="fillStyle(trait)">
           <img :src="root + 'PersonalityReport_Type_Love_SliderFill.png'" :style="fillImageStyle(trait)" alt="" />
@@ -244,4 +255,3 @@ const markerStyle = (trait: LoveTrait) => ({
   }
 }
 </style>
-

@@ -4,24 +4,43 @@
         "exit": "退出",
         "exitConfirmMessage": "是否退出？"
     },
-    "menu": {
-        "startStory": "開始故事",
-        "continueStory": "繼續故事",
-        "chapterSelection": "章節選擇",
-        "portfolios": "人物檔案",
-        "exitGame": "退出遊戲"
-    },
-    "bottomBar": {
-        "copyright": "木焱工作室",
-        "demo": "試用版",
-        "settings": "設置",
-        "announcements": "公告",
-        "eula": "協議",
+    "navigation": {
         "achievements": "成就",
-        "credits": "創作者名單"
+        "announcements": "公告"
+    },
+    "errors": {
+        "aiUnavailable": "AI 服務暫時無法使用，請稍後再試。"
+    },
+    "mainMenu": {
+        "systemFunctions": "系統功能",
+        "exit": "退出",
+        "settings": "設置",
+        "extendedFunctions": "擴展功能",
+        "personalityTest": "人格報告測試",
+        "achievements": "成就",
+        "announcements": "公告",
+        "exploreFunctions": "探索功能",
+        "storyline": {
+            "lead": "故",
+            "rest": "事線"
+        },
+        "characters": {
+            "lead": "風",
+            "rest": "華人物"
+        },
+        "allChapters": {
+            "lead": "全部",
+            "rest": "章節"
+        },
+        "explorationProgress": "探索進度",
+        "edict": "上朝",
+        "startStory": "開始故事",
+        "continue": "繼續",
+        "returnToLogin": "是否要返回登入介面？"
     },
     "button": {
-        "back": "返回"
+        "back": "返回",
+        "refresh": "重新整理"
     },
     "setting": {
         "mainVolume": "整體音量",
@@ -31,7 +50,15 @@
         "language": "介面語言",
         "fullscreen": "顯示模式",
         "fullscreenOn": "全螢幕",
-        "fullscreenOff": "視窗化"
+        "fullscreenOff": "視窗化",
+        "localeNames": {
+            "zh-CN": "簡體中文",
+            "zh-HK": "繁體中文",
+            "en-US": "English",
+            "ja-JP": "日本語",
+            "ko-KR": "한국어",
+            "ru-RU": "Русский"
+        }
     },
     "chapter": {
         "enterChapter": "進入章節"
@@ -52,12 +79,19 @@
     },
     "character": {
         "characterIntroduction": "人物介紹",
+        "title": "風華人物",
         "characterStories": "人物故事",
-        "characterStoryLocked": "當前進度未解鎖"
+        "characterStoryLocked": "當前進度未解鎖",
+        "continueExploringToUnlock": "繼續探索後解鎖",
+        "chatWithCharacter": "與人物對話"
     },
     "player": {
         "storyline": "劇情線",
-        "enterNextChapter": "進入下一章"
+        "enterNextChapter": "進入下一章",
+        "qte": {
+            "click": "點擊",
+            "hold": "長按"
+        }
     },
     "credit": {
         "creators": "主創",
@@ -80,5 +114,186 @@
         "continueStory": "繼續遊戲",
         "backToStoryline": "返回故事線",
         "settings": "設置"
+    },
+    "edictUi": {
+        "notice": {
+            "generatedDelivered": "新擬的 {count} 份奏摺已送達",
+            "noneGenerated": "未生成新的奏摺",
+            "outcomeUnavailable": "該結論尚未生成，請重新進行廷議。"
+        },
+        "preparing": {
+            "errorTitle": "群臣逃跑了",
+            "title": "群臣正在準備廷議……"
+        },
+        "actions": {
+            "retry": "重試",
+            "backToDemand": "返回奏摺"
+        }
+    },
+    "edict": {
+        "category": {
+            "livelihood": "民生類",
+            "economy": "經濟類",
+            "entertainment": "娛樂類",
+            "culture": "文化類",
+            "technology": "科技類",
+            "military": "軍事類",
+            "diplomacy": "外交類",
+            "workplace": "職場類"
+        },
+        "navigation": {
+            "reviewMemorials": "批閱奏摺"
+        },
+        "memorial": {
+            "viewAriaLabel": "查看奏摺：{title}"
+        },
+        "picker": {
+            "generating": "正在擬寫新奏摺……",
+            "empty": "暫無可批閱奏摺"
+        },
+        "archive": {
+            "title": "奏摺歸檔",
+            "empty": "尚無結案奏摺"
+        },
+        "demand": {
+            "askMinisters": "眾卿怎麼看？"
+        },
+        "decision": {
+            "approve": "准奏",
+            "reject": "駁回"
+        },
+        "deepThought": {
+            "ministersAlt": "群臣進諫",
+            "addressEmperor": "陛下!!",
+            "thinkAgain": "三思啊！"
+        },
+        "detail": {
+            "closingFormula": "{comment}欽此！",
+            "reconsider": "再考慮一下",
+            "title": "聖旨",
+            "confirmFormula": "欽此",
+            "sealApplyingAlt": "玉璽落印進行中",
+            "sealMarkAlt": "玉璽印記",
+            "sealAppliedAlt": "玉璽落印完成"
+        },
+        "debate": {
+            "viewDiscussion": "查看討論",
+            "skip": "跳過",
+            "intro": {
+                "courtDebate": "廷議",
+                "begins": "開始"
+            }
+        },
+        "result": {
+            "dialogLabel": "奏摺結案",
+            "continueReview": "繼續批閱",
+            "retire": "退朝"
+        },
+        "outcome": {
+            "approvedTitle": "准奏！",
+            "rejectedTitle": "駁回！"
+        },
+        "debateMessage": {
+            "judgmentAppeal": "請陛下明鑑！"
+        }
+    },
+    "portfolio": {
+        "vote": {
+            "like": "送鮮花",
+            "dislike": "扔雞蛋"
+        },
+        "chat": {
+            "greeting": "在下{name}，你想聊些什麼？",
+            "emptyResponse": "暫時沒有得到回應，請稍後再試。",
+            "continueError": "對話暫時無法繼續：{error}",
+            "unknownError": "未知錯誤",
+            "title": "與{name}對話",
+            "close": "關閉",
+            "userLabel": "我",
+            "inputPlaceholder": "輸入想說的話…",
+            "send": "發送"
+        }
+    },
+    "personalityUi": {
+        "create": {
+            "completedTitle": "恭喜通關",
+            "completedMessageLine1": "恭喜通關，你已完成所有資料收集，",
+            "completedMessageLine2": "快來查看你的最終報告吧！",
+            "viewReport": "查看報告",
+            "resultReveal": "結果即將揭曉",
+            "error": "報告生成失敗，請重試。"
+        },
+        "report": {
+            "title": "個性測試報告",
+            "detailsLabel": "報告說明",
+            "currentProportion": "目前佔比",
+            "viewWordCloud": "查看詞雲",
+            "analysisLabel": "報告分析",
+            "tabs": {
+                "workplace": "職場\n解析",
+                "relationship": "人際\n解析",
+                "love": "愛情\n解析"
+            },
+            "sections": {
+                "career": "事業解析",
+                "relationship": "人際解析",
+                "love": "愛情解析"
+            },
+            "relationships": {
+                "confidantRole": "知己角色",
+                "complementaryRole": "互補角色"
+            }
+        },
+        "keywords": {
+            "navTitle": "人格測驗",
+            "loading": "正在整理你的關鍵詞…",
+            "error": "關鍵詞生成失敗。",
+            "retry": "重試",
+            "close": "關閉詞雲",
+            "refresh": "重新整理",
+            "resultProgress": "距離結果揭曉還有："
+        },
+        "chart": {
+            "love": {
+                "ariaLabel": "愛情特質分析圖",
+                "sliderAriaLabel": "{left}至{right}：{value}%"
+            },
+            "loveTraits": {
+                "pragmatic": "務實型",
+                "romantic": "浪漫型",
+                "independent": "獨立型",
+                "dependent": "依賴型",
+                "open": "開放型",
+                "loyal": "忠誠型",
+                "conservativeWait": "保守等待型",
+                "proactivePursuit": "主動追求型",
+                "reasonLed": "理性主導型",
+                "emotionLed": "感情主導型"
+            },
+            "workplace": {
+                "ariaLabel": "職場能力分析圖"
+            },
+            "relationship": {
+                "ariaLabel": "人際特質分析圖"
+            },
+            "labels": {
+                "workplace": {
+                    "resourcefulness": "足智多謀",
+                    "ambitionAchievement": "抱負與成就",
+                    "managingUp": "向上管理",
+                    "changeResilience": "變革韌性",
+                    "bidingTime": "韜光養晦",
+                    "decisiveness": "雷厲風行",
+                    "adaptability": "隨機應變"
+                },
+                "relationship": {
+                    "sociability": "樂群性",
+                    "emotionalStability": "情緒穩定性",
+                    "curiosity": "好奇心",
+                    "openness": "開放性",
+                    "skepticism": "懷疑性"
+                }
+            }
+        }
     }
 }

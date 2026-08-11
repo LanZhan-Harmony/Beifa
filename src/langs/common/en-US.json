@@ -4,24 +4,43 @@
         "exit": "Exit",
         "exitConfirmMessage": "Are you sure you want to exit?"
     },
-    "menu": {
-        "startStory": "Start Story",
-        "continueStory": "Continue Story",
-        "chapterSelection": "Select Chapter",
-        "portfolios": "Portfolios",
-        "exitGame": "Exit"
-    },
-    "bottomBar": {
-        "copyright": "Muyan Studio",
-        "demo": "Demo",
-        "settings": "Settings",
-        "announcements": "Announcements",
-        "eula": "EULA",
+    "navigation": {
         "achievements": "Achievements",
-        "credits": "Credits"
+        "announcements": "Announcements"
+    },
+    "errors": {
+        "aiUnavailable": "The AI service is temporarily unavailable. Please try again later."
+    },
+    "mainMenu": {
+        "systemFunctions": "System Functions",
+        "exit": "Exit",
+        "settings": "Settings",
+        "extendedFunctions": "Extended Functions",
+        "personalityTest": "Personality Report Test",
+        "achievements": "Achievements",
+        "announcements": "Announcements",
+        "exploreFunctions": "Exploration Features",
+        "storyline": {
+            "lead": "S",
+            "rest": "toryline"
+        },
+        "characters": {
+            "lead": "C",
+            "rest": "otable Figures"
+        },
+        "allChapters": {
+            "lead": "All",
+            "rest": "Chapters"
+        },
+        "explorationProgress": "Exploration Progress",
+        "edict": "Attend Court",
+        "startStory": "Start Story",
+        "continue": "Continue",
+        "returnToLogin": "Return to the login screen?"
     },
     "button": {
-        "back": "Back"
+        "back": "Back",
+        "refresh": "Refresh"
     },
     "setting": {
         "mainVolume": "Main Volume",
@@ -31,7 +50,15 @@
         "language": "Language",
         "fullscreen": "Display Mode",
         "fullscreenOn": "Fullscreen",
-        "fullscreenOff": "Windowed"
+        "fullscreenOff": "Windowed",
+        "localeNames": {
+            "zh-CN": "Simplified Chinese",
+            "zh-HK": "Traditional Chinese",
+            "en-US": "English",
+            "ja-JP": "Japanese",
+            "ko-KR": "Korean",
+            "ru-RU": "Russian"
+        }
     },
     "chapter": {
         "enterChapter": "Enter Chapter"
@@ -52,12 +79,19 @@
     },
     "character": {
         "characterIntroduction": "Character Introduction",
+        "title": "Notable Figures",
         "characterStories": "Character Stories",
-        "characterStoryLocked": "Locked"
+        "characterStoryLocked": "Locked",
+        "continueExploringToUnlock": "Continue exploring to unlock",
+        "chatWithCharacter": "Chat with this character"
     },
     "player": {
         "storyline": "Storyline",
-        "enterNextChapter": "Enter Next Chapter"
+        "enterNextChapter": "Enter Next Chapter",
+        "qte": {
+            "click": "Click",
+            "hold": "Press and Hold"
+        }
     },
     "credit": {
         "creators": "Main Creators",
@@ -80,5 +114,186 @@
         "continueStory": "Continue Story",
         "backToStoryline": "Back to Storyline",
         "settings": "Settings"
+    },
+    "edictUi": {
+        "notice": {
+            "generatedDelivered": "Newly drafted {count} memorials have arrived",
+            "noneGenerated": "No new memorials were generated",
+            "outcomeUnavailable": "This conclusion has not been generated yet. Please hold the court deliberation again."
+        },
+        "preparing": {
+            "errorTitle": "The ministers have fled",
+            "title": "The ministers are preparing for the court deliberation…"
+        },
+        "actions": {
+            "retry": "Retry",
+            "backToDemand": "Back to the memorial"
+        }
+    },
+    "edict": {
+        "category": {
+            "livelihood": "People's Livelihood",
+            "economy": "Economy",
+            "entertainment": "Entertainment",
+            "culture": "Culture",
+            "technology": "Science and Technology",
+            "military": "Military",
+            "diplomacy": "Diplomacy",
+            "workplace": "Workplace"
+        },
+        "navigation": {
+            "reviewMemorials": "Review Memorials"
+        },
+        "memorial": {
+            "viewAriaLabel": "View memorial: {title}"
+        },
+        "picker": {
+            "generating": "Drafting a new memorial…",
+            "empty": "No memorials to review"
+        },
+        "archive": {
+            "title": "Memorial Archive",
+            "empty": "No concluded memorials yet"
+        },
+        "demand": {
+            "askMinisters": "What say you, my ministers?"
+        },
+        "decision": {
+            "approve": "Approve",
+            "reject": "Reject"
+        },
+        "deepThought": {
+            "ministersAlt": "Ministers offering remonstrance",
+            "addressEmperor": "Your Majesty!!",
+            "thinkAgain": "Think carefully, Your Majesty!"
+        },
+        "detail": {
+            "closingFormula": "{comment} Thus decreed!",
+            "reconsider": "Reconsider",
+            "title": "Imperial Edict",
+            "confirmFormula": "Thus Decreed",
+            "sealApplyingAlt": "Imperial seal being applied",
+            "sealMarkAlt": "Imperial seal mark",
+            "sealAppliedAlt": "Imperial seal applied"
+        },
+        "debate": {
+            "viewDiscussion": "View Discussion",
+            "skip": "Skip",
+            "intro": {
+                "courtDebate": "Court Debate",
+                "begins": "Begins"
+            }
+        },
+        "result": {
+            "dialogLabel": "Memorial Case Closed",
+            "continueReview": "Continue Reviewing",
+            "retire": "Dismiss Court"
+        },
+        "outcome": {
+            "approvedTitle": "Approved!",
+            "rejectedTitle": "Rejected!"
+        },
+        "debateMessage": {
+            "judgmentAppeal": "Your Majesty, please render your judgment!"
+        }
+    },
+    "portfolio": {
+        "vote": {
+            "like": "Send Flowers",
+            "dislike": "Throw Eggs"
+        },
+        "chat": {
+            "greeting": "I am {name}. What would you like to talk about?",
+            "emptyResponse": "No response was received. Please try again later.",
+            "continueError": "The conversation cannot continue for now: {error}",
+            "unknownError": "Unknown error",
+            "title": "Chat with {name}",
+            "close": "Close",
+            "userLabel": "Me",
+            "inputPlaceholder": "Type what you'd like to say…",
+            "send": "Send"
+        }
+    },
+    "personalityUi": {
+        "create": {
+            "completedTitle": "Congratulations, you cleared the game",
+            "completedMessageLine1": "Congratulations on clearing the game. You've completed all data collection.",
+            "completedMessageLine2": "Come view your final report!",
+            "viewReport": "View Report",
+            "resultReveal": "Results will be revealed shortly",
+            "error": "Failed to generate the report. Please try again."
+        },
+        "report": {
+            "title": "Personality Test Report",
+            "detailsLabel": "Report Details",
+            "currentProportion": "Current Proportion",
+            "viewWordCloud": "View Word Cloud",
+            "analysisLabel": "Report Analysis",
+            "tabs": {
+                "workplace": "Workplace\nAnalysis",
+                "relationship": "Interpersonal\nAnalysis",
+                "love": "Love\nAnalysis"
+            },
+            "sections": {
+                "career": "Career Analysis",
+                "relationship": "Interpersonal Analysis",
+                "love": "Love Analysis"
+            },
+            "relationships": {
+                "confidantRole": "Confidant Role",
+                "complementaryRole": "Complementary Role"
+            }
+        },
+        "keywords": {
+            "navTitle": "Personality Test",
+            "loading": "Organizing your keywords…",
+            "error": "Failed to generate keywords.",
+            "retry": "Retry",
+            "close": "Close Word Cloud",
+            "refresh": "Refresh",
+            "resultProgress": "Results reveal in:"
+        },
+        "chart": {
+            "love": {
+                "ariaLabel": "Love Traits Analysis Chart",
+                "sliderAriaLabel": "{left} to {right}: {value}%"
+            },
+            "loveTraits": {
+                "pragmatic": "Pragmatic",
+                "romantic": "Romantic",
+                "independent": "Independent",
+                "dependent": "Dependent",
+                "open": "Open",
+                "loyal": "Loyal",
+                "conservativeWait": "Conservative Wait-and-See",
+                "proactivePursuit": "Proactive Pursuit",
+                "reasonLed": "Reason-Led",
+                "emotionLed": "Emotion-Led"
+            },
+            "workplace": {
+                "ariaLabel": "Workplace Skills Analysis Chart"
+            },
+            "relationship": {
+                "ariaLabel": "Interpersonal Traits Analysis Chart"
+            },
+            "labels": {
+                "workplace": {
+                    "resourcefulness": "Resourcefulness",
+                    "ambitionAchievement": "Ambition & Achievement",
+                    "managingUp": "Managing Up",
+                    "changeResilience": "Change Resilience",
+                    "bidingTime": "Biding One's Time",
+                    "decisiveness": "Swift and Resolute",
+                    "adaptability": "Adaptability"
+                },
+                "relationship": {
+                    "sociability": "Sociability",
+                    "emotionalStability": "Emotional Stability",
+                    "curiosity": "Curiosity",
+                    "openness": "Openness",
+                    "skepticism": "Skepticism"
+                }
+            }
+        }
     }
 }

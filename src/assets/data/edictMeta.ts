@@ -4,14 +4,14 @@ import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 export const categoryMeta: Record<EdictCategory, { label: string; color: string }> = {
-  livelihood: { label: "民生类", color: "#88dd9e" },
-  economy: { label: "经济类", color: "#d5b1ff" },
-  entertainment: { label: "娱乐类", color: "#e9ff83" },
-  culture: { label: "文化类", color: "#fede7e" },
-  technology: { label: "科技类", color: "#8acfdc" },
-  military: { label: "军事类", color: "#fede7e" },
-  diplomacy: { label: "外交类", color: "#88dd9e" },
-  workplace: { label: "职场类", color: "#ffb347" },
+  livelihood: { label: "edict.category.livelihood", color: "#88dd9e" },
+  economy: { label: "edict.category.economy", color: "#d5b1ff" },
+  entertainment: { label: "edict.category.entertainment", color: "#e9ff83" },
+  culture: { label: "edict.category.culture", color: "#fede7e" },
+  technology: { label: "edict.category.technology", color: "#8acfdc" },
+  military: { label: "edict.category.military", color: "#fede7e" },
+  diplomacy: { label: "edict.category.diplomacy", color: "#88dd9e" },
+  workplace: { label: "edict.category.workplace", color: "#ffb347" },
 };
 
 export const speakerIds = [

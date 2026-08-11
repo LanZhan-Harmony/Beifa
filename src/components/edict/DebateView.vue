@@ -5,6 +5,7 @@ import PageNavButton from "@/components/PageNavButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import MessageBubble from "./MessageBubble.vue";
 
 const props = withDefaults(
@@ -25,6 +26,7 @@ const emit = defineEmits<{
 }>();
 
 const media = useMediaStore();
+const { t } = useI18n();
 const speakerMeta = useSpeakerMeta();
 const intro = ref(true);
 const index = ref(-1);
@@ -164,12 +166,12 @@ onBeforeUnmount(() => {
 <template>
   <section class="debate edict-screen" :class="{ 'is-intro': intro, 'is-finished': finished }" :style="sceneStyle">
     <div class="base"></div>
-    <PageNavButton text="批阅奏折" :navigate="false" @click="emit('back')" />
+    <PageNavButton :text="t('edict.navigation.reviewMemorials')" :navigate="false" @click="emit('back')" />
     <ImageTextButton
       v-if="replay"
       class="skip"
       image="/common/images/edict/Edict_Main_Btn_Skip.png"
-      text="跳过"
+      :text="t('edict.debate.skip')"
       :textTopMargin="50"
       :fontSize="30"
       :width="230"
@@ -228,8 +230,8 @@ onBeforeUnmount(() => {
     <!-- z=11/12：开场装饰底与标题。 -->
     <div v-if="intro" class="intro">
       <img src="/common/images/edict/Edict_ThemeInfo_Bg_05.png" />
-      <span class="debate-span">廷议</span>
-      <span class="start-span">开始</span>
+      <span class="debate-span">{{ t("edict.debate.intro.courtDebate") }}</span>
+      <span class="start-span">{{ t("edict.debate.intro.begins") }}</span>
     </div>
   </section>
 </template>

@@ -1,4 +1,5 @@
 import type { DebateMessage } from "@/types/edictType";
+import i18n from "@/langs";
 import {
   DEFAULT_MAX_DEBATE_ROUNDS,
   HARD_MAX_DEBATE_ROUNDS,
@@ -72,7 +73,7 @@ export async function runLiveDebate(
   }
 
   const lastSpeaker = transcript.at(-1)?.sender ?? "objector";
-  append(lastSpeaker, "请陛下明鉴！");
+  append(lastSpeaker, i18n.global.t("edict.debateMessage.judgmentAppeal"));
 
   return {
     messages: transcript,

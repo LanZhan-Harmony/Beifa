@@ -2,6 +2,7 @@
 import { useMediaStore } from "@/stores/media";
 import type { EdictDecision } from "@/types/edictType";
 import { onBeforeUnmount, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   decision: EdictDecision;
@@ -12,6 +13,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const { t } = useI18n();
 
 let timer: number;
 const shakeTimers: number[] = [];
@@ -49,8 +51,8 @@ onBeforeUnmount(() => {
       <div class="background"></div>
       <img class="wing wing--left" src="/common/images/edict/Edict_judgment_Bg1_2.png" />
       <img class="wing wing--right" src="/common/images/edict/Edict_judgment_Bg1_1.png" />
-      <img class="officials" src="/common/images/edict/Edict_judgment_Bg2.png" alt="群臣进谏" />
-      <div class="warning"><strong>陛下!!</strong><span>三思啊!</span></div>
+      <img class="officials" src="/common/images/edict/Edict_judgment_Bg2.png" :alt="t('edict.deepThought.ministersAlt')" />
+      <div class="warning"><strong>{{ t("edict.deepThought.addressEmperor") }}</strong><span>{{ t("edict.deepThought.thinkAgain") }}</span></div>
     </div>
   </div>
 </template>

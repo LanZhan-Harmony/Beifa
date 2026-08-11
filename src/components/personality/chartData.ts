@@ -1,6 +1,8 @@
 export type LoveTrait = {
-  left: string;
-  right: string;
+  leftKey: string;
+  rightKey: string;
+  left?: string;
+  right?: string;
   icon: number;
   iconWidth: string;
   value: number;
@@ -18,11 +20,11 @@ export const getLoveTraits = () => {
   }
 
   cachedLoveTraits = [
-    { left: "务实型", right: "浪漫型", icon: 1, iconWidth: "6.05%", value: randomValue() },
-    { left: "独立型", right: "依赖型", icon: 2, iconWidth: "6.25%", value: randomValue() },
-    { left: "开放型", right: "忠诚型", icon: 3, iconWidth: "5.47%", value: randomValue() },
-    { left: "保守等待型", right: "主动追求型", icon: 4, iconWidth: "5.47%", value: randomValue() },
-    { left: "理性主导型", right: "感情主导型", icon: 5, iconWidth: "5.27%", value: randomValue() },
+    { leftKey: "pragmatic", rightKey: "romantic", icon: 1, iconWidth: "6.05%", value: randomValue() },
+    { leftKey: "independent", rightKey: "dependent", icon: 2, iconWidth: "6.25%", value: randomValue() },
+    { leftKey: "open", rightKey: "loyal", icon: 3, iconWidth: "5.47%", value: randomValue() },
+    { leftKey: "conservativeWait", rightKey: "proactivePursuit", icon: 4, iconWidth: "5.47%", value: randomValue() },
+    { leftKey: "reasonLed", rightKey: "emotionLed", icon: 5, iconWidth: "5.27%", value: randomValue() },
   ];
 
   return cachedLoveTraits;

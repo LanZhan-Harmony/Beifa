@@ -1,24 +1,26 @@
 <script setup lang="ts">
-import type { PersonalityRoleParagraphType, PersonalityType } from "@/types/personalityType";
+import type { personalityReportType, personalityRoleParagraphType } from "@/types/personalityType";
 import type { ComponentPublicInstance } from "vue";
 import { nextTick, onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import LoveChart from "./LoveChart.vue";
 import WorkPlaceRelationshipChart from "./WorkPlaceRelationshipChart.vue";
 type Section = "workplace" | "relationship" | "love";
 const props = defineProps<{
-  report: PersonalityType;
+  report: personalityReportType;
   section: Section;
 }>();
 const emit = defineEmits<{
   (e: "change-section", section: Section): void;
   (e: "show-introduction"): void;
 }>();
+const { t } = useI18n();
 
 const root = "/common/images/personality/";
 const labels: Record<Section, string> = {
-  workplace: "事业解析",
-  relationship: "人际解析",
-  love: "爱情解析",
+  workplace: "personalityUi.report.sections.career",
+  relationship: "personalityUi.report.sections.relationship",
+  love: "personalityUi.report.sections.love",
 };
 const sectionOrder: Section[] = ["workplace", "relationship", "love"];
 const keys: Record<
@@ -33,7 +35,7 @@ const sectionRefs = ref<Record<Section, HTMLElement | null>>({
 });
 const syncingFromScroll = ref(false);
 const role = (id: string, part: string) => `${root}role/PersonalityReport_${part}_${id}.png`;
-const getParagraphs = (section: Section) => props.report.role[keys[section]] as PersonalityRoleParagraphType[];
+const getParagraphs = (section: Section) => props.report.role[keys[section]] as personalityRoleParagraphType[];
 const setSectionRef = (section: Section, element: Element | ComponentPublicInstance | null) => {
   sectionRefs.value[section] = element instanceof HTMLElement ? element : null;
 };
@@ -110,7 +112,7 @@ watch(
           :key="section"
           :ref="(el) => setSectionRef(section, el)"
           class="reading-section">
-          <h1>{{ labels[section] }}</h1>
+          <h1>{{ t(labels[section]) }}</h1>
           <img class="section-divider" :src="root + 'PersonalityReport_Info_TextList_Line.png'" alt="" />
           <article v-for="p in getParagraphs(section)" :key="p.title">
             <h3>
@@ -123,12 +125,12 @@ watch(
         </section>
       </div>
     </main>
-    <nav class="tabs" aria-label="报告分析">
+    <nav class="tabs" :aria-label="t('personalityUi.report.analysisLabel')">
       <button
         v-for="tab in [
-          { id: 'workplace', text: '职场\n解析' },
-          { id: 'relationship', text: '人际\n解析' },
-          { id: 'love', text: '爱情\n解析' },
+          { id: 'workplace', text: t('personalityUi.report.tabs.workplace') },
+          { id: 'relationship', text: t('personalityUi.report.tabs.relationship') },
+          { id: 'love', text: t('personalityUi.report.tabs.love') },
         ]"
         :key="tab.id"
         :class="{ active: section === tab.id }"

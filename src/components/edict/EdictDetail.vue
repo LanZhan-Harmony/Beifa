@@ -3,6 +3,7 @@ import ImageTextButton from "@/components/ImageTextButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictOutcome, EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   edict: EdictRecord;
@@ -15,11 +16,16 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const { t } = useI18n();
 
 const sealing = ref(false);
 const sealed = ref(false);
 let timer: number;
-const body = computed(() => `${props.outcome.emperorComment?.replace(/钦此[！。!]?\s*$/, "") ?? ""}钦此！`);
+const body = computed(() =>
+  t("edict.detail.closingFormula", {
+    comment: props.outcome.emperorComment?.replace(/钦此[！。!]?\s*$/, "") ?? "",
+  }),
+);
 async function confirm() {
   if (sealing.value) return;
   await mediaStore.setEffectAudioAsync("ui_universal_stamp");
@@ -42,7 +48,7 @@ onBeforeUnmount(() => window.clearTimeout(timer));
     <ImageTextButton
       class="reconsider"
       image="/common/images/edict/Edict_Main_Btn_Skip.png"
-      text="再考虑下"
+      :text="t('edict.detail.reconsider')"
       :textTopMargin="50"
       :fontSize="30"
       :width="230"
@@ -54,7 +60,7 @@ onBeforeUnmount(() => window.clearTimeout(timer));
       <img class="axis axis--right" src="/common/images/edict/Edict_Popup_Bg4_R.png" />
       <span class="title-wrap">
         <img class="title-line title-line--left" src="/common/images/edict/Edict_Popup_TitleLine_L.png" />
-        <span class="title">圣旨</span>
+        <span class="title">{{ t("edict.detail.title") }}</span>
         <img class="title-line title-line--right" src="/common/images/edict/Edict_Popup_TitleLine_R.png" />
       </span>
       <p class="body">{{ body }}</p>
@@ -62,7 +68,7 @@ onBeforeUnmount(() => window.clearTimeout(timer));
         class="confirm"
         image="/common/images/Common_Btn2_Bg.png"
         hoverImage="/common/images/Common_Btn2_Hover.png"
-        text="钦此"
+        :text="t('edict.detail.confirmFormula')"
         :textTopMargin="45"
         :fontSize="32"
         :width="300"
@@ -72,13 +78,13 @@ onBeforeUnmount(() => window.clearTimeout(timer));
         v-if="sealing"
         class="seal-object-animate"
         src="/common/images/edict/Edict_Popup_Icon02.png"
-        alt="玉玺落印进行" />
-      <img v-if="sealed" class="seal-mark" src="/common/images/edict/Edict_Popup_Icon01.png" alt="玉玺印记" />
+        :alt="t('edict.detail.sealApplyingAlt')" />
+      <img v-if="sealed" class="seal-mark" src="/common/images/edict/Edict_Popup_Icon01.png" :alt="t('edict.detail.sealMarkAlt')" />
       <img
         v-if="sealed"
         class="seal-object-done"
         src="/common/images/edict/Edict_Popup_Icon03.png"
-        alt="玉玺落印完成" />
+        :alt="t('edict.detail.sealAppliedAlt')" />
     </div>
   </section>
 </template>

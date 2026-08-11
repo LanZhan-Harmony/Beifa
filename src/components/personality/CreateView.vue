@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import ImageTextButton from "@/components/ImageTextButton.vue";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   status: "idle" | "loading" | "empty" | "error";
   errorMessage?: string;
 }>();
+const { t } = useI18n();
 
 const emit = defineEmits<{
   (event: "generate"): void;
@@ -24,7 +26,7 @@ function handleSeeReport() {
 <template>
   <section class="create-view" aria-live="polite">
     <img class="title-bg" :src="base + 'PersonalityReport_Create_TitleBg.png'" alt="" />
-    <h1>恭喜通关</h1>
+    <h1>{{ t("personalityUi.create.completedTitle") }}</h1>
     <div class="astrolabe" aria-hidden="true">
       <img class="orbit bg1" :src="base + 'PersonalityReport_Create_Bg1.png'" />
       <img class="orbit bg2" :src="base + 'PersonalityReport_Create_Bg2.png'" />
@@ -36,22 +38,22 @@ function handleSeeReport() {
       <img class="orbit bg10" :class="{ 'fade-in': showReportBg }" :src="base + 'PersonalityReport_Create_Bg10.png'" />
     </div>
     <div v-if="status === 'idle'" class="message">
-      恭喜通关，你已完成所有数据收集，<br />
-      快来查看你的最终报告吧！
+      {{ t("personalityUi.create.completedMessageLine1") }}<br />
+      {{ t("personalityUi.create.completedMessageLine2") }}
     </div>
     <ImageTextButton
       v-if="status === 'idle'"
       class="see-report"
       image="/common/images/Common_Btn2_Bg.png"
       hover-image="/common/images/Common_Btn2_Hover.png"
-      text="查看报告"
+      :text="t('personalityUi.create.viewReport')"
       :width="300"
       :fontSize="30"
       :text-top-margin="45"
       @click="handleSeeReport" />
-    <div v-else-if="status === 'loading'" class="result-reveal">结果马上揭晓</div>
+    <div v-else-if="status === 'loading'" class="result-reveal">{{ t("personalityUi.create.resultReveal") }}</div>
     <div v-else-if="status === 'error'" class="message error">
-      {{ errorMessage || "报告生成失败，请重试。" }}
+      {{ errorMessage || t("personalityUi.create.error") }}
     </div>
   </section>
 </template>
@@ -263,4 +265,3 @@ h1 {
   }
 }
 </style>
-

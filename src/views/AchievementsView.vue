@@ -21,7 +21,7 @@ async function handleBack() {
 <template>
   <div class="container">
     <div class="nav">
-      <h1>{{ $t("bottomBar.achievements") }}</h1>
+      <h1>{{ $t("navigation.achievements") }}</h1>
       <div class="separator"></div>
       <ImageButton
         default-icon="/common/images/关闭.webp"

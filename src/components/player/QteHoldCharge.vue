@@ -10,7 +10,7 @@ import { convertToStoryletId } from "@/utils/converter";
 import { computed, onMounted, onUnmounted, ref, useCssVars, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { tm } = useI18n();
+const { t, tm } = useI18n();
 
 const props = defineProps<{
   videoId: string;
@@ -128,7 +128,7 @@ watch(() => props.holdRequired, reset);
         @touchcancel.passive="endHold">
         <div class="qte-fill" />
       </button>
-      <div class="qte-text">长按</div>
+      <div class="qte-text">{{ t("player.qte.hold") }}</div>
     </div>
     <div class="qte-description-text">{{ descriptionText }}</div>
   </div>

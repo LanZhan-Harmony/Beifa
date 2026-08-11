@@ -1,5 +1,6 @@
+import i18n from "@/langs";
 import type { CharacterId, EdictCategory, EdictOutcome } from "@/types/edictType";
-import type { PersonalityRoleId } from "@/types/personalityType";
+import type { personalityRoleId } from "@/types/personalityType";
 import { MAX_MESSAGE_CHARS, MAX_MESSAGES_PER_TURN } from "./config";
 import { AiError } from "./errors";
 import type {
@@ -94,7 +95,9 @@ export function validateTurn(value: unknown): DebateTurnOutput {
   if (!Array.isArray(messages) || messages.length < 1 || messages.length > MAX_MESSAGES_PER_TURN) {
     throw new AiError("辩论回复格式无效。", "schema");
   }
-  const cleaned = messages.map((m) => text(m, 1, MAX_MESSAGE_CHARS, "辩论消息")).filter((m) => m !== "请陛下明鉴！");
+  const cleaned = messages
+    .map((m) => text(m, 1, MAX_MESSAGE_CHARS, "辩论消息"))
+    .filter((m) => m !== i18n.global.t("edict.debateMessage.judgmentAppeal"));
   if (!cleaned.length) {
     throw new AiError("辩论回复没有有效消息。", "schema");
   }
@@ -114,7 +117,10 @@ export function validateConclusion(value: unknown): DebateConclusionOutput {
   const outcomes = v?.outcomes ?? { approved: v?.approved, rejected: v?.rejected };
   const approved = validateOutcome(outcomes.approved, "approved") as EdictOutcome & { emperorComment: string };
   const rejected = validateOutcome(outcomes.rejected, "rejected");
-  if (!approved.title.startsWith("准奏！") || !rejected.title.startsWith("驳回！")) {
+  if (
+    !approved.title.startsWith(i18n.global.t("edict.outcome.approvedTitle")) ||
+    !rejected.title.startsWith(i18n.global.t("edict.outcome.rejectedTitle"))
+  ) {
     throw new AiError("结案标题格式无效。", "schema");
   }
   return {
@@ -138,7 +144,13 @@ function validateOutcome(value: any, decision: "approved" | "rejected"): EdictOu
         ? "presenter"
         : "objector";
   const outcome: EdictOutcome = {
-    title: text(value.title ?? (decision === "approved" ? "准奏！" : "驳回！"), 2, 40, "结案标题"),
+    title: text(
+      value.title ??
+        i18n.global.t(decision === "approved" ? "edict.outcome.approvedTitle" : "edict.outcome.rejectedTitle"),
+      2,
+      40,
+      "结案标题",
+    ),
     content: text(value.content, 2, 500, "结案内容"),
     feedback: { speaker, content: text(feedback.content, 2, 100, "人物反馈") },
   };
@@ -151,11 +163,11 @@ function validateOutcome(value: any, decision: "approved" | "rejected"): EdictOu
 /** Validate the deliberately narrow AI payload for the personality report. */
 export function validatePersonalityReport(
   value: unknown,
-  roleIds: readonly PersonalityRoleId[],
+  roleIds: readonly personalityRoleId[],
 ): PersonalityReportDraft {
   const row = value as Partial<PersonalityReportDraft>;
-  const isRole = (id: unknown): id is PersonalityRoleId =>
-    typeof id === "string" && roleIds.includes(id as PersonalityRoleId);
+  const isRole = (id: unknown): id is personalityRoleId =>
+    typeof id === "string" && roleIds.includes(id as personalityRoleId);
   if (
     !isRole(row.roleId) ||
     !isRole(row.friendId) ||

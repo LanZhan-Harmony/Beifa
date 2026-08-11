@@ -17,10 +17,12 @@ import seedData from "@/langs/edicts/zh-CN.json";
 import { useMediaStore } from "@/stores/media";
 import type { EdictDecision, EdictRecord } from "@/types/edictType";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 type Phase = "picker" | "demand" | "preparingDebate" | "debate" | "review" | "deepThought" | "detail" | "result";
 const router = useRouter();
+const { t } = useI18n();
 const speakerMeta = useSpeakerMeta();
 const media = useMediaStore();
 const phase = ref<Phase>("picker");
@@ -92,7 +94,9 @@ async function replenish() {
       if (!visibleIds.value.length) {
         chooseVisible();
       }
-      notice.value = generated.length ? `新拟 ${generated.length} 份奏折已送达` : "未生成新的奏折";
+      notice.value = generated.length
+        ? t("edictUi.notice.generatedDelivered", { count: generated.length })
+        : t("edictUi.notice.noneGenerated");
     } catch (error) {
       notice.value = readableAiError(error);
     } finally {
@@ -232,7 +236,7 @@ function replayDebate() {
 /** 做出批阅结论 */
 function decide(value: EdictDecision) {
   if (!selected.value?.outcomes[value] || inputLocked.value) {
-    notice.value = "该结论尚未生成，请重新进行廷议。";
+    notice.value = t("edictUi.notice.outcomeUnavailable");
     return;
   }
   decision.value = value;
@@ -354,11 +358,11 @@ onBeforeUnmount(() => {
         @complete="detailComplete" />
       <section v-else key="preparing" class="preparing edict-screen">
         <div class="loader"></div>
-        <h2>{{ aiError ? "群臣跑路了" : "群臣正在准备廷议……" }}</h2>
+        <h2>{{ aiError ? t("edictUi.preparing.errorTitle") : t("edictUi.preparing.title") }}</h2>
         <p v-if="aiError">{{ aiError }}</p>
         <div>
-          <button v-if="aiError" type="button" @click="startDebate">重试</button
-          ><button type="button" @click="cancelPreparation">返回奏折</button>
+          <button v-if="aiError" type="button" @click="startDebate">{{ t("edictUi.actions.retry") }}</button
+          ><button type="button" @click="cancelPreparation">{{ t("edictUi.actions.backToDemand") }}</button>
         </div>
       </section>
     </Transition>

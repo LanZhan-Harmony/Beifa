@@ -5,6 +5,7 @@ import PageNavButton from "@/components/PageNavButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictRecord } from "@/types/edictType";
 import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 withDefaults(
   defineProps<{
@@ -27,6 +28,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const { t } = useI18n();
 
 const refreshKey = ref(0);
 
@@ -52,7 +54,7 @@ onMounted(async () => {
 
 <template>
   <section class="picker edict-screen">
-    <PageNavButton text="批阅奏折" />
+    <PageNavButton :text="t('edict.navigation.reviewMemorials')" />
     <div v-if="edicts.length" class="cards" :key="refreshKey" :class="{ refreshing: refreshKey > 0 }">
       <button
         v-for="(edict, index) in edicts"
@@ -60,25 +62,23 @@ onMounted(async () => {
         class="card"
         :style="{ '--delay': `${index * 140}ms` }"
         :disabled="inputLocked"
-        :aria-label="`查看奏折：${edict.title}`"
+        :aria-label="t('edict.memorial.viewAriaLabel', { title: edict.title })"
         @click="handleEdictSelect(edict.id)"
         @mouseenter="handleEdictHover">
         <img src="/common/images/edict/Edict_Theme_Big01.png" s />
-        <span class="category" :style="{ color: categoryMeta[edict.type].color }">{{
-          categoryMeta[edict.type].label
-        }}</span>
+        <span class="category" :style="{ color: categoryMeta[edict.type].color }">{{ t(categoryMeta[edict.type].label) }}</span>
         <span class="title">{{ edict.title }}</span>
       </button>
     </div>
     <div v-else class="empty">
       <span class="spinner"></span>
-      <p>{{ generating ? "正在拟写新奏折……" : "暂无可批阅奏折" }}</p>
+      <p>{{ generating ? t("edict.picker.generating") : t("edict.picker.empty") }}</p>
     </div>
     <p v-if="notice" class="notice">{{ notice }}</p>
     <aside class="actions">
       <ImageTextButton
         image="/common/images/edict/Common_Btn_Refresh.png"
-        text="刷新"
+        :text="t('button.refresh')"
         :width="160"
         scaleTransformOrigin="bottom center"
         @click="handleRefresh" />
@@ -86,7 +86,7 @@ onMounted(async () => {
         class="archive"
         image="/common/images/edict/Result_Finally_BtnN_L.png"
         hoverImage="/common/images/edict/Result_Finally_BtnH_L.png"
-        text="奏折归档"
+        :text="t('edict.archive.title')"
         :fontSize="25"
         :width="200"
         :textTopMargin="45"

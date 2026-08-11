@@ -1,3 +1,5 @@
+import i18n from "@/langs";
+
 export class AiError extends Error {
   constructor(
     message: string,
@@ -15,5 +17,5 @@ export function readableAiError(error: unknown): string {
   if (error instanceof Error) {
     return error.message;
   }
-  return "AI 服务暂时不可用，请稍后重试。";
+  return i18n.global.t("errors.aiUnavailable");
 }

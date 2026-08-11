@@ -1,27 +1,33 @@
-export interface PersonalityType {
-  role: PersonalityRoleType;
+export interface personalityType {
+  note: string;
+  keywords: string[];
+  roles: personalityRoleType[];
+}
+
+export interface personalityReportType {
+  role: personalityRoleType;
   keywords: string[];
   proportion?: number;
-  friendId: PersonalityRoleId;
+  friendId: personalityRoleId;
   friendMessage: string;
-  enemyId: PersonalityRoleId;
+  enemyId: personalityRoleId;
   enemyMessage: string;
 }
 
-export interface PersonalityRoleType {
-  id: PersonalityRoleId;
+export interface personalityRoleType {
+  id: personalityRoleId;
   name: string;
   tag: string;
   motto: string;
-  introductions: PersonalityRoleParagraphType[];
-  workplaceAnalyses: PersonalityRoleParagraphType[];
-  relationshipAnalyses: PersonalityRoleParagraphType[];
-  loveAnalyses: PersonalityRoleParagraphType[];
+  introductions: personalityRoleParagraphType[];
+  workplaceAnalyses: personalityRoleParagraphType[];
+  relationshipAnalyses: personalityRoleParagraphType[];
+  loveAnalyses: personalityRoleParagraphType[];
 }
 
-export interface PersonalityRoleParagraphType {
+export interface personalityRoleParagraphType {
   title: string;
   content: string;
 }
 
-export type PersonalityRoleId = "BLG" | "HDH" | "JSQ" | "LXX" | "MTL" | "RSG" | "XHJ" | "XQG";
+export type personalityRoleId = "BLG" | "HDH" | "JSQ" | "LXX" | "MTL" | "RSG" | "XHJ" | "XQG";

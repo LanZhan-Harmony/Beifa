@@ -4,24 +4,43 @@
         "exit": "退出",
         "exitConfirmMessage": "是否退出？"
     },
-    "menu": {
-        "startStory": "开始故事",
-        "continueStory": "继续故事",
-        "chapterSelection": "章节选择",
-        "portfolios": "人物档案",
-        "exitGame": "退出游戏"
-    },
-    "bottomBar": {
-        "copyright": "木焱工作室",
-        "demo": "试用版",
-        "settings": "设置",
-        "announcements": "公告",
-        "eula": "协议",
+    "navigation": {
         "achievements": "成就",
-        "credits": "创作者名单"
+        "announcements": "公告"
+    },
+    "errors": {
+        "aiUnavailable": "AI 服务暂时不可用，请稍后重试。"
+    },
+    "mainMenu": {
+        "systemFunctions": "系统功能",
+        "exit": "退出",
+        "settings": "设置",
+        "extendedFunctions": "扩展功能",
+        "personalityTest": "人格报告测试",
+        "achievements": "成就",
+        "announcements": "公告",
+        "exploreFunctions": "探索功能",
+        "storyline": {
+            "lead": "故",
+            "rest": "事线"
+        },
+        "characters": {
+            "lead": "风",
+            "rest": "华人物"
+        },
+        "allChapters": {
+            "lead": "全部",
+            "rest": "章节"
+        },
+        "explorationProgress": "探索进度",
+        "edict": "上朝",
+        "startStory": "开始故事",
+        "continue": "继续",
+        "returnToLogin": "是否要返回登录界面？"
     },
     "button": {
-        "back": "返回"
+        "back": "返回",
+        "refresh": "刷新"
     },
     "setting": {
         "mainVolume": "整体音量",
@@ -31,7 +50,15 @@
         "language": "界面语言",
         "fullscreen": "显示模式",
         "fullscreenOn": "全屏",
-        "fullscreenOff": "窗口化"
+        "fullscreenOff": "窗口化",
+        "localeNames": {
+            "zh-CN": "简体中文",
+            "zh-HK": "繁體中文",
+            "en-US": "English",
+            "ja-JP": "日本語",
+            "ko-KR": "한국어",
+            "ru-RU": "Русский"
+        }
     },
     "chapter": {
         "enterChapter": "进入章节"
@@ -52,12 +79,19 @@
     },
     "character": {
         "characterIntroduction": "人物介绍",
+        "title": "风华人物",
         "characterStories": "人物故事",
-        "characterStoryLocked": "当前进度未解锁"
+        "characterStoryLocked": "当前进度未解锁",
+        "continueExploringToUnlock": "继续探索后解锁",
+        "chatWithCharacter": "与人物对话"
     },
     "player": {
         "storyline": "剧情线",
-        "enterNextChapter": "进入下一章"
+        "enterNextChapter": "进入下一章",
+        "qte": {
+            "click": "点击",
+            "hold": "长按"
+        }
     },
     "credit": {
         "creators": "主创",
@@ -80,5 +114,186 @@
         "continueStory": "继续游戏",
         "backToStoryline": "返回故事线",
         "settings": "设置"
+    },
+    "edictUi": {
+        "notice": {
+            "generatedDelivered": "新拟 {count} 份奏折已送达",
+            "noneGenerated": "未生成新的奏折",
+            "outcomeUnavailable": "该结论尚未生成，请重新进行廷议。"
+        },
+        "preparing": {
+            "errorTitle": "群臣跑路了",
+            "title": "群臣正在准备廷议……"
+        },
+        "actions": {
+            "retry": "重试",
+            "backToDemand": "返回奏折"
+        }
+    },
+    "edict": {
+        "category": {
+            "livelihood": "民生类",
+            "economy": "经济类",
+            "entertainment": "娱乐类",
+            "culture": "文化类",
+            "technology": "科技类",
+            "military": "军事类",
+            "diplomacy": "外交类",
+            "workplace": "职场类"
+        },
+        "navigation": {
+            "reviewMemorials": "批阅奏折"
+        },
+        "memorial": {
+            "viewAriaLabel": "查看奏折：{title}"
+        },
+        "picker": {
+            "generating": "正在拟写新奏折……",
+            "empty": "暂无可批阅奏折"
+        },
+        "archive": {
+            "title": "奏折归档",
+            "empty": "尚无结案奏折"
+        },
+        "demand": {
+            "askMinisters": "众卿怎么看？"
+        },
+        "decision": {
+            "approve": "准奏",
+            "reject": "驳回"
+        },
+        "deepThought": {
+            "ministersAlt": "群臣进谏",
+            "addressEmperor": "陛下!!",
+            "thinkAgain": "三思啊!"
+        },
+        "detail": {
+            "closingFormula": "{comment}钦此！",
+            "reconsider": "再考虑下",
+            "title": "圣旨",
+            "confirmFormula": "钦此",
+            "sealApplyingAlt": "玉玺落印进行",
+            "sealMarkAlt": "玉玺印记",
+            "sealAppliedAlt": "玉玺落印完成"
+        },
+        "debate": {
+            "viewDiscussion": "查看讨论",
+            "skip": "跳过",
+            "intro": {
+                "courtDebate": "廷议",
+                "begins": "开始"
+            }
+        },
+        "result": {
+            "dialogLabel": "奏折结案",
+            "continueReview": "继续批阅",
+            "retire": "退朝"
+        },
+        "outcome": {
+            "approvedTitle": "准奏！",
+            "rejectedTitle": "驳回！"
+        },
+        "debateMessage": {
+            "judgmentAppeal": "请陛下明鉴！"
+        }
+    },
+    "portfolio": {
+        "vote": {
+            "like": "送鲜花",
+            "dislike": "扔鸡蛋"
+        },
+        "chat": {
+            "greeting": "在下{name}，你想聊些什么？",
+            "emptyResponse": "暂时没有得到回应，请稍后再试。",
+            "continueError": "对话暂时无法继续：{error}",
+            "unknownError": "未知错误",
+            "title": "与{name}对话",
+            "close": "关闭",
+            "userLabel": "我",
+            "inputPlaceholder": "输入想说的话…",
+            "send": "发送"
+        }
+    },
+    "personalityUi": {
+        "create": {
+            "completedTitle": "恭喜通关",
+            "completedMessageLine1": "恭喜通关，你已完成所有数据收集，",
+            "completedMessageLine2": "快来查看你的最终报告吧！",
+            "viewReport": "查看报告",
+            "resultReveal": "结果马上揭晓",
+            "error": "报告生成失败，请重试。"
+        },
+        "report": {
+            "title": "个性测试报告",
+            "detailsLabel": "报告说明",
+            "currentProportion": "当前占比",
+            "viewWordCloud": "查看词云",
+            "analysisLabel": "报告分析",
+            "tabs": {
+                "workplace": "职场\n解析",
+                "relationship": "人际\n解析",
+                "love": "爱情\n解析"
+            },
+            "sections": {
+                "career": "事业解析",
+                "relationship": "人际解析",
+                "love": "爱情解析"
+            },
+            "relationships": {
+                "confidantRole": "知己角色",
+                "complementaryRole": "互补角色"
+            }
+        },
+        "keywords": {
+            "navTitle": "人格测试",
+            "loading": "正在整理你的关键词…",
+            "error": "关键词生成失败。",
+            "retry": "重试",
+            "close": "关闭词云",
+            "refresh": "刷新",
+            "resultProgress": "距离结果揭晓还有："
+        },
+        "chart": {
+            "love": {
+                "ariaLabel": "爱情特质分析图",
+                "sliderAriaLabel": "{left}至{right}：{value}%"
+            },
+            "loveTraits": {
+                "pragmatic": "务实型",
+                "romantic": "浪漫型",
+                "independent": "独立型",
+                "dependent": "依赖型",
+                "open": "开放型",
+                "loyal": "忠诚型",
+                "conservativeWait": "保守等待型",
+                "proactivePursuit": "主动追求型",
+                "reasonLed": "理性主导型",
+                "emotionLed": "感情主导型"
+            },
+            "workplace": {
+                "ariaLabel": "职场能力分析图"
+            },
+            "relationship": {
+                "ariaLabel": "人际特质分析图"
+            },
+            "labels": {
+                "workplace": {
+                    "resourcefulness": "足智多谋",
+                    "ambitionAchievement": "抱负成就",
+                    "managingUp": "向上管理",
+                    "changeResilience": "变革韧性",
+                    "bidingTime": "韬光养晦",
+                    "decisiveness": "雷厉风行",
+                    "adaptability": "随机应变"
+                },
+                "relationship": {
+                    "sociability": "乐群性",
+                    "emotionalStability": "情绪稳定性",
+                    "curiosity": "好奇心",
+                    "openness": "开放性",
+                    "skepticism": "怀疑性"
+                }
+            }
+        }
     }
 }

@@ -4,24 +4,43 @@
         "exit": "終了",
         "exitConfirmMessage": "終了しますか？"
     },
-    "menu": {
-        "startStory": "物語を始める",
-        "continueStory": "物語を続ける",
-        "chapterSelection": "章選択",
-        "portfolios": "キャラクタープロフィール",
-        "exitGame": "ゲームを終了する"
-    },
-    "bottomBar": {
-        "copyright": "木焱スタジオ",
-        "demo": "体験版",
-        "settings": "設定",
-        "announcements": "お知らせ",
-        "eula": "利用規約",
+    "navigation": {
         "achievements": "実績",
-        "credits": "スタッフ一覧"
+        "announcements": "お知らせ"
+    },
+    "errors": {
+        "aiUnavailable": "AIサービスは一時的に利用できません。後でもう一度お試しください。"
+    },
+    "mainMenu": {
+        "systemFunctions": "システム機能",
+        "exit": "終了",
+        "settings": "設定",
+        "extendedFunctions": "追加機能",
+        "personalityTest": "性格レポートテスト",
+        "achievements": "実績",
+        "announcements": "お知らせ",
+        "exploreFunctions": "探索機能",
+        "storyline": {
+            "lead": "ス",
+            "rest": "トーリーライン"
+        },
+        "characters": {
+            "lead": "注",
+            "rest": "目の人物"
+        },
+        "allChapters": {
+            "lead": "すべての",
+            "rest": "章"
+        },
+        "explorationProgress": "探索進捗",
+        "edict": "参内する",
+        "startStory": "物語を始める",
+        "continue": "続ける",
+        "returnToLogin": "ログイン画面に戻りますか？"
     },
     "button": {
-        "back": "戻る"
+        "back": "戻る",
+        "refresh": "更新"
     },
     "setting": {
         "mainVolume": "全体音量",
@@ -31,7 +50,15 @@
         "language": "インターフェース言語",
         "fullscreen": "表示モード",
         "fullscreenOn": "全画面",
-        "fullscreenOff": "ウィンドウモード"
+        "fullscreenOff": "ウィンドウモード",
+        "localeNames": {
+            "zh-CN": "簡体字中国語",
+            "zh-HK": "繁体字中国語",
+            "en-US": "英語",
+            "ja-JP": "日本語",
+            "ko-KR": "韓国語",
+            "ru-RU": "ロシア語"
+        }
     },
     "chapter": {
         "enterChapter": "章に入る"
@@ -52,12 +79,19 @@
     },
     "character": {
         "characterIntroduction": "キャラクター紹介",
+        "title": "注目の人物",
         "characterStories": "キャラクター物語",
-        "characterStoryLocked": "現在の進捗はアンロックされていません"
+        "characterStoryLocked": "現在の進捗はアンロックされていません",
+        "continueExploringToUnlock": "探索を続けるとアンロックされます",
+        "chatWithCharacter": "キャラクターと会話"
     },
     "player": {
         "storyline": "物語線",
-        "enterNextChapter": "次の章へ進む"
+        "enterNextChapter": "次の章へ進む",
+        "qte": {
+            "click": "クリック",
+            "hold": "長押し"
+        }
     },
     "credit": {
         "creators": "主なクリエイター",
@@ -80,5 +114,186 @@
         "continueStory": "物語を続ける",
         "backToStoryline": "物語線に戻る",
         "settings": "設定"
+    },
+    "edictUi": {
+        "notice": {
+            "generatedDelivered": "新たに起草された{count}件の上奏文が届きました",
+            "noneGenerated": "新しい上奏文は生成されませんでした",
+            "outcomeUnavailable": "この結論はまだ生成されていません。もう一度、廷議を行ってください。"
+        },
+        "preparing": {
+            "errorTitle": "臣下たちが逃げ出しました",
+            "title": "臣下たちは廷議の準備中です……"
+        },
+        "actions": {
+            "retry": "再試行",
+            "backToDemand": "上奏文に戻る"
+        }
+    },
+    "edict": {
+        "category": {
+            "livelihood": "民生",
+            "economy": "経済",
+            "entertainment": "娯楽",
+            "culture": "文化",
+            "technology": "科学技術",
+            "military": "軍事",
+            "diplomacy": "外交",
+            "workplace": "職場"
+        },
+        "navigation": {
+            "reviewMemorials": "上奏文を審査"
+        },
+        "memorial": {
+            "viewAriaLabel": "上奏文を確認：{title}"
+        },
+        "picker": {
+            "generating": "新しい上奏文を起草中……",
+            "empty": "審査できる上奏文はありません"
+        },
+        "archive": {
+            "title": "上奏文アーカイブ",
+            "empty": "処理済みの上奏文はまだありません"
+        },
+        "demand": {
+            "askMinisters": "卿らはどう思う？"
+        },
+        "decision": {
+            "approve": "裁可",
+            "reject": "却下"
+        },
+        "deepThought": {
+            "ministersAlt": "群臣の諫言",
+            "addressEmperor": "陛下!!",
+            "thinkAgain": "どうか今一度お考えください！"
+        },
+        "detail": {
+            "closingFormula": "{comment}これを命ず！",
+            "reconsider": "もう一度考える",
+            "title": "勅書",
+            "confirmFormula": "これを命ず",
+            "sealApplyingAlt": "玉璽を押印中",
+            "sealMarkAlt": "玉璽の印",
+            "sealAppliedAlt": "玉璽の押印完了"
+        },
+        "debate": {
+            "viewDiscussion": "議論を見る",
+            "skip": "スキップ",
+            "intro": {
+                "courtDebate": "朝議",
+                "begins": "始まる"
+            }
+        },
+        "result": {
+            "dialogLabel": "上奏文の処理完了",
+            "continueReview": "続けて審査",
+            "retire": "朝議を終える"
+        },
+        "outcome": {
+            "approvedTitle": "奏上を許可！",
+            "rejectedTitle": "却下！"
+        },
+        "debateMessage": {
+            "judgmentAppeal": "陛下、どうかご裁断を！"
+        }
+    },
+    "portfolio": {
+        "vote": {
+            "like": "花を贈る",
+            "dislike": "卵を投げる"
+        },
+        "chat": {
+            "greeting": "私は{name}です。何について話しましょうか？",
+            "emptyResponse": "応答がありませんでした。しばらくしてからもう一度お試しください。",
+            "continueError": "会話を続けられません：{error}",
+            "unknownError": "不明なエラー",
+            "title": "{name}との会話",
+            "close": "閉じる",
+            "userLabel": "私",
+            "inputPlaceholder": "話したいことを入力…",
+            "send": "送信"
+        }
+    },
+    "personalityUi": {
+        "create": {
+            "completedTitle": "ゲームクリアおめでとうございます",
+            "completedMessageLine1": "ゲームクリアおめでとうございます。すべてのデータ収集が完了しました。",
+            "completedMessageLine2": "最終レポートを確認しましょう！",
+            "viewReport": "レポートを見る",
+            "resultReveal": "まもなく結果が発表されます",
+            "error": "レポートの生成に失敗しました。もう一度お試しください。"
+        },
+        "report": {
+            "title": "性格診断レポート",
+            "detailsLabel": "レポートの説明",
+            "currentProportion": "現在の割合",
+            "viewWordCloud": "ワードクラウドを見る",
+            "analysisLabel": "レポート分析",
+            "tabs": {
+                "workplace": "職場\n分析",
+                "relationship": "対人関係\n分析",
+                "love": "恋愛\n分析"
+            },
+            "sections": {
+                "career": "仕事分析",
+                "relationship": "対人関係分析",
+                "love": "恋愛分析"
+            },
+            "relationships": {
+                "confidantRole": "理解者の役割",
+                "complementaryRole": "補完的な役割"
+            }
+        },
+        "keywords": {
+            "navTitle": "性格診断",
+            "loading": "キーワードを整理しています…",
+            "error": "キーワードの生成に失敗しました。",
+            "retry": "再試行",
+            "close": "ワードクラウドを閉じる",
+            "refresh": "更新",
+            "resultProgress": "結果発表まであと："
+        },
+        "chart": {
+            "love": {
+                "ariaLabel": "恋愛特性分析図",
+                "sliderAriaLabel": "{left}から{right}まで：{value}%"
+            },
+            "loveTraits": {
+                "pragmatic": "現実型",
+                "romantic": "ロマンチック型",
+                "independent": "自立型",
+                "dependent": "依存型",
+                "open": "開放型",
+                "loyal": "忠誠型",
+                "conservativeWait": "保守的な待機型",
+                "proactivePursuit": "積極追求型",
+                "reasonLed": "理性主導型",
+                "emotionLed": "感情主導型"
+            },
+            "workplace": {
+                "ariaLabel": "職場能力分析図"
+            },
+            "relationship": {
+                "ariaLabel": "対人特性分析図"
+            },
+            "labels": {
+                "workplace": {
+                    "resourcefulness": "知略",
+                    "ambitionAchievement": "野心と達成",
+                    "managingUp": "上司のマネジメント",
+                    "changeResilience": "変革レジリエンス",
+                    "bidingTime": "実力を隠して機を待つ",
+                    "decisiveness": "迅速果断",
+                    "adaptability": "臨機応変"
+                },
+                "relationship": {
+                    "sociability": "社交性",
+                    "emotionalStability": "情緒安定性",
+                    "curiosity": "好奇心",
+                    "openness": "開放性",
+                    "skepticism": "懐疑性"
+                }
+            }
+        }
     }
 }

@@ -4,11 +4,13 @@ import { getAgentPrompt } from "@/agents/getAgentPrompt";
 import MessageCard from "@/components/MessageCard.vue";
 import type { characterType } from "@/types/characterType";
 import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   character: characterType;
   stories: characterType["stories"];
 }>();
+const { t } = useI18n();
 
 const emit = defineEmits<{
   (event: "close"): void;
@@ -31,7 +33,7 @@ function loadConversation(): ChatMessage[] {
   return [
     {
       role: "assistant",
-      content: `在下${props.character.name}，你想聊些什么？`,
+      content: t("portfolio.chat.greeting", { name: props.character.name }),
     },
   ];
 }
@@ -99,11 +101,13 @@ async function sendMessage() {
     }
     const completedAssistantMessage = messages.value[messages.value.length - 1];
     if (completedAssistantMessage?.role === "assistant" && !completedAssistantMessage.content) {
-      completedAssistantMessage.content = "暂时没有得到回应，请稍后再试。";
+      completedAssistantMessage.content = t("portfolio.chat.emptyResponse");
     }
   } catch (error) {
     if (abortController.signal.aborted) return;
-    assistantMessage.content = `对话暂时无法继续：${error instanceof Error ? error.message : "未知错误"}`;
+    assistantMessage.content = t("portfolio.chat.continueError", {
+      error: error instanceof Error ? error.message : t("portfolio.chat.unknownError"),
+    });
   } finally {
     saveConversation();
     isStreaming.value = false;
@@ -139,10 +143,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="chat-mask" @click.self="close">
-    <section class="chat-popup" role="dialog" aria-modal="true" :aria-label="`与${character.name}对话`">
+    <section class="chat-popup" role="dialog" aria-modal="true" :aria-label="t('portfolio.chat.title', { name: character.name })">
       <img class="popup-background" src="/common/images/popup/Popup_Report_Bg.png" alt="" />
-      <div class="popup-title">与{{ character.name }}对话</div>
-      <button class="close-button" type="button" aria-label="关闭" @click="close">
+      <div class="popup-title">{{ t("portfolio.chat.title", { name: character.name }) }}</div>
+      <button class="close-button" type="button" :aria-label="t('portfolio.chat.close')" @click="close">
         <img src="/common/images/popup/SystemToast_Popup_Btn_Close.png" alt="" />
       </button>
 
@@ -159,18 +163,23 @@ onBeforeUnmount(() => {
                 class="avatar-portrait avatar-portrait--character"
                 :src="`/characters/${character.id}.png`"
                 :alt="character.name" />
-              <span v-else class="avatar-portrait avatar-portrait--user">我</span>
+              <span v-else class="avatar-portrait avatar-portrait--user">{{ t("portfolio.chat.userLabel") }}</span>
               <img class="avatar-frame" src="/common/images/popup/CharacterProfile_Tab_RoleHead.png" alt="" />
             </div>
-            <span class="speaker-name">{{ message.role === "assistant" ? character.name : "我" }}</span>
+            <span class="speaker-name">{{ message.role === "assistant" ? character.name : t("portfolio.chat.userLabel") }}</span>
           </div>
           <MessageCard :message="message.content || '…'" :side="message.role === 'assistant' ? 'left' : 'right'" />
         </div>
       </div>
 
       <form class="composer" @submit.prevent="sendMessage">
-        <input v-model="input" :disabled="isStreaming" maxlength="500" autocomplete="off" placeholder="输入想说的话…" />
-        <button type="submit" :disabled="isStreaming || !input.trim()">发送</button>
+        <input
+          v-model="input"
+          :disabled="isStreaming"
+          maxlength="500"
+          autocomplete="off"
+          :placeholder="t('portfolio.chat.inputPlaceholder')" />
+        <button type="submit" :disabled="isStreaming || !input.trim()">{{ t("portfolio.chat.send") }}</button>
       </form>
     </section>
   </div>

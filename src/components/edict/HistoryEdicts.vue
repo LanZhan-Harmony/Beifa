@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { EdictRecord } from "@/types/edictType";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{ edicts: EdictRecord[] }>();
+const { t } = useI18n();
 
 const emit = defineEmits<{
   (e: "close"): void;
@@ -10,13 +12,13 @@ const emit = defineEmits<{
 <template>
   <div class="mask" @click.self="emit('close')">
     <section>
-      <h2>奏折归档</h2>
+      <h2>{{ t("edict.archive.title") }}</h2>
       <button class="close" type="button" @click="emit('close')">×</button>
-      <p v-if="!edicts.length">尚无结案奏折</p>
+      <p v-if="!edicts.length">{{ t("edict.archive.empty") }}</p>
       <ul>
         <li v-for="edict in edicts" :key="edict.id">
           <span>{{ edict.title }}</span
-          ><strong>{{ edict.status === "approved" ? "准奏" : "驳回" }}</strong>
+          ><strong>{{ t(edict.status === "approved" ? "edict.decision.approve" : "edict.decision.reject") }}</strong>
         </li>
       </ul>
     </section>

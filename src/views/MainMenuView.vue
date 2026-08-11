@@ -10,7 +10,7 @@ import { toStreamUrl } from "@/utils/streamUrl";
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { tm } = useI18n();
+const { t, tm } = useI18n();
 const mediaStore = useMediaStore();
 const saveStore = useSaveStore();
 const mainVideoUrl = toStreamUrl("/common/videos/main.mp4");
@@ -88,43 +88,43 @@ async function returnToSplash() {
     <video class="background-video" :src="mainVideoUrl" autoplay muted loop playsinline></video>
     <div class="menu-shade"></div>
 
-    <section class="top-actions top-actions--left" aria-label="系统功能">
+    <section class="top-actions top-actions--left" :aria-label="t('mainMenu.systemFunctions')">
       <ThemeButton
         backgroundImage="/common/images/main/Main_Btn1_Bg1.png"
         foregroundImage="/common/images/main/Main_BtnIcon_Exit.png"
-        text="退出"
+        :text="t('mainMenu.exit')"
         :foregroundWidthPercent="40"
         :fontSize="22"
         @click="openExitDialog" />
       <ThemeButton
         backgroundImage="/common/images/main/Main_Btn1_Bg1.png"
         foregroundImage="/common/images/main/Main_BtnIcon_Setting.png"
-        text="设置"
+        :text="t('mainMenu.settings')"
         :foregroundWidthPercent="60"
         :fontSize="22"
         @click="router.push('/settings')" />
     </section>
 
-    <section class="top-actions top-actions--right" aria-label="扩展功能">
+    <section class="top-actions top-actions--right" :aria-label="t('mainMenu.extendedFunctions')">
       <button class="top-action--personality" type="button" @mouseenter="handleHover" @click="openPersonality">
         <img src="/common/images/main/Main_Btn_Personality.png" />
-        <span>人格报告测试</span>
+        <span>{{ t("mainMenu.personalityTest") }}</span>
       </button>
       <ThemeButton
         backgroundImage="/common/images/main/Main_Btn2_Bg1.png"
         foregroundImage="/common/images/main/Main_BtnIcon_Achievement.png"
-        text="成就"
+        :text="t('mainMenu.achievements')"
         :foregroundWidthPercent="55"
         @click="router.push('/achievements')" />
       <ThemeButton
         backgroundImage="/common/images/main/Main_Btn2_Bg1.png"
         foregroundImage="/common/images/main/Main_BtnIcon_Mail.png"
-        text="公告"
+        :text="t('mainMenu.announcements')"
         :foregroundWidthPercent="45"
         @click="router.push('/announcements')" />
     </section>
 
-    <section class="left-features" aria-label="探索功能">
+    <section class="left-features" :aria-label="t('mainMenu.exploreFunctions')">
       <button
         class="feature-button feature-button--storyline"
         :class="{ 'is-pressing': pressedButton === 'storyline' }"
@@ -133,9 +133,10 @@ async function returnToSplash() {
         @click="handleButtonClick('storyline', '/storylines', $event)">
         <span class="feature-button__label feature-button__label--storyline">
           <span class="feature-button__texture" aria-hidden="true">
-            <span class="feature-button__texture-lead">故</span><span>事线</span>
+            <span class="feature-button__texture-lead">{{ t("mainMenu.storyline.lead") }}</span
+            ><span>{{ t("mainMenu.storyline.rest") }}</span>
           </span>
-          <b>故</b>事线
+          <b>{{ t("mainMenu.storyline.lead") }}</b>{{ t("mainMenu.storyline.rest") }}
         </span>
         <img
           class="feature-button__icon feature-button__icon--original"
@@ -152,9 +153,10 @@ async function returnToSplash() {
         @click="handleButtonClick('character', '/portfolios', $event)">
         <span class="feature-button__label feature-button__label--character">
           <span class="feature-button__texture" aria-hidden="true">
-            <span class="feature-button__texture-lead">风</span><span>华人物</span>
+            <span class="feature-button__texture-lead">{{ t("mainMenu.characters.lead") }}</span
+            ><span>{{ t("mainMenu.characters.rest") }}</span>
           </span>
-          <b>风</b>华人物
+          <b>{{ t("mainMenu.characters.lead") }}</b>{{ t("mainMenu.characters.rest") }}
         </span>
         <img
           class="feature-button__icon feature-button__icon--original"
@@ -172,12 +174,12 @@ async function returnToSplash() {
       @click="handleButtonClick('chapter', '/chapters', $event)"
       @mouseenter="handleHover">
       <img src="/common/images/main/Main_Btn_Chapter.png" />
-      <span>全部<br />章节</span>
+      <span>{{ t("mainMenu.allChapters.lead") }}<br />{{ t("mainMenu.allChapters.rest") }}</span>
     </button>
 
-    <section class="progress" aria-label="探索进度">
+    <section class="progress" :aria-label="t('mainMenu.explorationProgress')">
       <div class="progress__title">
-        探索进度 <em>{{ progressPercent }}%</em>
+        {{ t("mainMenu.explorationProgress") }} <em>{{ progressPercent }}%</em>
       </div>
       <div class="progress__track-row">
         <img class="progress__ornament" src="/common/images/main/Main_Slider_Bg1.png" />
@@ -204,7 +206,7 @@ async function returnToSplash() {
       <img
         class="edict-button__icon"
         :src="`/common/images/main/${edictEnabled ? 'Main_Btn_Edict_Icon.png' : 'Main_Btn_Edict_IconLock.png'}`" />
-      <span>上朝</span>
+      <span>{{ t("mainMenu.edict") }}</span>
     </button>
 
     <section class="continue-area">
@@ -217,16 +219,16 @@ async function returnToSplash() {
         @mouseenter="handleHover">
         <span
           class="continue-button__texture"
-          :data-text="saveStore.isNewGame ? '开始故事' : '继续'"
+          :data-text="t(saveStore.isNewGame ? 'mainMenu.startStory' : 'mainMenu.continue')"
           aria-hidden="true"></span>
-        <span class="continue-button__text">{{ saveStore.isNewGame ? "开始故事" : "继续" }}</span>
+        <span class="continue-button__text">{{ t(saveStore.isNewGame ? "mainMenu.startStory" : "mainMenu.continue") }}</span>
       </button>
     </section>
 
     <ExitDialog
       :exitDialogOpen="exitDialogOpen"
       :isExitDialogClosing="isExitDialogClosing"
-      exitConfirmMessage="是否要返回登录界面？"
+      :exitConfirmMessage="t('mainMenu.returnToLogin')"
       @closeExitDialog="closeExitDialog"
       @confirmExit="returnToSplash" />
   </div>

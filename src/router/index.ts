@@ -45,19 +45,9 @@ const router = createRouter({
       component: () => import("@/views/AnnouncementsView.vue"),
     },
     {
-      path: "/eula",
-      name: "eula",
-      component: () => import("@/views/EULAView.vue"),
-    },
-    {
       path: "/achievements",
       name: "achievements",
       component: () => import("@/views/AchievementsView.vue"),
-    },
-    {
-      path: "/credits",
-      name: "credits",
-      component: () => import("@/views/CreditsView.vue"),
     },
     {
       path: "/edict",

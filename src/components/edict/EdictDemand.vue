@@ -5,6 +5,7 @@ import PageNavButton from "@/components/PageNavButton.vue";
 import { useMediaStore } from "@/stores/media";
 import type { EdictDecision, EdictRecord } from "@/types/edictType";
 import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 withDefaults(
   defineProps<{
@@ -24,6 +25,7 @@ const emit = defineEmits<{
 }>();
 
 const mediaStore = useMediaStore();
+const { t } = useI18n();
 const speakerMeta = useSpeakerMeta();
 
 const pressedDecision = ref<EdictDecision | null>(null);
@@ -53,7 +55,7 @@ onMounted(async () => {
 
 <template>
   <section class="demand edict-screen">
-    <PageNavButton text="奏折批阅" :navigate="false" @click="emit('back')" />
+    <PageNavButton :text="t('edict.navigation.reviewMemorials')" :navigate="false" @click="emit('back')" />
     <div class="scroll">
       <div class="scroll-bg" aria-hidden="true">
         <img class="scroll-bg__half scroll-bg__half--left" src="/common/images/edict/Edict_Popup_Bg5.png" />
@@ -68,7 +70,7 @@ onMounted(async () => {
           <ImageTextButton
             image="/common/images/Common_Btn2_Bg.png"
             hoverImage="/common/images/Common_Btn2_Hover.png"
-            text="众卿怎么看？"
+            :text="t('edict.demand.askMinisters')"
             :textTopMargin="45"
             :fontSize="30"
             :width="280"
@@ -81,7 +83,7 @@ onMounted(async () => {
             :disabled="inputLocked"
             @click="pressDecision('approved')"
             @animationend="finishDecisionPress">
-            准奏
+            {{ t("edict.decision.approve") }}
           </button>
           <button
             type="button"
@@ -89,20 +91,20 @@ onMounted(async () => {
             :disabled="inputLocked"
             @click="pressDecision('rejected')"
             @animationend="finishDecisionPress">
-            驳回
+            {{ t("edict.decision.reject") }}
           </button>
         </div>
       </div>
       <div v-if="decision" class="stamp" :class="`stamp--${decision}`">
         <img :src="`/common/images/edict/Edict_Theme_TypeIcon_${decision === 'approved' ? 'Approve' : 'Oppose'}.png`" />
-        <span>{{ decision === "approved" ? "准奏" : "驳回" }}</span>
+        <span>{{ t(decision === "approved" ? "edict.decision.approve" : "edict.decision.reject") }}</span>
       </div>
     </div>
     <ImageTextButton
       v-if="mode === 'review'"
       class="replay"
       image="/common/images/edict/Edict_ThemeInfo_Btn.png"
-      text="查看讨论"
+      :text="t('edict.debate.viewDiscussion')"
       :width="160"
       :disabled="inputLocked"
       @click="emit('replayDebate')" />
